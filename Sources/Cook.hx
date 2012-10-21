@@ -8,8 +8,10 @@ class Cook extends Sprite {
 		accy = 0;
 		direction = Direction.DOWN;
 		speed = new Vector2();
-		leftHand = new Hand();
+		leftHand = new Hand(this, true);
 		Scene.the.addHero(leftHand);
+		rightHand = new Hand(this, false);
+		Scene.the.addHero(rightHand);
 		
 		leftFoot = new Foot();
 		rightFoot = new Foot();
@@ -23,7 +25,7 @@ class Cook extends Sprite {
 	public var down : Bool = false;
 	public var left : Bool = false;
 	public var right: Bool = false;
-	private var walking: Bool = false;
+	public var walking: Bool = false;
 	private var walkCount: Int = 0;
 	
 	public function changeDirection(): Void {
@@ -135,9 +137,6 @@ class Cook extends Sprite {
 			x = left + (right - left) / 2;
 			y = (leftFoot.y - 40) + ((rightFoot.y - 40) - (leftFoot.y - 40)) / 2;
 		}
-		
-		leftHand.x = x + 10;
-		leftHand.y = y + 10;
 	}
 	
 	private static var absoluteSpeed: Float = 2;
@@ -146,5 +145,5 @@ class Cook extends Sprite {
 	private var rightHand: Hand;
 	private var leftFoot: Foot;
 	private var rightFoot: Foot;
-	private var direction: Direction;
+	public var direction: Direction;
 }
