@@ -1,0 +1,38 @@
+{
+	"format": 1,
+	"game":
+	{
+		"name": "Yolkfolk Restaurant",
+		"width": 800,
+		"height": 600
+	},
+	"assets":
+	[
+		{
+			"id": "39766010-1b7c-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "yolk.png",
+			"name": "yolk",
+			"scale": 3,
+			"background":
+			{
+				"red": 255,
+				"green": 0,
+				"blue": 255
+			}
+		}
+	],
+	"rooms":
+	[
+		{
+			"id" : "40209cf0-1b7c-11e2-892e-0800200c9a66",
+			"name": "restaurant",
+			"parent": null,
+			"neighbours": [],
+			"assets":
+			[
+				"39766010-1b7c-11e2-892e-0800200c9a66"
+			]
+		}
+	]
+}
