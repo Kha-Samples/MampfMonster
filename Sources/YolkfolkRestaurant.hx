@@ -5,6 +5,9 @@ import kha.Configuration;
 import kha.Game;
 import kha.Loader;
 import kha.LoadingScreen;
+import kha.Scene;
+import kha.Tile;
+import kha.Tilemap;
 
 class YolkfolkRestaurant extends Game {
 	public function new(): Void {
@@ -16,10 +19,53 @@ class YolkfolkRestaurant extends Game {
 		Loader.the.loadRoom("restaurant", initLevel);
 	}
 	
+	private function isCollidable(index: Int): Bool {
+		return false;
+	}
+	
 	private function initLevel(): Void {
+		var tileColissions = new Array<Tile>();
+		for (i in 0...(6 * 8)) {
+			tileColissions.push(new Tile(i, isCollidable(i)));
+		}
+		var blob = Loader.the.getBlob("restaurant.map");
+		var levelWidth : Int = blob.readInt();
+		var levelHeight : Int = blob.readInt();
+		var map = new Array<Array<Int>>();
+		for (x in 0...levelWidth) {
+			map.push(new Array<Int>());
+			for (y in 0...levelHeight) {
+				map[x].push(blob.readInt());
+			}
+		}
+		var tilemap: Tilemap = new Tilemap("054-Wall02.png", 16 * 3, 16 * 3, map, tileColissions);
+		Scene.the.setColissionMap(tilemap);
+		Scene.the.addBackgroundTilemap(tilemap, 1);
+		
 		cook = new Cook();
 		scene.addHero(cook);
+		
+		addTable(60, 100);
+		addTable(500, 300);
+		
 		Configuration.setScreen(this);
+	}
+	
+	private function addTable(x: Float, y: Float): Void {
+		var table = new Table();
+		table.x = x;
+		table.y = y;
+		scene.addEnemy(table);
+		
+		var chair1 = new Chair1();
+		chair1.x = x + 50;
+		chair1.y = y - 60;
+		scene.addEnemy(chair1);
+		
+		var chair2 = new Chair2();
+		chair2.x = x + 50;
+		chair2.y = y + 140;
+		scene.addEnemy(chair2);
 	}
 	
 	override public function buttonDown(button: Button): Void {
