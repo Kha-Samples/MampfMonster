@@ -19,7 +19,6 @@ class YolkfolkRestaurant extends Game {
 	private function initLevel(): Void {
 		cook = new Cook();
 		scene.addHero(cook);
-		scene.addHero(new Foot());
 		Configuration.setScreen(this);
 	}
 	
@@ -27,12 +26,16 @@ class YolkfolkRestaurant extends Game {
 		switch (button) {
 		case Button.LEFT:
 			cook.left = true;
+			cook.changeDirection();
 		case Button.RIGHT:
 			cook.right = true;
+			cook.changeDirection();
 		case Button.UP:
 			cook.up = true;
+			cook.changeDirection();
 		case Button.DOWN:
 			cook.down = true;
+			cook.changeDirection();
 		default:
 		}
 	}
@@ -41,12 +44,16 @@ class YolkfolkRestaurant extends Game {
 		switch (button) {
 		case Button.LEFT:
 			cook.left = false;
+			cook.changeDirection();
 		case Button.RIGHT:
 			cook.right = false;
+			cook.changeDirection();
 		case Button.UP:
 			cook.up = false;
+			cook.changeDirection();
 		case Button.DOWN:
 			cook.down = false;
+			cook.changeDirection();
 		default:
 		}
 	}

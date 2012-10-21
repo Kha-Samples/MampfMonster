@@ -12,8 +12,10 @@ class Cook extends Sprite {
 		Scene.the.addHero(leftHand);
 		
 		leftFoot = new Foot();
-		Scene.the.addHero(leftFoot);
 		rightFoot = new Foot();
+		leftFoot.other = rightFoot;
+		rightFoot.other = leftFoot;
+		Scene.the.addHero(leftFoot);
 		Scene.the.addHero(rightFoot);
 	}
 	
@@ -21,9 +23,10 @@ class Cook extends Sprite {
 	public var down : Bool = false;
 	public var left : Bool = false;
 	public var right: Bool = false;
+	//private var walking: Bool = false;
+	private var walkCount: Int = 0;
 	
-	override public function update(): Void {
-		super.update();
+	public function changeDirection(): Void {
 		if (up) {
 			speed.y = -1;
 			setAnimation(Animation.create(2));
@@ -46,28 +49,47 @@ class Cook extends Sprite {
 			direction = Direction.RIGHT;
 		}
 		else speed.x = 0;
+		
+		//walking = speed.x == 0 && speed.y == 0;
+		
 		speed.length = absoluteSpeed;
 		speedx = speed.x;
 		speedy = speed.y;
+	}
+	
+	override public function update(): Void {
+		super.update();
 		
+		++walkCount;
+		if (leftFoot.isStanding() && rightFoot.isStanding()) walkCount = 0;
+		
+		if ((walkCount) % 60 == 0) {
+			switch (direction) {
+			case UP:
+				leftFoot.setAim(x, y + 40); leftFoot.z = 0;
+			case DOWN:
+				leftFoot.setAim(x + width - leftFoot.width, y + 40); leftFoot.z = 2;
+			case LEFT:
+				leftFoot.setAim(x + width - leftFoot.width - 6, y + 40); leftFoot.z = 0;
+			case RIGHT:
+				leftFoot.setAim(x + 6, y + 40); leftFoot.z = 2;
+			}
+		}
+		else if ((walkCount + 30) % 60 == 0) {
+			switch (direction) {
+			case UP:
+				rightFoot.setAim(x + width - rightFoot.width, y + 40); rightFoot.z = 0;
+			case DOWN:
+				rightFoot.setAim(x, y + 40); rightFoot.z = 2;
+			case LEFT:
+				rightFoot.setAim(x + 6, y + 40); rightFoot.z = 2;
+			case RIGHT:
+				rightFoot.setAim(x + width - rightFoot.width - 6, y + 40); rightFoot.z = 0;
+			}
+		}
+	
 		leftHand.x = x + 10;
 		leftHand.y = y + 10;
-		
-		
-		switch (direction) {
-		case UP:
-			leftFoot.setAim(x, y + 40); leftFoot.z = 0;
-			rightFoot.setAim(x + width - rightFoot.width, y + 40); rightFoot.z = 0;
-		case DOWN:
-			leftFoot.setAim(x + width - leftFoot.width, y + 40); leftFoot.z = 2;
-			rightFoot.setAim(x, y + 40); rightFoot.z = 2;
-		case LEFT:
-			leftFoot.setAim(x + width - leftFoot.width - 6, y + 40); leftFoot.z = 0;
-			rightFoot.setAim(x + 6, y + 40); rightFoot.z = 2;
-		case RIGHT:
-			leftFoot.setAim(x + 6, y + 40); leftFoot.z = 2;
-			rightFoot.setAim(x + width - rightFoot.width - 6, y + 40); rightFoot.z = 0;
-		}
 	}
 	
 	private static var absoluteSpeed: Float = 2;

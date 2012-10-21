@@ -12,67 +12,74 @@ class Foot extends Sprite {
 		speed = new Vector3();
 	}
 	
+	public var other: Foot;
+	private var moving: Bool = false;
+	
+	public function isStanding(): Bool {
+		return aim.x == position.x && aim.y == position.y && position.z == 0 && speed.z == 0;
+	}
+	
 	public function setAim(x: Float, y: Float): Void {
+		//var firstStep = aim.x == position.x && aim.y == position.y && other.aim.x == other.position.x && other.aim.y == other.position.y;
 		aim.x = x;
 		aim.y = y;
 		if ((position.x != x || position.y != y) && position.z == 0 && speed.z == 0) {
 			speed.z = 1.8;
 		}
-		/*if (position.z == 0 && speed.z == 0) {
-			lastPosition.x = position.x;
-			lastPosition.y = position.y;
-			speed.z = 1.8;
-			var direction = new Vector2(x - position.x, y - position.y);
-			direction.length = 2;
-			speed.x = direction.x;
-			speed.y = direction.y;
-		}*/
 	}
 	
 	override public function update(): Void {
-		if (position.x < aim.x) speed.x = absoluteSpeed;
-		else if (position.x > aim.x) speed.x = -absoluteSpeed;
-		else speed.x = 0;
-		
-		if (position.y < aim.y) speed.y = absoluteSpeed;
-		else if (position.y > aim.y) speed.y = -absoluteSpeed;
-		else speed.y = 0;
-		
-		speed.z -= 0.1;
-		position.x += speed.x;
-		position.y += speed.y;
-		position.z += speed.z;
-		
-		if (position.z < 0) {
-			position.z = 0;
-			speed.z = 0;
-		}
-		
-		if (speed.x > 0) {
-			if (position.x >= aim.x) {
-				position.x = aim.x;
+		//if (!other.moving) {
+		//	moving = true;
+			
+			if (position.x < aim.x) speed.x = absoluteSpeed;
+			else if (position.x > aim.x) speed.x = -absoluteSpeed;
+			else speed.x = 0;
+			
+			if (position.y < aim.y) speed.y = absoluteSpeed;
+			else if (position.y > aim.y) speed.y = -absoluteSpeed;
+			else speed.y = 0;
+			
+			speed.z -= 0.1;
+			position.z += speed.z;
+			
+			if (position.z < 0) {
+				position.z = 0;
+				speed.z = 0;
+				moving = false;
 				speed.x = 0;
-			}
-		}
-		else if (speed.x < 0) {
-			if (position.x <= aim.x) {
-				position.x = aim.x;
-				speed.x = 0;
-			}
-		}
-		
-		if (speed.y > 0) {
-			if (position.y >= aim.y) {
-				position.y = aim.y;
 				speed.y = 0;
 			}
-		}
-		else if (speed.y < 0) {
-			if (position.y <= aim.y) {
-				position.y = aim.y;
-				speed.y = 0;
+			
+			position.x += speed.x;
+			position.y += speed.y;
+			
+			if (speed.x > 0) {
+				if (position.x >= aim.x) {
+					position.x = aim.x;
+					speed.x = 0;
+				}
 			}
-		}
+			else if (speed.x < 0) {
+				if (position.x <= aim.x) {
+					position.x = aim.x;
+					speed.x = 0;
+				}
+			}
+			
+			if (speed.y > 0) {
+				if (position.y >= aim.y) {
+					position.y = aim.y;
+					speed.y = 0;
+				}
+			}
+			else if (speed.y < 0) {
+				if (position.y <= aim.y) {
+					position.y = aim.y;
+					speed.y = 0;
+				}
+			}
+		//}
 		
 		x = position.x;
 		y = position.y - position.z;
