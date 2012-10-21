@@ -20,6 +20,32 @@
 				"green": 0,
 				"blue": 255
 			}
+		},
+		{
+			"id": "07acefa0-1b94-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "foot.png",
+			"name": "foot",
+			"scale": 3,
+			"background":
+			{
+				"red": 255,
+				"green": 0,
+				"blue": 255
+			}
+		},
+		{
+			"id": "12930170-1b94-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "hand.png",
+			"name": "hand",
+			"scale": 3,
+			"background":
+			{
+				"red": 255,
+				"green": 0,
+				"blue": 255
+			}
 		}
 	],
 	"rooms":
@@ -31,7 +57,9 @@
 			"neighbours": [],
 			"assets":
 			[
-				"39766010-1b7c-11e2-892e-0800200c9a66"
+				"39766010-1b7c-11e2-892e-0800200c9a66",
+				"07acefa0-1b94-11e2-892e-0800200c9a66",
+				"12930170-1b94-11e2-892e-0800200c9a66"
 			]
 		}
 	]
