@@ -19,6 +19,9 @@ class Cook extends Sprite {
 		rightFoot.other = leftFoot;
 		Scene.the.addHero(leftFoot);
 		Scene.the.addHero(rightFoot);
+		
+		hat = new Hat();
+		Scene.the.addHero(hat);
 	}
 	
 	public var up   : Bool = false;
@@ -32,22 +35,26 @@ class Cook extends Sprite {
 		if (up) {
 			speed.y = -1;
 			setAnimation(Animation.create(2));
+			hat.setAnimation(Animation.create(2));
 			direction = Direction.UP;
 		}
 		else if (down) {
 			speed.y = 1;
 			setAnimation(Animation.create(0));
+			hat.setAnimation(Animation.create(0));
 			direction = Direction.DOWN;
 		}
 		else speed.y = 0;
 		if (left) {
 			speed.x = -1;
 			setAnimation(Animation.create(3));
+			hat.setAnimation(Animation.create(3));
 			direction = Direction.LEFT;
 		}
 		else if (right) {
 			speed.x = 1;
 			setAnimation(Animation.create(1));
+			hat.setAnimation(Animation.create(1));
 			direction = Direction.RIGHT;
 		}
 		else speed.x = 0;
@@ -137,6 +144,21 @@ class Cook extends Sprite {
 			x = left + (right - left) / 2;
 			y = (leftFoot.y - 40) + ((rightFoot.y - 40) - (leftFoot.y - 40)) / 2;
 		}
+		
+		switch (direction) {
+		case UP:
+			hat.x = x - 6;
+			hat.y = y - 18;
+		case DOWN:
+			hat.x = x - 3;
+			hat.y = y - 24;
+		case LEFT:
+			hat.x = x - 9;
+			hat.y = y - 24;
+		case RIGHT:
+			hat.x = x - 6;
+			hat.y = y - 24;
+		}
 	}
 	
 	private static var absoluteSpeed: Float = 2;
@@ -145,5 +167,6 @@ class Cook extends Sprite {
 	private var rightHand: Hand;
 	private var leftFoot: Foot;
 	private var rightFoot: Foot;
+	private var hat: Hat;
 	public var direction: Direction;
 }

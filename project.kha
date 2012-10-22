@@ -80,6 +80,19 @@
 			"type": "blob",
 			"file": "restaurant.map",
 			"name": "restaurant.map"
+		},
+		{
+			"id": "49c8f990-1c77-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "hat.png",
+			"name": "hat",
+			"scale": 3,
+			"background":
+			{
+				"red": 255,
+				"green": 0,
+				"blue": 255
+			}
 		}
 	],
 	"rooms":
@@ -98,7 +111,8 @@
 				"7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
 				"d0279f50-1bbe-11e2-892e-0800200c9a66",
 				"d6d6e540-1bbe-11e2-892e-0800200c9a66",
-				"dd24f860-1bbe-11e2-892e-0800200c9a66"
+				"dd24f860-1bbe-11e2-892e-0800200c9a66",
+				"49c8f990-1c77-11e2-892e-0800200c9a66"
 			]
 		}
 	]
