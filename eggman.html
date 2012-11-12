@@ -73,10 +73,12 @@ void main() {
 		
 		if (position.x < center.x) winkel = PI / 2.0 - winkel;
 		else winkel += PI / 2.0;
-		gl_FragColor = vec4(muster(vec2(winkel - time / 100.0, position.y)) * light + specular, 1.0);
+		winkel /= PI;
+		winkel *= 20.0;
+		//gl_FragColor = vec4(muster(vec2(winkel - time / 100.0, position.y)) * light + specular, 1.0);
 		//gl_FragColor = vec4(diffuse, diffuse, diffuse, 1.0);
 		//gl_FragColor = vec4(normal, 1.0);
-		gl_FragColor = vec4(texture2D(sampler, vec2(position.x / 640.0, position.y / 480.0)));
+		gl_FragColor = vec4(texture2D(sampler, vec2(winkel - time / 50.0, (position.y - 112.5) / 245.0)).xyz * light + specular, 1.0);
 	}
 }
 </script>
@@ -173,8 +175,9 @@ function handleLoadedTexture(texture) {
 	gl.bindTexture(gl.TEXTURE_2D, texture);
 	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+	gl.generateMipmap(gl.TEXTURE_2D);
 	gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
@@ -190,7 +193,7 @@ function initTexture() {
 	texture.image.onload = function() {
 		handleLoadedTexture(texture);
 	}
-	texture.image.src = "img_fur2.jpg";
+	texture.image.src = "img_fur2.png";
 }
 
 function init() {
