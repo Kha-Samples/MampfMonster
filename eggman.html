@@ -7,10 +7,24 @@
 <body>
 <script id="vs" type="x-shader/x-vertex">
 	attribute vec3 pos;
+	
 	void main() {
 		gl_Position = vec4(pos, 1.0);
 	}
 </script>
+
+<script id="vs2" type="x-shader/x-vertex">
+	attribute vec3 pos;
+	attribute vec2 tex;
+	varying vec4 position;
+	varying vec2 texcoord;
+
+	void main() {
+		texcoord = tex;
+		gl_Position = position = vec4(pos, 1.0);
+	}
+</script>
+
 <script id="fs" type="x-shader/x-fragment">
 #ifdef GL_ES
 precision highp float;
@@ -21,6 +35,7 @@ uniform float time;
 uniform vec2 resolution;
 uniform sampler2D sampler;
 uniform sampler2D normals;
+uniform sampler2D facetex;
 
 float PI = 3.14159265358979323846264;
 vec3 lightPosition = vec3(100.0, 200.0, 500.0);
@@ -102,7 +117,9 @@ void main() {
 		//gl_FragColor = vec4(muster(vec2(winkel - time / 100.0, position.y)) * light + specular, 1.0);
 		//gl_FragColor = vec4(diffuse, diffuse, diffuse, 1.0);
 		//gl_FragColor = vec4(normal, 1.0);
-		gl_FragColor = vec4(texture2D(sampler, texcoord).xyz * light + specular, 1.0);
+		float alpha = texture2D(facetex, texcoord).a;
+		vec3 tex = texture2D(facetex, texcoord).rgb * alpha + texture2D(sampler, texcoord).rgb * (1.0 - alpha);
+		gl_FragColor = vec4(tex * light + specular * (1.0 - alpha), 1.0);
 	}
 }
 </script>
@@ -117,6 +134,8 @@ vec3 eye = vec3(0.0, 200.0, 500.0);
 uniform sampler2D sampler;
 uniform sampler2D normals;
 uniform float time;
+varying vec4 position;
+varying vec2 texcoord;
 
 float saturate(float value) {
 	return clamp(value, 0.0, 1.0);	
@@ -126,11 +145,11 @@ void main() {
 	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 	lightPosition.x = sin(time) * 1000.0;
 	lightPosition.y = sin(time * 0.5) * 2000.0;
-	vec2 position = gl_FragCoord.xy;
-	vec2 texcoord = position / 1024.0;
+	//vec2 position = gl_FragCoord.xy;
+	//vec2 texcoord = (position.xy + 1.0) / 2.0;
 	vec3 normal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
 	
-	vec3 world = vec3(position, 0);
+	vec3 world = vec3(gl_FragCoord.xy, 0);
 	vec3 lightDirection = normalize(world - lightPosition);
 	//lightDirection = vec3(0.1, 0.2, -0.7);
 	float diffuse = saturate(dot(normal, -lightDirection));
@@ -142,7 +161,7 @@ void main() {
 	//gl_FragColor = vec4(muster(vec2(winkel - time / 100.0, position.y)) * light + specular, 1.0);
 	//gl_FragColor = vec4(diffuse, diffuse, diffuse, 1.0);
 	//gl_FragColor = vec4(normal, 1.0);
-	gl_FragColor = vec4(texture2D(sampler, texcoord).xyz * light + specular, 1.0);
+	gl_FragColor = vec4(texture2D(sampler, texcoord).xyz * light + specular, texture2D(sampler, texcoord).a);
 }
 </script>
 
@@ -191,55 +210,99 @@ function attributeSetFloats(gl, prog, attr_name, rsize, arr) {
 }
 
 var thetime = 0.0;
-
+var gl;
 var texture;
 var normals;
+var texture2;
+var normals2;
+var facetex;
+var shader1;
+var shader2;
+var count = 0;
 
-function draw() {
-	try {
-		var gl = document.getElementById("webgl")
-			.getContext("experimental-webgl");
-		if (!gl) { throw "x"; }
-	} catch (err) {
-		throw "Your web browser does not support WebGL!";
-	}
+function drawStuff() {
 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
 	gl.clear(gl.COLOR_BUFFER_BIT);
 
-	var prog = shaderProgram(gl, "vs", "fs2");
-	gl.useProgram(prog);
+	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+	gl.enable(gl.BLEND);
 
-	gl.uniform1f(gl.getUniformLocation(prog, "time"), thetime);
-	gl.uniform2f(gl.getUniformLocation(prog, "resolution"), 1640.0, 480.0);
-	attributeSetFloats(gl, prog, "pos", 3, [
+	gl.useProgram(shader1);
+
+	gl.uniform1f(gl.getUniformLocation(shader1, "time"), thetime);
+	gl.uniform2f(gl.getUniformLocation(shader1, "resolution"), 640.0, 480.0);
+	attributeSetFloats(gl, shader1, "pos", 3, [
 		-1, -1, 0,
-		-1, 1, 0,
-		1, -1, 0,
-		1, 1, 0
+		-1,  1, 0,
+		 1, -1, 0,
+		 1,  1, 0
 	]);
 	
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, texture);
-	gl.uniform1i(gl.getUniformLocation(prog, "sampler"), 0);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+	gl.uniform1i(gl.getUniformLocation(shader1, "sampler"), 0);
 
 	gl.activeTexture(gl.TEXTURE1);
 	gl.bindTexture(gl.TEXTURE_2D, normals);
-	gl.uniform1i(gl.getUniformLocation(prog, "normals"), 1);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+	gl.uniform1i(gl.getUniformLocation(shader1, "normals"), 1);
+
+	gl.activeTexture(gl.TEXTURE2);
+	gl.bindTexture(gl.TEXTURE_2D, facetex);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+	gl.uniform1i(gl.getUniformLocation(shader1, "facetex"), 2);
 
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+//----------------------------------------------------------------------------
+	gl.useProgram(shader2);
 
-	thetime += 1.0 / 60.0;
+	gl.uniform1f(gl.getUniformLocation(shader2, "time"), thetime);
+	gl.uniform2f(gl.getUniformLocation(shader2, "resolution"), 1640.0, 480.0);
+	var x = 0.14;
+	var y = 0.1;
+	var w = 0.3;
+	var h = 0.3;
+	attributeSetFloats(gl, shader2, "pos", 3, [
+		x, y, 0,
+		x,  y + h, 0,
+		 x + w, y, 0,
+		 x + w,  y + h, 0
+	]);
+	attributeSetFloats(gl, shader2, "tex", 2, [
+		0.0, 0.0,
+		0.0, 1.0,
+		1.0, 0.0,
+		1.0, 1.0
+	]);
+	
+	gl.activeTexture(gl.TEXTURE0);
+	gl.bindTexture(gl.TEXTURE_2D, texture2);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+	gl.uniform1i(gl.getUniformLocation(shader2, "sampler"), 0);
 
+	gl.activeTexture(gl.TEXTURE1);
+	gl.bindTexture(gl.TEXTURE_2D, normals2);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+	gl.uniform1i(gl.getUniformLocation(shader2, "normals"), 1);
+
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+
+function draw() {
+	if (count == 5) {
+		drawStuff();
+		thetime += 1.0 / 60.0;
+	}
 	setTimeout(draw, 1000.0 / 60.0);
 }
 
 function handleLoadedTexture(texture) {
-	try {
-		var gl = document.getElementById("webgl").getContext("experimental-webgl");
-		if (!gl) { throw "x"; }
-	} catch (err) {
-		throw "Your web browser does not support WebGL!";
-	}
 	gl.bindTexture(gl.TEXTURE_2D, texture);
 	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
@@ -250,33 +313,59 @@ function handleLoadedTexture(texture) {
 }
 
 function initTexture() {
-	try {
-		var gl = document.getElementById("webgl").getContext("experimental-webgl");
-		if (!gl) { throw "x"; }
-	} catch (err) {
-		throw "Your web browser does not support WebGL!";
-	}
 	texture = gl.createTexture();
 	texture.image = new Image();
 	texture.image.onload = function() {
+		++count;
 		handleLoadedTexture(texture);
 	}
-	texture.image.src = "img_fur2n.png";
+	texture.image.src = "img_fur2.png";
 	
 	normals = gl.createTexture();
 	normals.image = new Image();
 	normals.image.onload = function() {
+		++count;
 		handleLoadedTexture(normals);
 	}
 	normals.image.src = "img_fur2n.png";
+
+	texture2 = gl.createTexture();
+	texture2.image = new Image();
+	texture2.image.onload = function() {
+		++count;
+		handleLoadedTexture(texture2);
+	}
+	texture2.image.src = "img_ear09_overlay.png";
+	
+	normals2 = gl.createTexture();
+	normals2.image = new Image();
+	normals2.image.onload = function() {
+		++count;
+		handleLoadedTexture(normals2);
+	}
+	normals2.image.src = "img_ear09n.png";
+
+	facetex = gl.createTexture();
+	facetex.image = new Image();
+	facetex.image.onload = function() {
+		++count;
+		handleLoadedTexture(facetex);
+	}
+	facetex.image.src = "img_face_a1.png";
 }
+
 
 function init() {
 	try {
+		gl = document.getElementById("webgl").getContext("experimental-webgl");
+		if (!gl) { throw "Your web browser does not support WebGL!"; }
 		initTexture();
+		shader1 = shaderProgram(gl, "vs", "fs");
+		shader2 = shaderProgram(gl, "vs2", "fs2");
 		draw();
-	} catch (e) {
-		alert("Error: "+e);
+	}
+	catch (e) {
+		alert("Error: " + e);
 	}
 }
 setTimeout(init, 100);
