@@ -98,7 +98,7 @@ void main() {
 		else winkel += PI / 2.0;
 		winkel /= PI * 2.0;
 
-		vec2 texcoord = vec2(winkel - time / 50.0, (position.y - center.y + ellipseConstant / 2.0) / ellipseConstant);
+		vec2 texcoord = vec2(winkel - time / 20.0, (position.y - center.y + ellipseConstant / 2.0) / ellipseConstant);
 
 		vec3 tangentnormal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
 		normal.x = dot(tangentnormal, cross(tangent, normal));
@@ -121,6 +121,7 @@ void main() {
 		vec3 tex = texture2D(facetex, texcoord).rgb * alpha + texture2D(sampler, texcoord).rgb * (1.0 - alpha);
 		gl_FragColor = vec4(tex * light + specular * (1.0 - alpha), 1.0);
 	}
+	else discard;
 }
 </script>
 
@@ -216,17 +217,76 @@ var normals;
 var texture2;
 var normals2;
 var facetex;
+var handtex;
+var handnormals;
+var foottex;
+var footnormals;
 var shader1;
 var shader2;
 var count = 0;
+var requestAnimationFrame;
 
-function drawStuff() {
-	gl.clearColor(0.0, 0.0, 0.0, 1.0);
-	gl.clear(gl.COLOR_BUFFER_BIT);
+function drawObject(tex, norm, x, y, w, h, mirror, z) {
+	if (z < 0) {
+		z = -z;
+		z /= 6;
+		z += 1;
+		w /= z;
+		h /= z;
+	}
+	else {
+		z /= 6;
+		z += 1;
+		w *= z;
+		h *= z;
+	}
+	gl.useProgram(shader2);
 
-	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-	gl.enable(gl.BLEND);
+	gl.uniform1f(gl.getUniformLocation(shader2, "time"), thetime);
+	gl.uniform2f(gl.getUniformLocation(shader2, "resolution"), 640.0, 480.0);
+	//var x = 0.14;
+	//var y = 0.1;
+	//var w = 0.3;
+	//var h = 0.3;
+	attributeSetFloats(gl, shader2, "pos", 3, [
+		x - w / 2.0, y - h / 2.0, 0,
+		x - w / 2.0,  y + h / 2.0, 0,
+		 x + w / 2.0, y - h / 2.0, 0,
+		 x + w / 2.0,  y + h / 2.0, 0
+	]);
+	if (mirror) {
+		attributeSetFloats(gl, shader2, "tex", 2, [
+			1.0, 0.0,
+			1.0, 1.0,
+			0.0, 0.0,
+			0.0, 1.0
+		]);
+	}
+	else {
+		attributeSetFloats(gl, shader2, "tex", 2, [
+			0.0, 0.0,
+			0.0, 1.0,
+			1.0, 0.0,
+			1.0, 1.0
+		]);
+	}
+	
+	gl.activeTexture(gl.TEXTURE0);
+	gl.bindTexture(gl.TEXTURE_2D, tex);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+	gl.uniform1i(gl.getUniformLocation(shader2, "sampler"), 0);
 
+	gl.activeTexture(gl.TEXTURE1);
+	gl.bindTexture(gl.TEXTURE_2D, norm);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+	gl.uniform1i(gl.getUniformLocation(shader2, "normals"), 1);
+
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+
+function drawBody() {
 	gl.useProgram(shader1);
 
 	gl.uniform1f(gl.getUniformLocation(shader1, "time"), thetime);
@@ -257,49 +317,68 @@ function drawStuff() {
 	gl.uniform1i(gl.getUniformLocation(shader1, "facetex"), 2);
 
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-//----------------------------------------------------------------------------
-	gl.useProgram(shader2);
 
-	gl.uniform1f(gl.getUniformLocation(shader2, "time"), thetime);
-	gl.uniform2f(gl.getUniformLocation(shader2, "resolution"), 1640.0, 480.0);
-	var x = 0.14;
-	var y = 0.1;
-	var w = 0.3;
-	var h = 0.3;
-	attributeSetFloats(gl, shader2, "pos", 3, [
-		x, y, 0,
-		x,  y + h, 0,
-		 x + w, y, 0,
-		 x + w,  y + h, 0
-	]);
-	attributeSetFloats(gl, shader2, "tex", 2, [
-		0.0, 0.0,
-		0.0, 1.0,
-		1.0, 0.0,
-		1.0, 1.0
-	]);
-	
-	gl.activeTexture(gl.TEXTURE0);
-	gl.bindTexture(gl.TEXTURE_2D, texture2);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-	gl.uniform1i(gl.getUniformLocation(shader2, "sampler"), 0);
+	drawObject(texture2, normals2, 0.26, 0.3, 0.3, 0.3);
+}
 
-	gl.activeTexture(gl.TEXTURE1);
-	gl.bindTexture(gl.TEXTURE_2D, normals2);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-	gl.uniform1i(gl.getUniformLocation(shader2, "normals"), 1);
+function drawStuff() {
+	gl.clearColor(0.0, 0.0, 0.0, 1.0);
+	gl.clear(gl.COLOR_BUFFER_BIT);
 
-	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+	gl.enable(gl.BLEND);
+
+	var angle = Math.PI + thetime * Math.PI * 2.0 / 20.0;
+	angle = angle % (Math.PI * 2.0);
+	var z = Math.cos(angle);
+	if (z <= 0) drawObject(handtex, handnormals, Math.sin(angle) * 0.3 + 0.1, -0.4, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+
+	angle = thetime * Math.PI * 2.0 / 20.0;
+	angle = angle % (Math.PI * 2.0);
+	z = Math.cos(angle);
+	if (z <= 0) drawObject(handtex, handnormals, Math.sin(angle) * 0.3 + 0.1, -0.4, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+
+	angle = Math.PI + thetime * Math.PI * 2.0 / 20.0;
+	angle = angle % (Math.PI * 2.0);
+	z = Math.cos(angle);
+	if (z <= 0) drawObject(foottex, footnormals, Math.sin(angle) * 0.2 + 0.1, -0.75, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+
+	angle = thetime * Math.PI * 2.0 / 20.0;
+	angle = angle % (Math.PI * 2.0);
+	z = Math.cos(angle);
+	if (z <= 0) drawObject(foottex, footnormals, Math.sin(angle) * 0.2 + 0.1, -0.75, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+
+	drawBody();
+
+	angle = Math.PI + thetime * Math.PI * 2.0 / 20.0;
+	angle = angle % (Math.PI * 2.0);
+	z = Math.cos(angle);
+	if (z > 0) drawObject(handtex, handnormals, Math.sin(angle) * 0.3 + 0.1, -0.4, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+
+	angle = thetime * Math.PI * 2.0 / 20.0;
+	angle = angle % (Math.PI * 2.0);
+	z = Math.cos(angle);
+	if (z > 0) drawObject(handtex, handnormals, Math.sin(angle) * 0.3 + 0.1, -0.4, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+
+	angle = Math.PI + thetime * Math.PI * 2.0 / 20.0;
+	angle = angle % (Math.PI * 2.0);
+	z = Math.cos(angle);
+	if (z > 0) drawObject(foottex, footnormals, Math.sin(angle) * 0.2 + 0.1, -0.75, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+
+	angle = thetime * Math.PI * 2.0 / 20.0;
+	angle = angle % (Math.PI * 2.0);
+	z = Math.cos(angle);
+	if (z > 0) drawObject(foottex, footnormals, Math.sin(angle) * 0.2 + 0.1, -0.75, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+
 }
 
 function draw() {
-	if (count == 5) {
+	if (count == 9) {
 		drawStuff();
 		thetime += 1.0 / 60.0;
 	}
-	setTimeout(draw, 1000.0 / 60.0);
+	//setTimeout(draw, 1000.0 / 60.0);
+	requestAnimationFrame(draw);
 }
 
 function handleLoadedTexture(texture) {
@@ -352,11 +431,46 @@ function initTexture() {
 		handleLoadedTexture(facetex);
 	}
 	facetex.image.src = "img_face_a1.png";
-}
 
+	handtex = gl.createTexture();
+	handtex.image = new Image();
+	handtex.image.onload = function() {
+		++count;
+		handleLoadedTexture(handtex);
+	}
+	handtex.image.src = "img_hand_chef_overlay.png";
+
+	handnormals = gl.createTexture();
+	handnormals.image = new Image();
+	handnormals.image.onload = function() {
+		++count;
+		handleLoadedTexture(handnormals);
+	}
+	handnormals.image.src = "img_hand_chefn.png";
+
+	foottex = gl.createTexture();
+	foottex.image = new Image();
+	foottex.image.onload = function() {
+		++count;
+		handleLoadedTexture(foottex);
+	}
+	foottex.image.src = "img_foot_chef_overlay.png";
+
+	footnormals = gl.createTexture();
+	footnormals.image = new Image();
+	footnormals.image.onload = function() {
+		++count;
+		handleLoadedTexture(footnormals);
+	}
+	footnormals.image.src = "img_foot_chefn.png";
+}
 
 function init() {
 	try {
+		requestAnimationFrame = window.requestAnimationFrame;
+		if (requestAnimationFrame == null) requestAnimationFrame = window.mozRequestAnimationFrame;
+		if (requestAnimationFrame == null) requestAnimationFrame = window.webkitRequestAnimationFrame;
+		if (requestAnimationFrame == null) requestAnimationFrame = window.msRequestAnimationFrame;
 		gl = document.getElementById("webgl").getContext("experimental-webgl");
 		if (!gl) { throw "Your web browser does not support WebGL!"; }
 		initTexture();
