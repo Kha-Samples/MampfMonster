@@ -71,8 +71,8 @@
 		{
 			"id": "dd24f860-1bbe-11e2-892e-0800200c9a66",
 			"type": "image",
-			"file": "img_Tomate.png",
-			"name": "img_Tomate",
+			"file": "img_TOMATE.png",
+			"name": "img_TOMATE",
 			"scale": 1
 		},
 		{
@@ -120,15 +120,15 @@
 		{
 			"id": "dd24f867-1bbe-11e2-892e-0800200c9a66",
 			"type": "image",
-			"file": "img_RightArrow.png",
-			"name": "img_RightArrow",
+			"file": "img_BUTBOOKNEXT.png",
+			"name": "img_BUTBOOKNEXT",
 			"scale": 1
 		},
 		{
 			"id": "dd24f868-1bbe-11e2-892e-0800200c9a66",
 			"type": "image",
-			"file": "img_LeftArrow.png",
-			"name": "img_LeftArrow",
+			"file": "img_BUTBOOKBACK.png",
+			"name": "img_BUTBOOKBACK",
 			"scale": 1
 		},
 		{
