@@ -3,8 +3,8 @@
 	"game":
 	{
 		"name": "Yolkfolk Restaurant",
-		"width": 768,
-		"height": 576
+		"width": 1024,
+		"height": 768
 	},
 	"assets":
 	[
@@ -71,9 +71,65 @@
 		{
 			"id": "dd24f860-1bbe-11e2-892e-0800200c9a66",
 			"type": "image",
-			"file": "chair2.png",
-			"name": "chair2",
-			"scale": 3
+			"file": "img_Tomate.png",
+			"name": "img_Tomate",
+			"scale": 1
+		},
+		{
+			"id": "dd24f861-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_BookIcon_1.png",
+			"name": "img_BookIcon_1",
+			"scale": 1
+		},
+		{
+			"id": "dd24f862-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_BookIcon_2.png",
+			"name": "img_BookIcon_2",
+			"scale": 1
+		},
+		{
+			"id": "dd24f863-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_CookingBook.png",
+			"name": "img_CookingBook",
+			"scale": 1
+		},
+		{
+			"id": "dd24f864-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_SPAGHETTI.png",
+			"name": "img_SPAGHETTI",
+			"scale": 1
+		},
+		{
+			"id": "dd24f865-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_OK.png",
+			"name": "img_OK",
+			"scale": 1
+		},
+		{
+			"id": "dd24f866-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_Cancel.png",
+			"name": "img_Cancel",
+			"scale": 1
+		},
+		{
+			"id": "dd24f867-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_RightArrow.png",
+			"name": "img_RightArrow",
+			"scale": 1
+		},
+		{
+			"id": "dd24f868-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_LeftArrow.png",
+			"name": "img_LeftArrow",
+			"scale": 1
 		},
 		{
 			"id": "7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
@@ -112,6 +168,14 @@
 				"d0279f50-1bbe-11e2-892e-0800200c9a66",
 				"d6d6e540-1bbe-11e2-892e-0800200c9a66",
 				"dd24f860-1bbe-11e2-892e-0800200c9a66",
+				"dd24f861-1bbe-11e2-892e-0800200c9a66",
+				"dd24f862-1bbe-11e2-892e-0800200c9a66",
+				"dd24f863-1bbe-11e2-892e-0800200c9a66",
+				"dd24f864-1bbe-11e2-892e-0800200c9a66",
+				"dd24f865-1bbe-11e2-892e-0800200c9a66",
+				"dd24f866-1bbe-11e2-892e-0800200c9a66",
+				"dd24f867-1bbe-11e2-892e-0800200c9a66",
+				"dd24f868-1bbe-11e2-892e-0800200c9a66",
 				"49c8f990-1c77-11e2-892e-0800200c9a66"
 			]
 		}

@@ -1,5 +1,6 @@
 package;
 
+import flash.display.Sprite;
 import kha.Button;
 import kha.Configuration;
 import kha.Game;
@@ -12,11 +13,16 @@ import kha.Tilemap;
 class YolkfolkRestaurant extends Game {
 	public function new(): Void {
 		super("Yolkfolk Restaurant", false);
+		StGameManager.InitGame(this);
+		StGameManager.InitCookingBook(new CookingBook());
 	}
 	
 	public override function init(): Void {
+
 		Configuration.setScreen(new LoadingScreen());
 		Loader.the.loadRoom("restaurant", initLevel);
+		
+		
 	}
 	
 	private function isCollidable(index: Int): Bool {
@@ -24,6 +30,23 @@ class YolkfolkRestaurant extends Game {
 	}
 	
 	private function initLevel(): Void {
+		
+		StGameManager.MyGameManager().CreateBackground();
+		
+		myItem_01 = StGameManager.MyGameManager().addItem(Eitem.TOMATE, 0, 0);
+		
+		StGameManager.MyCookingBookManager().GUION();
+
+		//cook = new Cook();
+		//scene.addHero(cook);
+		
+		//addTable(60, 100);
+		//addTable(500, 300);
+		Configuration.setScreen(this);
+	}
+	
+	public function CreateBackground()
+	{
 		var tileColissions = new Array<Tile>();
 		for (i in 0...(6 * 8)) {
 			tileColissions.push(new Tile(i, isCollidable(i)));
@@ -42,15 +65,22 @@ class YolkfolkRestaurant extends Game {
 		Scene.the.setColissionMap(tilemap);
 		Scene.the.addBackgroundTilemap(tilemap, 1);
 		
-		cook = new Cook();
-		scene.addHero(cook);
 		
-		addTable(60, 100);
-		addTable(500, 300);
-		
-		Configuration.setScreen(this);
 	}
 	
+	public function addItem(id: Eitem, x: Float, y: Float): Item {
+			
+		var item = new Item(id);
+		item.x = x;
+		item.y = y;
+		scene.addEnemy(item);
+		return item;
+	}
+	public function delItem(paSprite : kha.Sprite)
+	{
+		scene.removeEnemy(paSprite);
+		//paSprite = null;
+	}
 	private function addTable(x: Float, y: Float): Void {
 		var table = new Table();
 		table.x = x;
@@ -66,6 +96,26 @@ class YolkfolkRestaurant extends Game {
 		chair2.x = x + 50;
 		chair2.y = y + 140;
 		scene.addEnemy(chair2);
+	}
+	
+	override public function mouseDown(paX: Int, paY: Int): Void 
+	{ 
+		
+		
+		if (myItem_01 == null)
+		{
+			myItem_01 = StGameManager.MyGameManager().addItem(Eitem.TOMATE, paX, paY);
+		}
+		else if (StHelper.IsOverTestBySprite(paX, paY, myItem_01))
+		{
+			StGameManager.MyGameManager().delItem(myItem_01);
+			myItem_01 = null;
+		}
+	}
+	
+	override public function mouseUp  (paX: Int, paY: Int): Void 
+	{ 
+		StGameManager.MyCookingBookManager().moouseEvent(paX, paY);
 	}
 	
 	override public function buttonDown(button: Button): Void {
@@ -104,5 +154,8 @@ class YolkfolkRestaurant extends Game {
 		}
 	}
 	
+	private var myItem_01 : Item;
 	private var cook: Cook;
+	
+	
 }

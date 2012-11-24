@@ -1,0 +1,13 @@
+package;
+
+enum Eitem {
+	NONE;
+	COOKINGBOOK;
+	TOMATE;
+	SPAGHETTI;
+	OBST;
+	BUTCOOKINGBOOKOPEN;
+	BUTCOOKINGBOOKCLOSE;
+	//BookIcon_1;
+	
+}
