@@ -33,14 +33,21 @@ class CookingBook
 		
 		myBookPosition = new Position(400, 100);
 		myRezepte = new Array<Rezept>();
-		myRezepte.push(new Rezept().Create2("Spaghetti", Eitem.TOMATE, Eitem.SPAGHETTI));
-		myRezepte.push(new Rezept().Create2("Tomatensuppe", Eitem.TOMATE, Eitem.TOMATE));
+		myRezepte.push(new Rezept().Create1("Tomatensalat", EZutat.TOMATE));
+		myRezepte.push(new Rezept().Create2("Spaghetti", EZutat.TOMATE, EZutat.SPAGHETTI));
+		myRezepte.push(new Rezept().Create3("Tomatensuppe", EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE));
+		myRezepte.push(new Rezept().Create4("SpaghettiExtra", EZutat.TOMATE, EZutat.TOMATE, EZutat.SPAGHETTI, EZutat.SPAGHETTI));
+		myRezepte.push(new Rezept().Create5("Grosser Tomatensalat", EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE));
+		myRezepte.push(new Rezept().Create6("Grosse Tomatensuppe", EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE));
 		
 		myAnzPages = myRezepte.length;
 		myRezeptPicPos = new Array<Position>();
 		myRezeptPicPos.push(new Position(myBookPosition.x + 60, myBookPosition.y +40 ));
 		myRezeptPicPos.push(new Position(myBookPosition.x + 60, myBookPosition.y +140 ));
 		myRezeptPicPos.push(new Position(myBookPosition.x + 60, myBookPosition.y +240 ));
+		myRezeptPicPos.push(new Position(myBookPosition.x + 140, myBookPosition.y +40 ));
+		myRezeptPicPos.push(new Position(myBookPosition.x + 140, myBookPosition.y +140 ));
+		myRezeptPicPos.push(new Position(myBookPosition.x + 140, myBookPosition.y +240 ));
 		
 		myButBackPosition = new Position(myBookPosition.x + 50, myBookPosition.y +320 );
 		myButNextPosition = new Position(myBookPosition.x + 410, myBookPosition.y +320 );
@@ -126,6 +133,23 @@ class CookingBook
 		reflashGUI();
 	}
 	
+	private function changePage(paSchalter : Bool)
+	{
+		if (paSchalter)
+			myCurrentRecept++;
+		else 
+			myCurrentRecept--;
+
+		
+		if (myCurrentRecept >= myRezepte.length)
+			myCurrentRecept = 0;
+			
+		if (myCurrentRecept < 0)
+			myCurrentRecept = myRezepte.length - 1;
+		
+		
+	}
+	
 	public function GUIOFF()
 	{
 		if (myButCookingBookOpen != null) 
@@ -198,7 +222,7 @@ class CookingBook
 			{
 				if (StHelper.IsOverTestBySprite(paX, paY, myButNext))
 				{
-					myCurrentRecept = 1;//daniel: überarbeiten keine festen werte
+					this.changePage(true);
 					CloseRezept();
 					ShowRezept();
 				}
@@ -208,7 +232,7 @@ class CookingBook
 			{
 				if (StHelper.IsOverTestBySprite(paX, paY, myButBack))
 				{
-					myCurrentRecept = 0;//daniel: überarbeiten keine festen werte
+					this.changePage(false);
 					CloseRezept();
 					ShowRezept();
 				}

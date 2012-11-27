@@ -8,6 +8,7 @@ import kha.Sprite;
 //Daniel: die Images müssen noch Local und im Projekt umbenannt werden... damit die namen aus den enum erstellt werden können
 class Item extends Sprite {
 	public function new(id: Eitem): Void {
+			
 		switch(id) {
 			case Eitem.TOMATE:
 				super(Loader.the.getImage("img_" + Std.string(id) + ".png"), 64, 64, 1);	
