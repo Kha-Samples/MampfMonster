@@ -7,6 +7,7 @@ import kha.Game;
 import kha.Loader;
 import kha.LoadingScreen;
 import kha.Scene;
+import kha.Sound;
 import kha.Tile;
 import kha.Tilemap;
 
@@ -30,6 +31,9 @@ class YolkfolkRestaurant extends Game {
 	}
 	
 	private function initLevel(): Void {
+		
+		var sound: Sound = Loader.the.getSound("jump");
+		sound.play();
 		
 		StGameManager.MyGameManager().CreateBackground();
 		
