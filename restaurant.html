@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Restaurant</title>
+</head>
+<body>
+<script id="vs" type="x-shader/x-vertex">
+	attribute vec3 pos;
+	attribute vec2 tex;
+	varying vec4 position;
+	varying vec2 texcoord;
+
+	void main() {
+		texcoord = tex;
+		gl_Position = position = vec4(pos.x / pos.z, pos.y, pos.z, 1.0);
+	}
+</script>
+
+<script id="fs" type="x-shader/x-fragment">
+#ifdef GL_ES
+precision highp float;
+#endif
+
+vec3 lightPosition = vec3(100.0, 200.0, 500.0);
+vec3 eye = vec3(0.0, 200.0, 500.0);
+uniform sampler2D sampler;
+uniform sampler2D normals;
+uniform float time;
+varying vec4 position;
+varying vec2 texcoord;
+
+float saturate(float value) {
+	return clamp(value, 0.0, 1.0);	
+}
+
+void main() {
+	/*gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+	lightPosition.x = sin(time) * 1000.0;
+	lightPosition.y = sin(time * 0.5) * 2000.0;
+	//vec2 position = gl_FragCoord.xy;
+	//vec2 texcoord = (position.xy + 1.0) / 2.0;
+	vec3 normal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
+	
+	vec3 world = vec3(gl_FragCoord.xy, 0);
+	vec3 lightDirection = normalize(world - lightPosition);
+	//lightDirection = vec3(0.1, 0.2, -0.7);
+	float diffuse = saturate(dot(normal, -lightDirection));
+	vec3 h = normalize(normalize(eye - world) - lightDirection);
+	float specular = pow(saturate(dot(h, normal)), 15.0);
+	float light = 0.2 + diffuse * 0.5;
+	*/
+	//winkel *= 20.0;
+	//gl_FragColor = vec4(muster(vec2(winkel - time / 100.0, position.y)) * light + specular, 1.0);
+	//gl_FragColor = vec4(diffuse, diffuse, diffuse, 1.0);
+	//gl_FragColor = vec4(normal, 1.0);
+	gl_FragColor = vec4(texture2D(sampler, texcoord).xyz /** light + specular*/, texture2D(sampler, texcoord).a);
+}
+</script>
+
+<script type="text/javascript">
+
+function getSource(id) {
+	var shaderScript = document.getElementById(id);
+	var str = "";
+	var k = shaderScript.firstChild;
+	while (k) {
+		if (k.nodeType == 3) str += k.textContent;
+		k = k.nextSibling;
+	}
+	return str;
+}
+
+function shaderProgram(gl, vs, fs) {
+	var prog = gl.createProgram();
+	var addshader = function(type, source) {
+		var s = gl.createShader((type == 'vertex') ?
+			gl.VERTEX_SHADER : gl.FRAGMENT_SHADER);
+		gl.shaderSource(s, source);
+		gl.compileShader(s);
+		if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+			throw "Could not compile "+type+
+				" shader:\n\n"+gl.getShaderInfoLog(s);
+		}
+		gl.attachShader(prog, s);
+	};
+	addshader('vertex', getSource(vs));
+	addshader('fragment', getSource(fs));
+	gl.linkProgram(prog);
+	if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+		throw "Could not link the shader program!";
+	}
+	return prog;
+}
+
+function attributeSetFloats(gl, prog, attr_name, rsize, arr) {
+	gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr),
+		gl.STATIC_DRAW);
+	var attr = gl.getAttribLocation(prog, attr_name);
+	gl.enableVertexAttribArray(attr);
+	gl.vertexAttribPointer(attr, rsize, gl.FLOAT, false, 0, 0);
+}
+
+var thetime = 0.0;
+var gl;
+var floortexture;
+var doortexture;
+var walltexture;
+var lamptexture;
+var tabletexture;
+var shader;
+var count = 0;
+var requestAnimationFrame;
+
+function drawObject(tex, texmx, texmy, x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4) {
+	gl.useProgram(shader);
+
+	gl.uniform1f(gl.getUniformLocation(shader, "time"), thetime);
+	gl.uniform2f(gl.getUniformLocation(shader, "resolution"), 640.0, 480.0);
+	
+	attributeSetFloats(gl, shader, "pos", 3, [
+		x1, y1, z1,
+		x2, y2, z2,
+		x3, y3, z3,
+		x4, y4, z4
+	]);
+	attributeSetFloats(gl, shader, "tex", 2, [
+		0.0, 0.0,
+		0.0, 1.0 * texmy,
+		1.0 * texmx, 0.0,
+		1.0 * texmx, 1.0 * texmy
+	]);
+	
+	gl.activeTexture(gl.TEXTURE0);
+	gl.bindTexture(gl.TEXTURE_2D, tex);
+	gl.uniform1i(gl.getUniformLocation(shader, "sampler"), 0);
+
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+
+function repeat(texture) {
+	gl.activeTexture(gl.TEXTURE0);
+	gl.bindTexture(gl.TEXTURE_2D, texture);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+}
+
+function clamp(texture) {
+	gl.activeTexture(gl.TEXTURE0);
+	gl.bindTexture(gl.TEXTURE_2D, texture);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+}
+
+function drawStuff() {
+	gl.clearColor(0.0, 0.0, 0.0, 1.0);
+	gl.clear(gl.COLOR_BUFFER_BIT);
+
+	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+	gl.enable(gl.BLEND);
+
+	var xoffset = -thetime / 30.0;
+	//links-unten,
+	//links-oben,
+	//rechts-unten,
+	//rechts-oben
+
+	repeat(walltexture);
+	drawObject(walltexture, 10.0, 3.0,
+		-1.0 + xoffset, 0.0, 1.0,
+		-1.0 + xoffset, 1.0, 1.0,
+		1.0 + xoffset, 0.0, 1.0,
+		1.0 + xoffset, 1.0, 1.0
+	);
+	clamp(floortexture);
+	drawObject(floortexture, 1.0, 1.0,
+		-1.0 + xoffset, -1.0, 0.5,
+		-1.0 + xoffset, 0.0, 1.0,
+		1.0 + xoffset, -1.0, 0.5,
+		1.0 + xoffset, 0.0, 1.0);
+	repeat(walltexture);
+	drawObject(walltexture, 3.0, 3.0,
+		1.0 + xoffset, 0.0, 1.0,
+		1.0 + xoffset, 1.0, 1.0,
+		1.0 + xoffset, -1.0, 0.5,
+		1.0 + xoffset, 1.0, 0.5
+	);
+	clamp(doortexture);
+	drawObject(doortexture, 1.0, 1.0,
+		1.0 + xoffset, -0.5, 2.0 / 3.0,
+		1.0 + xoffset, 0.5, 2.0 / 3.0,
+		1.0 + xoffset, -1.0, 0.5,
+		1.0 + xoffset, 0.5, 0.5
+	);
+
+	clamp(tabletexture);
+	drawObject(tabletexture, 1.0, 1.0,
+		-0.2 + xoffset, -0.7, 0.7,
+		-0.2 + xoffset, -0.2, 0.7,
+		0.2 + xoffset, -0.7, 0.7,
+		0.2 + xoffset, -0.2, 0.7
+	);
+	clamp(lamptexture);
+	drawObject(lamptexture, 1.0, 1.0,
+		-0.1 + xoffset, 0.2, 0.7,
+		-0.1 + xoffset, 0.8, 0.7,
+		0.1 + xoffset, 0.2, 0.7,
+		0.1 + xoffset, 0.8, 0.7
+	);
+}
+
+function draw() {
+	if (count == 5) {
+		drawStuff();
+		thetime += 1.0 / 60.0;
+	}
+	//setTimeout(draw, 1000.0 / 60.0);
+	requestAnimationFrame(draw);
+}
+
+function handleLoadedTexture(texture) {
+	gl.bindTexture(gl.TEXTURE_2D, texture);
+	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+	gl.generateMipmap(gl.TEXTURE_2D);
+	gl.bindTexture(gl.TEXTURE_2D, null);
+}
+
+function initTexture() {
+	floortexture = gl.createTexture();
+	floortexture.image = new Image();
+	floortexture.image.onload = function() {
+		++count;
+		handleLoadedTexture(floortexture);
+	}
+	floortexture.image.src = "img_floor_frontal.png";
+
+	doortexture = gl.createTexture();
+	doortexture.image = new Image();
+	doortexture.image.onload = function() {
+		++count;
+		handleLoadedTexture(doortexture);
+	}
+	doortexture.image.src = "img_kitchendoor_frontal.png";
+
+	walltexture = gl.createTexture();
+	walltexture.image = new Image();
+	walltexture.image.onload = function() {
+		++count;
+		handleLoadedTexture(walltexture);
+	}
+	walltexture.image.src = "pattern_wall_restaurant.png";
+
+	lamptexture = gl.createTexture();
+	lamptexture.image = new Image();
+	lamptexture.image.onload = function() {
+		++count;
+		handleLoadedTexture(lamptexture);
+	}
+	lamptexture.image.src = "img_lamp2.png";
+	
+	tabletexture = gl.createTexture();
+	tabletexture.image = new Image();
+	tabletexture.image.onload = function() {
+		++count;
+		handleLoadedTexture(tabletexture);
+	}
+	tabletexture.image.src = "img_table.png";
+}
+
+function init() {
+	try {
+		requestAnimationFrame = window.requestAnimationFrame;
+		if (requestAnimationFrame == null) requestAnimationFrame = window.mozRequestAnimationFrame;
+		if (requestAnimationFrame == null) requestAnimationFrame = window.webkitRequestAnimationFrame;
+		if (requestAnimationFrame == null) requestAnimationFrame = window.msRequestAnimationFrame;
+		gl = document.getElementById("webgl").getContext("experimental-webgl");
+		if (!gl) { throw "Your web browser does not support WebGL!"; }
+		initTexture();
+		shader = shaderProgram(gl, "vs", "fs");
+		draw();
+	}
+	catch (e) {
+		alert("Error: " + e);
+	}
+}
+setTimeout(init, 100);
+
+</script>
+<canvas id="webgl" width="640" height="480"></canvas>
+</body>
+</html>
