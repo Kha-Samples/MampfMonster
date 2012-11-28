@@ -51,11 +51,9 @@ class CookingBook
 		
 		myButBackPosition = new Position(myBookPosition.x + 50, myBookPosition.y +320 );
 		myButNextPosition = new Position(myBookPosition.x + 410, myBookPosition.y +320 );
-		
-		
-		
-		
+			
 	}
+	
 	public function reflashGUI()
 	{
 		this.GUIOFF();
