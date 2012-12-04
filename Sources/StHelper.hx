@@ -32,4 +32,18 @@ class StHelper
 	{
 		return StHelper.IsOverTest(paMouseX, paMouseY, paSprite.x, paSprite.y, paSprite.width, paSprite.height);
 	}
+	
+	public static function changeStringToEItem(paEItem : String) : Eitem
+	{
+		try
+		{
+			return  Type.createEnum(Eitem, paEItem);
+		}
+		catch( msg : String )
+		{
+			trace("Error occurred: " + msg);
+			return Eitem.NONE;
+		}
+		return Eitem.NONE;
+	}
 }

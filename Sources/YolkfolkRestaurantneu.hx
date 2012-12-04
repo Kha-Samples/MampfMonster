@@ -11,12 +11,11 @@ import kha.Sound;
 import kha.Tile;
 import kha.Tilemap;
 
-class YolkfolkRestaurant extends Game {
+class YolkfolkRestaurantneuextends Game {
 	public function new(): Void {
 		super("Yolkfolk Restaurant", false);
 		StGameManager.InitGame(this);
 		StGameManager.InitCookingBook(new CookingBook());
-		StGameManager.InitLager(new Lager());
 	}
 	
 	public override function init(): Void {
@@ -38,9 +37,13 @@ class YolkfolkRestaurant extends Game {
 		myItem_01 = StGameManager.MyGameManager().addItem(Eitem.TOMATE, 0, 0);
 		
 		StGameManager.MyCookingBookManager().GUION();
-		//testphase start
-		StGameManager.MyLagerManager().GUION();
-		//ende
+<<<<<<< HEAD
+		
+		var MyLager : Lager = new Lager();
+
+		//cook = new Cook();
+		//scene.addHero(cook);
+=======
 	}
 	
 	private function startCook(): Void {
@@ -48,6 +51,7 @@ class YolkfolkRestaurant extends Game {
 		
 		cook = new Cook();
 		scene.addHero(cook);
+>>>>>>> 7d584b91b7f18f578403e71b3d51a9f32370981f
 		
 		addTable(60, 100);
 		addTable(500, 300);
@@ -56,7 +60,6 @@ class YolkfolkRestaurant extends Game {
 	private function initLevel(): Void {
 		//startBook();
 		startCook();
-		startBook();
 		Configuration.setScreen(this);
 	}
 	
@@ -141,7 +144,6 @@ class YolkfolkRestaurant extends Game {
 	override public function mouseUp  (paX: Int, paY: Int): Void 
 	{ 
 		StGameManager.MyCookingBookManager().moouseEvent(paX, paY);
-		StGameManager.MyLagerManager().moouseEvent(paX, paY);
 	}
 	
 	override public function buttonDown(button: Button): Void {
