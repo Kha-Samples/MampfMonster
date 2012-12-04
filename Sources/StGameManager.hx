@@ -11,27 +11,36 @@ class StGameManager
 	private static var INSTANCE : StGameManager;
 	private var myGame : YolkfolkRestaurant;
 	private var myCookingBook : CookingBook;
+	private var myLager : Lager;
 	
 	private function new() 
 	{
 		
 	}
 	
-	public static function  InitGame(paMyGame : YolkfolkRestaurant)
+	public static function  InitGame(paValue : YolkfolkRestaurant)
 	{
 		if (INSTANCE == null)
 		{
 			INSTANCE = new StGameManager();
 		}
-		INSTANCE.myGame = paMyGame;
+		INSTANCE.myGame = paValue;
 	}
-	public static function  InitCookingBook(paMyCookingBook : CookingBook)
+	public static function  InitCookingBook(paValue : CookingBook)
 	{
 		if (INSTANCE == null)
 		{
 			INSTANCE = new StGameManager();
 		}
-		INSTANCE.myCookingBook = paMyCookingBook;
+		INSTANCE.myCookingBook = paValue;
+	}
+	public static function  InitLager(paValue : Lager)
+	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = new StGameManager();
+		}
+		INSTANCE.myLager = paValue;
 	}
 	
 	public static function MyGameManager(): YolkfolkRestaurant
@@ -42,6 +51,7 @@ class StGameManager
 		}
 		return INSTANCE.myGame;
 	}
+	
 	public static function MyCookingBookManager(): CookingBook
 	{
 		if (INSTANCE == null)
@@ -49,5 +59,13 @@ class StGameManager
 			INSTANCE = new StGameManager();
 		}
 		return INSTANCE.myCookingBook;
+	}
+	public static function MyLagerManager(): Lager
+	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = new StGameManager();
+		}
+		return INSTANCE.myLager;
 	}
 	}

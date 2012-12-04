@@ -3,55 +3,45 @@ package;
 import kha.Button;
 import kha.Loader;
 import kha.Sprite;
+import kha.Image;
 
 
 //Daniel: die Images müssen noch Local und im Projekt umbenannt werden... damit die namen aus den enum erstellt werden können
 class Item extends Sprite {
-	public function new(id: Eitem): Void {
-			
-		switch(id) {
-			case Eitem.TOMATE:
-				super(Loader.the.getImage("img_" + Std.string(id) + ".png"), 64, 64, 1);	
-				this.id = id;
-				accy = 0;
-			case Eitem.SPAGHETTI:
-				super(Loader.the.getImage("img_" + Std.string(id) + ".png"), 64, 64, 1);	
-				this.id = id;
-				accy = 0;
-			case Eitem.COOKINGBOOK:
-				super(Loader.the.getImage("img_CookingBook.png"), 512, 384, 0);
-				this.id = id;
-				accy = 0;		
-			case Eitem.BUTCOOKINGBOOKOPEN:
-				super(Loader.the.getImage("img_BookIcon_1.png"), 64, 64, 2);
-				this.id = id;
-				accy = 0;
-			case Eitem.BUTCOOKINGBOOKCLOSE:
-				super(Loader.the.getImage("img_BookIcon_2.png"), 64, 64, 1);
-				this.id = id;
-				accy = 0;
-			case Eitem.BUTBOOKBACK:
-				super(Loader.the.getImage("img_" + Std.string(id) + ".png"), 64, 32, 1);	
-				this.id = id;
-				accy = 0;
-			case Eitem.BUTBOOKNEXT:
-				super(Loader.the.getImage("img_" + Std.string(id) + ".png"), 64, 32, 1);	
-				this.id = id;
-				accy = 0;
-			
-			default:
-				
+	private static var myId:String;
+		private function new(): Void {
+			var temp : Image = Loader.the.getImage("img_" + myId + ".png");
+			var x:Int = 0;
+			var y:Int = 0;
+			if(temp != null){
+				x = temp.getWidth();
+				y = temp.getHeight();
+			}
+			super(temp, x, y, 9);	
+			this.id = Type.createEnum(Eitem, myId);
+			this.accy = 0;
 		}
 		
+		public static function createByString(id: String): Item {
+			
+			myId = id;
+			return new Item();
+			
+		}
 		
-		var string = Std.string(Eitem.TOMATE);
-	}
+		public static function createByID(id: Eitem): Item {	
+			return Item.createByString(Std.string(id));
+			}
+
 	
 	public function ReturnMySelf(): Item
 	{
 		return this;
 	}
 	
+	private function setID(paId:Eitem) {
+		id = paId;
+	}
 	private var id: Eitem;
 }
 

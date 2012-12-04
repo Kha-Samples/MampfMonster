@@ -31,7 +31,7 @@ class CookingBook
 	public function new() 
 	{
 		
-		myBookPosition = new Position(400, 100);
+		myBookPosition = new Position(500, 100);
 		myRezepte = new Array<Rezept>();
 		myRezepte.push(new Rezept().Create1("Tomatensalat", EZutat.TOMATE));
 		myRezepte.push(new Rezept().Create2("Spaghetti", EZutat.TOMATE, EZutat.SPAGHETTI));
