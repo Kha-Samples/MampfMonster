@@ -1,6 +1,5 @@
 package;
 
-import flash.display.Sprite;
 import kha.Button;
 import kha.Configuration;
 import kha.Game;
