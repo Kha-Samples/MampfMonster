@@ -30,22 +30,28 @@ class YolkfolkRestaurant extends Game {
 		return false;
 	}
 	
-	private function initLevel(): Void {
-		
+	private function startBook(): Void {
 		var sound: Sound = Loader.the.getSound("jump");
 		sound.play();
-		
-		StGameManager.MyGameManager().CreateBackground();
 		
 		myItem_01 = StGameManager.MyGameManager().addItem(Eitem.TOMATE, 0, 0);
 		
 		StGameManager.MyCookingBookManager().GUION();
-
-		//cook = new Cook();
-		//scene.addHero(cook);
+	}
+	
+	private function startCook(): Void {
+		StGameManager.MyGameManager().CreateBackground();
 		
-		//addTable(60, 100);
-		//addTable(500, 300);
+		cook = new Cook();
+		scene.addHero(cook);
+		
+		addTable(60, 100);
+		addTable(500, 300);
+	}
+	
+	private function initLevel(): Void {
+		//startBook();
+		startCook();
 		Configuration.setScreen(this);
 	}
 	
