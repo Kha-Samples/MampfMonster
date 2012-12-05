@@ -5,7 +5,9 @@ import kha.Game;
 import kha.graphics.FragmentShader;
 import kha.graphics.Texture;
 import kha.graphics.VertexBuffer;
+import kha.graphics.VertexData;
 import kha.graphics.VertexShader;
+import kha.graphics.VertexStructure;
 import kha.Loader;
 import kha.LoadingScreen;
 import kha.Painter;
@@ -57,10 +59,15 @@ class YolkfolkRestaurant2 extends Game {
 				"gl_FragColor = vec4(texture2D(sampler, texcoord).xyz, texture2D(sampler, texcoord).a);" +
 			"}"
 		);
-		backWall = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
-		floor = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
-		rightWall = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
-		door = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
+		
+		var structure = new VertexStructure();
+		structure.add("pos", VertexData.Float3);
+		structure.add("tex", VertexData.Float2);
+		
+		backWall = kha.Sys.graphics.createVertexBuffer(4, structure);
+		floor = kha.Sys.graphics.createVertexBuffer(4, structure);
+		rightWall = kha.Sys.graphics.createVertexBuffer(4, structure);
+		door = kha.Sys.graphics.createVertexBuffer(4, structure);
 		
 		Configuration.setScreen(this);
 	}
