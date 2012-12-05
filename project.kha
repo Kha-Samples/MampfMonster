@@ -256,14 +256,14 @@
 		{
 			"id": "220edcd0-3f27-11e2-a25f-0800200c9a66",
 			"type": "image",
-			"file": "img_ear06_overlay.png",
-			"name": "img_ear06_overlay"
+			"file": "img_ear09_overlay.png",
+			"name": "img_ear09_overlay"
 		},
 		{
 			"id": "220edcd1-3f27-11e2-a25f-0800200c9a66",
 			"type": "image",
-			"file": "img_ear06n.png",
-			"name": "img_ear06n"
+			"file": "img_ear09n.png",
+			"name": "img_ear09n"
 		},
 		{
 			"id": "220edcd2-3f27-11e2-a25f-0800200c9a66",
