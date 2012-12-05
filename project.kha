@@ -69,6 +69,13 @@
 			"scale": 3
 		},
 		{
+			"id": "d6d6e541-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "chair2.png",
+			"name": "chair2",
+			"scale": 3
+		},
+		{
 			"id": "dd24f860-1bbe-11e2-892e-0800200c9a66",
 			"type": "image",
 			"file": "img_TOMATE.png",
@@ -227,6 +234,7 @@
 				"7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
 				"d0279f50-1bbe-11e2-892e-0800200c9a66",
 				"d6d6e540-1bbe-11e2-892e-0800200c9a66",
+				"d6d6e541-1bbe-11e2-892e-0800200c9a66",
 				"dd24f860-1bbe-11e2-892e-0800200c9a66",
 				"dd24f861-1bbe-11e2-892e-0800200c9a66",
 				"dd24f862-1bbe-11e2-892e-0800200c9a66",
