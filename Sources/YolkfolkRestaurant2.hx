@@ -27,6 +27,7 @@ class YolkfolkRestaurant2 extends Game {
 	private var door: VertexBuffer;
 	private var table: VertexBuffer;
 	private var lamp: VertexBuffer;
+	private var eggman: Eggman;
 	private var time: Float = 0;
 	
 	public function new() {
@@ -40,6 +41,7 @@ class YolkfolkRestaurant2 extends Game {
 	}
 	
 	private function initLevel(): Void {
+		eggman = new Eggman();
 		wallTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("pattern_wall_restaurant"));
 		floorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_floor_frontal"));
 		doorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_kitchendoor_frontal"));
@@ -164,5 +166,7 @@ class YolkfolkRestaurant2 extends Game {
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(lamp);
 		kha.Sys.graphics.drawArrays();
+		
+		eggman.render(time);
 	}
 }

@@ -228,6 +228,84 @@
 			"type": "image",
 			"file": "img_lamp2.png",
 			"name": "img_lamp2"
+		},
+		{
+			"id": "4f57afb0-3f26-11e2-a25f-0800200c9a66",
+			"type": "blob",
+			"file": "eggman_body.vs.glsl",
+			"name": "eggman_body.vs.glsl"
+		},
+		{
+			"id": "4f57afb1-3f26-11e2-a25f-0800200c9a66",
+			"type": "blob",
+			"file": "eggman_body.fs.glsl",
+			"name": "eggman_body.fs.glsl"
+		},
+		{
+			"id": "4f57afb2-3f26-11e2-a25f-0800200c9a66",
+			"type": "blob",
+			"file": "eggman_parts.vs.glsl",
+			"name": "eggman_parts.vs.glsl"
+		},
+		{
+			"id": "4f57afb3-3f26-11e2-a25f-0800200c9a66",
+			"type": "blob",
+			"file": "eggman_parts.fs.glsl",
+			"name": "eggman_parts.fs.glsl"
+		},
+		{
+			"id": "220edcd0-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_ear06_overlay.png",
+			"name": "img_ear06_overlay"
+		},
+		{
+			"id": "220edcd1-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_ear06n.png",
+			"name": "img_ear06n"
+		},
+		{
+			"id": "220edcd2-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_face_a1.png",
+			"name": "img_face_a1"
+		},
+		{
+			"id": "220edcd3-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_foot_chef_overlay.png",
+			"name": "img_foot_chef_overlay"
+		},
+		{
+			"id": "220edcd4-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_foot_chefn.png",
+			"name": "img_foot_chefn"
+		},
+		{
+			"id": "220edcd5-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_fur2.png",
+			"name": "img_fur2"
+		},
+		{
+			"id": "220edcd6-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_fur2n.png",
+			"name": "img_fur2n"
+		},
+		{
+			"id": "220edcd7-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_hand_chef_overlay.png",
+			"name": "img_hand_chef_overlay"
+		},
+		{
+			"id": "220edcd8-3f27-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_hand_chefn.png",
+			"name": "img_hand_chefn"
 		}
 	],
 	"rooms":
@@ -276,7 +354,20 @@
 				"af348e10-3ea1-11e2-a25f-0800200c9a66",
 				"284104f0-3ea2-11e2-a25f-0800200c9a66",
 				"c7376330-3f22-11e2-a25f-0800200c9a66",
-				"d69f0580-3f22-11e2-a25f-0800200c9a66"
+				"d69f0580-3f22-11e2-a25f-0800200c9a66",
+				"4f57afb0-3f26-11e2-a25f-0800200c9a66",
+				"4f57afb1-3f26-11e2-a25f-0800200c9a66",
+				"4f57afb2-3f26-11e2-a25f-0800200c9a66",
+				"4f57afb3-3f26-11e2-a25f-0800200c9a66",
+				"220edcd0-3f27-11e2-a25f-0800200c9a66",
+				"220edcd1-3f27-11e2-a25f-0800200c9a66",
+				"220edcd2-3f27-11e2-a25f-0800200c9a66",
+				"220edcd3-3f27-11e2-a25f-0800200c9a66",
+				"220edcd4-3f27-11e2-a25f-0800200c9a66",
+				"220edcd5-3f27-11e2-a25f-0800200c9a66",
+				"220edcd6-3f27-11e2-a25f-0800200c9a66",
+				"220edcd7-3f27-11e2-a25f-0800200c9a66",
+				"220edcd8-3f27-11e2-a25f-0800200c9a66"
 			]
 		}
 	]
