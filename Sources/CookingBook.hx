@@ -60,13 +60,13 @@ class CookingBook
 		
 		if (myIsOpen)
 		{
-			myButCookingBookClose = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKCLOSE, 400, 0);
+			myButCookingBookClose = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKOPEN, 400, 0);
 			ShowRezept();
 			ShowBookButtons();
 		}
 		else
 		{
-			myButCookingBookOpen = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKOPEN, 400, 0);
+			myButCookingBookOpen = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKCLOSE, 400, 0);
 			ShowRezept();
 			CloseBookButtons();
 		}

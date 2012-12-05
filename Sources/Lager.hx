@@ -30,11 +30,11 @@ class Lager
 		
 		if (myIsOpen)
 		{
-			myButIconClose = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKCLOSE, 300, 0);
+			myButIconClose = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKOPEN, 300, 0);
 		}
 		else
 		{
-			myButIconOpen = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKOPEN, 300, 0);
+			myButIconOpen = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKCLOSE, 300, 0);
 		}
 			
 	}
