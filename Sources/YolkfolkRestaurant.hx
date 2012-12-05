@@ -75,7 +75,7 @@ class YolkfolkRestaurant extends Game {
 				map[x].push(blob.readInt());
 			}
 		}
-		var tilemap: Tilemap = new Tilemap("054-Wall02.png", 16 * 3, 16 * 3, map, tileColissions);
+		var tilemap: Tilemap = new Tilemap("054-Wall02", 16 * 3, 16 * 3, map, tileColissions);
 		Scene.the.setColissionMap(tilemap);
 		Scene.the.addBackgroundTilemap(tilemap, 1);
 		

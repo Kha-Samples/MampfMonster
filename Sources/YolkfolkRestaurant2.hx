@@ -33,9 +33,9 @@ class YolkfolkRestaurant2 extends Game {
 	}
 	
 	private function initLevel(): Void {
-		wallTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("pattern_wall_restaurant.png"));
-		floorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_floor_frontal.png"));
-		doorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_kitchendoor_frontal.png"));
+		wallTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("pattern_wall_restaurant"));
+		floorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_floor_frontal"));
+		doorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_kitchendoor_frontal"));
 		vertexShader = kha.Sys.graphics.createVertexShader(
 			"attribute vec3 pos;" +
 			"attribute vec2 tex;" +

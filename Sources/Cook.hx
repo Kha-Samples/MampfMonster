@@ -4,7 +4,7 @@ import kha.*;
 
 class Cook extends Sprite {
 	public function new() {
-		super(Loader.the.getImage("yolk.png"), 15 * 3, 17 * 3, 1);
+		super(Loader.the.getImage("yolk"), 15 * 3, 17 * 3, 1);
 		accy = 0;
 		direction = Direction.DOWN;
 		speed = new Vector2();

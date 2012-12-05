@@ -6,7 +6,7 @@ import kha.Vector3;
 
 class Hand extends Sprite {
 	public function new(yolk: Cook, left: Bool) {
-		super(Loader.the.getImage("hand.png"), 5 * 3, 6 * 3, 1);
+		super(Loader.the.getImage("hand"), 5 * 3, 6 * 3, 1);
 		accy = 0;
 		this.yolk = yolk;
 		this.left = left;

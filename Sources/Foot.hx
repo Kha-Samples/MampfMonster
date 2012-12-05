@@ -4,7 +4,7 @@ import kha.*;
 
 class Foot extends Sprite {
 	public function new() {
-		super(Loader.the.getImage("foot.png"), 7 * 3, 5 * 3, 1);
+		super(Loader.the.getImage("foot"), 7 * 3, 5 * 3, 1);
 		accy = 0;
 		position = new Vector3(50, 50, 0);
 		lastPosition = new Vector2(position.x, position.y);

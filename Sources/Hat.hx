@@ -5,7 +5,7 @@ import kha.Sprite;
 
 class Hat extends Sprite {
 	public function new(): Void {
-		super(Loader.the.getImage("hat.png"), 18 * 3, 14 * 3, 2);
+		super(Loader.the.getImage("hat"), 18 * 3, 14 * 3, 2);
 		accy = 0;
 	}
 	
