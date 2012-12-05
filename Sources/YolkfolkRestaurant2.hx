@@ -4,6 +4,7 @@ import kha.Configuration;
 import kha.Game;
 import kha.graphics.FragmentShader;
 import kha.graphics.Texture;
+import kha.graphics.TextureWrap;
 import kha.graphics.VertexBuffer;
 import kha.graphics.VertexData;
 import kha.graphics.VertexShader;
@@ -135,26 +136,32 @@ class YolkfolkRestaurant2 extends Game {
 		fragmentShader.setInt("sampler", 0);
 		
 		wallTexture.set(0);
+		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(backWall);
 		kha.Sys.graphics.drawArrays();
 		
 		floorTexture.set(0);
+		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(floor);
 		kha.Sys.graphics.drawArrays();
 		
 		wallTexture.set(0);
+		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(rightWall);
 		kha.Sys.graphics.drawArrays();
 		
 		doorTexture.set(0);
+		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(door);
 		kha.Sys.graphics.drawArrays();
 		
 		tableTexture.set(0);
+		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(table);
 		kha.Sys.graphics.drawArrays();
 		
 		lampTexture.set(0);
+		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(lamp);
 		kha.Sys.graphics.drawArrays();
 	}
