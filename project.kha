@@ -92,8 +92,8 @@
 		{
 			"id": "dd24f863-1bbe-11e2-892e-0800200c9a66",
 			"type": "image",
-			"file": "img_CookingBook.png",
-			"name": "img_CookingBook",
+			"file": "img_COOKINGBOOK.png",
+			"name": "img_COOKINGBOOK",
 			"scale": 1
 		},
 		{
@@ -131,6 +131,42 @@
 			"name": "img_BUTBOOKBACK",
 			"scale": 1
 		},
+		{
+			"id": "dd24f869-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_BUTCOOKINGBOOKOPEN.png",
+			"name": "img_BUTCOOKINGBOOKOPEN",
+			"scale": 1
+		},
+		{
+			"id": "dd24f870-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_BUTCOOKINGBOOKCLOSE.png",
+			"name": "img_BUTCOOKINGBOOKCLOSE",
+			"scale": 1
+		},
+		{
+			"id": "dd24f871-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_SPAGHETTI_SW.png",
+			"name": "img_SPAGHETTI_SW",
+			"scale": 1
+		},
+		{
+			"id": "dd24f872-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_TOMATE_SW.png",
+			"name": "img_TOMATE_SW",
+			"scale": 1
+		},
+		{
+			"id": "dd24f873-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_NOTIZBLOCK.png",
+			"name": "img_NOTIZBLOCK",
+			"scale": 1
+		},
+
 		{
 			"id": "7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
 			"type": "blob",
@@ -200,6 +236,11 @@
 				"dd24f866-1bbe-11e2-892e-0800200c9a66",
 				"dd24f867-1bbe-11e2-892e-0800200c9a66",
 				"dd24f868-1bbe-11e2-892e-0800200c9a66",
+				"dd24f869-1bbe-11e2-892e-0800200c9a66",
+				"dd24f870-1bbe-11e2-892e-0800200c9a66",
+				"dd24f871-1bbe-11e2-892e-0800200c9a66",
+				"dd24f872-1bbe-11e2-892e-0800200c9a66",
+				"dd24f873-1bbe-11e2-892e-0800200c9a66",
 				"49c8f990-1c77-11e2-892e-0800200c9a66",
 				"1bfdbca0-398a-11e2-81c1-0800200c9a66"
 			]

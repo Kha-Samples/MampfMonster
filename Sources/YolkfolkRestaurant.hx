@@ -30,6 +30,10 @@ class YolkfolkRestaurant extends Game {
 		return false;
 	}
 	
+	private function startBackground():Void{
+		StGameManager.MyGameManager().CreateBackground();
+	}
+	
 	private function startBook(): Void {
 		var sound: Sound = Loader.the.getSound("jump");
 		sound.play();
@@ -43,7 +47,7 @@ class YolkfolkRestaurant extends Game {
 	}
 	
 	private function startCook(): Void {
-		StGameManager.MyGameManager().CreateBackground();
+		
 		
 		cook = new Cook();
 		scene.addHero(cook);
@@ -53,9 +57,10 @@ class YolkfolkRestaurant extends Game {
 	}
 	
 	private function initLevel(): Void {
-		//startBook();
-		startCook();
-		startBook();
+		
+		this.startBook();
+		//this.startCook();
+		this.startBackground();
 		Configuration.setScreen(this);
 	}
 	
@@ -75,7 +80,7 @@ class YolkfolkRestaurant extends Game {
 				map[x].push(blob.readInt());
 			}
 		}
-		var tilemap: Tilemap = new Tilemap("054-Wall02", 16 * 3, 16 * 3, map, tileColissions);
+		var tilemap: Tilemap = new Tilemap("054-Wall02.png", 16 * 3, 16 * 3, map, tileColissions);
 		Scene.the.setColissionMap(tilemap);
 		Scene.the.addBackgroundTilemap(tilemap, 1);
 		
