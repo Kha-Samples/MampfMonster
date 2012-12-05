@@ -88,14 +88,14 @@ class YolkfolkRestaurant2 extends Game {
 		vertices[ 0] =  1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
 		vertices[ 5] =  1.0 + xoffset; vertices[ 6] =  1.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
 		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5; vertices[13] = 1.0; vertices[14] = 0.0;
-		vertices[13] =  1.0 + xoffset; vertices[14] =  1.0; vertices[15] = 0.5; vertices[18] = 1.0; vertices[19] = 1.0;
+		vertices[15] =  1.0 + xoffset; vertices[16] =  1.0; vertices[17] = 0.5; vertices[18] = 1.0; vertices[19] = 1.0;
 		rightWall.unlock();
 
 		vertices = door.lock();
 		vertices[ 0] =  1.0 + xoffset; vertices[ 1] = -0.5; vertices[ 2] = 2.0 / 3.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
 		vertices[ 5] =  1.0 + xoffset; vertices[ 6] =  0.5; vertices[ 7] = 2.0 / 3.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
 		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5;       vertices[13] = 1.0; vertices[14] = 0.0;
-		vertices[13] =  1.0 + xoffset; vertices[14] =  0.5; vertices[15] = 0.5;       vertices[18] = 1.0; vertices[19] = 1.0;
+		vertices[15] =  1.0 + xoffset; vertices[16] =  0.5; vertices[17] = 0.5;       vertices[18] = 1.0; vertices[19] = 1.0;
 		door.unlock();
 	}
 	
