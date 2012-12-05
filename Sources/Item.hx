@@ -10,14 +10,14 @@ import kha.Image;
 class Item extends Sprite {
 	private static var myId:String;
 		private function new(): Void {
-			var temp : Image = Loader.the.getImage("img_" + myId+ ".png");
+			var temp : Image = Loader.the.getImage("img_" + myId );
 			var x:Int = 0;
 			var y:Int = 0;
 			if(temp != null){
 				x = temp.getWidth();
 				y = temp.getHeight();
 			}
-			super(temp, x, y, 0);	
+			super(temp, x, y, 9);	
 			this.id = Type.createEnum(Eitem, myId);
 			this.accy = 0;
 		}
