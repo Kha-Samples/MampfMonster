@@ -13,8 +13,14 @@ import kha.Painter;
 class YolkfolkRestaurant2 extends Game {
 	private var vertexShader: VertexShader;
 	private var fragmentShader: FragmentShader;
-	private var texture: Texture;
-	private var vertexBuffer: VertexBuffer;
+	private var wallTexture: Texture;
+	private var floorTexture: Texture;
+	private var doorTexture: Texture;
+	private var backWall: VertexBuffer;
+	private var floor: VertexBuffer;
+	private var rightWall: VertexBuffer;
+	private var door: VertexBuffer;
+	private var time: Float = 0;
 	
 	public function new() {
 		super("Yolkfolk Restaurant", false);
@@ -27,7 +33,9 @@ class YolkfolkRestaurant2 extends Game {
 	}
 	
 	private function initLevel(): Void {
-		texture = kha.Sys.graphics.createTexture(Loader.the.getImage("pattern_wall_restaurant.png"));
+		wallTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("pattern_wall_restaurant.png"));
+		floorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_floor_frontal.png"));
+		doorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_kitchendoor_frontal.png"));
 		vertexShader = kha.Sys.graphics.createVertexShader(
 			"attribute vec3 pos;" +
 			"attribute vec2 tex;" +
@@ -49,23 +57,67 @@ class YolkfolkRestaurant2 extends Game {
 				"gl_FragColor = vec4(texture2D(sampler, texcoord).xyz, texture2D(sampler, texcoord).a);" +
 			"}"
 		);
-		vertexBuffer = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
-		var vertices = vertexBuffer.lock();
-		var xoffset = 0.0;
-		vertices[ 0] = -1.0 + xoffset; vertices[ 1] = 0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
-		vertices[ 5] = -1.0 + xoffset; vertices[ 6] = 1.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
-		vertices[10] =  1.0 + xoffset; vertices[11] = 0.0; vertices[12] = 1.0; vertices[13] = 1.0; vertices[14] = 0.0;
-		vertices[15] =  1.0 + xoffset; vertices[16] = 1.0; vertices[17] = 1.0; vertices[18] = 1.0; vertices[19] = 1.0;
-		vertexBuffer.unlock();
+		backWall = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
+		floor = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
+		rightWall = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
+		door = kha.Sys.graphics.createVertexBuffer(4, 5 * 4);
+		
 		Configuration.setScreen(this);
 	}
 	
-	override public function render(painter: Painter) {
+	override public function update(): Void {
+		super.update();
+		time += 1.0 / 60.0;
+		var xoffset = -time / 30.0;
+		
+		var vertices = backWall.lock();
+		vertices[ 0] = -1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
+		vertices[ 5] = -1.0 + xoffset; vertices[ 6] =  1.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
+		vertices[10] =  1.0 + xoffset; vertices[11] =  0.0; vertices[12] = 1.0; vertices[13] = 1.0; vertices[14] = 0.0;
+		vertices[15] =  1.0 + xoffset; vertices[16] =  1.0; vertices[17] = 1.0; vertices[18] = 1.0; vertices[19] = 1.0;
+		backWall.unlock();
+		
+		vertices = floor.lock();
+		vertices[ 0] = -1.0 + xoffset; vertices[ 1] = -1.0; vertices[ 2] = 0.5; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
+		vertices[ 5] = -1.0 + xoffset; vertices[ 6] =  0.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
+		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5; vertices[13] = 1.0; vertices[14] = 0.0;
+		vertices[15] =  1.0 + xoffset; vertices[16] =  0.0; vertices[17] = 1.0; vertices[18] = 1.0; vertices[19] = 1.0;
+		floor.unlock();
+		
+		vertices = rightWall.lock();
+		vertices[ 0] =  1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
+		vertices[ 5] =  1.0 + xoffset; vertices[ 6] =  1.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
+		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5; vertices[13] = 1.0; vertices[14] = 0.0;
+		vertices[13] =  1.0 + xoffset; vertices[14] =  1.0; vertices[15] = 0.5; vertices[18] = 1.0; vertices[19] = 1.0;
+		rightWall.unlock();
+
+		vertices = door.lock();
+		vertices[ 0] =  1.0 + xoffset; vertices[ 1] = -0.5; vertices[ 2] = 2.0 / 3.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
+		vertices[ 5] =  1.0 + xoffset; vertices[ 6] =  0.5; vertices[ 7] = 2.0 / 3.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
+		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5;       vertices[13] = 1.0; vertices[14] = 0.0;
+		vertices[13] =  1.0 + xoffset; vertices[14] =  0.5; vertices[15] = 0.5;       vertices[18] = 1.0; vertices[19] = 1.0;
+		door.unlock();
+	}
+	
+	override public function render(painter: Painter): Void {
 		kha.Sys.graphics.setVertexShader(vertexShader);
 		kha.Sys.graphics.setFragmentShader(fragmentShader);
 		kha.Sys.graphics.linkShaders();
-		texture.set(0);
-		kha.Sys.graphics.setVertexBuffer(vertexBuffer);
+		
+		wallTexture.set(0);
+		kha.Sys.graphics.setVertexBuffer(backWall);
+		kha.Sys.graphics.drawArrays();
+		
+		floorTexture.set(0);
+		kha.Sys.graphics.setVertexBuffer(floor);
+		kha.Sys.graphics.drawArrays();
+		
+		wallTexture.set(0);
+		kha.Sys.graphics.setVertexBuffer(rightWall);
+		kha.Sys.graphics.drawArrays();
+		
+		doorTexture.set(0);
+		kha.Sys.graphics.setVertexBuffer(door);
 		kha.Sys.graphics.drawArrays();
 	}
 }
