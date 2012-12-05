@@ -216,6 +216,18 @@
 			"type": "image",
 			"file": "img_kitchendoor_frontal.png",
 			"name": "img_kitchendoor_frontal"
+		},
+		{
+			"id": "c7376330-3f22-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_table.png",
+			"name": "img_table"
+		},
+		{
+			"id": "d69f0580-3f22-11e2-a25f-0800200c9a66",
+			"type": "image",
+			"file": "img_lamp2.png",
+			"name": "img_lamp2"
 		}
 	],
 	"rooms":
@@ -262,7 +274,9 @@
 			[
 				"55c8e2d0-3e84-11e2-a25f-0800200c9a66",
 				"af348e10-3ea1-11e2-a25f-0800200c9a66",
-				"284104f0-3ea2-11e2-a25f-0800200c9a66"
+				"284104f0-3ea2-11e2-a25f-0800200c9a66",
+				"c7376330-3f22-11e2-a25f-0800200c9a66",
+				"d69f0580-3f22-11e2-a25f-0800200c9a66"
 			]
 		}
 	]

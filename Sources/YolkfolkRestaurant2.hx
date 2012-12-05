@@ -18,10 +18,14 @@ class YolkfolkRestaurant2 extends Game {
 	private var wallTexture: Texture;
 	private var floorTexture: Texture;
 	private var doorTexture: Texture;
+	private var tableTexture: Texture;
+	private var lampTexture: Texture;
 	private var backWall: VertexBuffer;
 	private var floor: VertexBuffer;
 	private var rightWall: VertexBuffer;
 	private var door: VertexBuffer;
+	private var table: VertexBuffer;
+	private var lamp: VertexBuffer;
 	private var time: Float = 0;
 	
 	public function new() {
@@ -38,6 +42,8 @@ class YolkfolkRestaurant2 extends Game {
 		wallTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("pattern_wall_restaurant"));
 		floorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_floor_frontal"));
 		doorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_kitchendoor_frontal"));
+		tableTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_table"));
+		lampTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_lamp2"));
 		vertexShader = kha.Sys.graphics.createVertexShader(
 			"attribute vec3 pos;" +
 			"attribute vec2 tex;" +
@@ -68,6 +74,8 @@ class YolkfolkRestaurant2 extends Game {
 		floor = kha.Sys.graphics.createVertexBuffer(4, structure);
 		rightWall = kha.Sys.graphics.createVertexBuffer(4, structure);
 		door = kha.Sys.graphics.createVertexBuffer(4, structure);
+		table = kha.Sys.graphics.createVertexBuffer(4, structure);
+		lamp = kha.Sys.graphics.createVertexBuffer(4, structure);
 		
 		Configuration.setScreen(this);
 	}
@@ -104,12 +112,27 @@ class YolkfolkRestaurant2 extends Game {
 		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5;       vertices[13] = 1.0; vertices[14] = 0.0;
 		vertices[15] =  1.0 + xoffset; vertices[16] =  0.5; vertices[17] = 0.5;       vertices[18] = 1.0; vertices[19] = 1.0;
 		door.unlock();
+		
+		vertices = table.lock();
+		vertices[ 0] = -0.2 + xoffset; vertices[ 1] = -0.7; vertices[ 2] = 0.7; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
+		vertices[ 5] = -0.2 + xoffset; vertices[ 6] = -0.2; vertices[ 7] = 0.7; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
+		vertices[10] =  0.2 + xoffset; vertices[11] = -0.7; vertices[12] = 0.7; vertices[13] = 1.0; vertices[14] = 0.0;
+		vertices[15] =  0.2 + xoffset; vertices[16] = -0.2; vertices[17] = 0.7; vertices[18] = 1.0; vertices[19] = 1.0;
+		table.unlock();
+		
+		vertices = lamp.lock();
+		vertices[ 0] = -0.1 + xoffset; vertices[ 1] =  0.2; vertices[ 2] = 0.7; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
+		vertices[ 5] = -0.1 + xoffset; vertices[ 6] =  0.8; vertices[ 7] = 0.7; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
+		vertices[10] =  0.1 + xoffset; vertices[11] =  0.2; vertices[12] = 0.7; vertices[13] = 1.0; vertices[14] = 0.0;
+		vertices[15] =  0.1 + xoffset; vertices[16] =  0.8; vertices[17] = 0.7; vertices[18] = 1.0; vertices[19] = 1.0;
+		lamp.unlock();
 	}
 	
 	override public function render(painter: Painter): Void {
 		kha.Sys.graphics.setVertexShader(vertexShader);
 		kha.Sys.graphics.setFragmentShader(fragmentShader);
 		kha.Sys.graphics.linkShaders();
+		fragmentShader.setInt("sampler", 0);
 		
 		wallTexture.set(0);
 		kha.Sys.graphics.setVertexBuffer(backWall);
@@ -125,6 +148,14 @@ class YolkfolkRestaurant2 extends Game {
 		
 		doorTexture.set(0);
 		kha.Sys.graphics.setVertexBuffer(door);
+		kha.Sys.graphics.drawArrays();
+		
+		tableTexture.set(0);
+		kha.Sys.graphics.setVertexBuffer(table);
+		kha.Sys.graphics.drawArrays();
+		
+		lampTexture.set(0);
+		kha.Sys.graphics.setVertexBuffer(lamp);
 		kha.Sys.graphics.drawArrays();
 	}
 }
