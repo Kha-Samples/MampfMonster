@@ -86,7 +86,7 @@ class YolkfolkRestaurant2 extends Game {
 	override public function update(): Void {
 		super.update();
 		time += 1.0 / 60.0;
-		var xoffset = -time / 30.0;
+		//var xoffset = 0;// -time / 30.0;
 		
 		var vertices = backWall.lock();
 		vertices[ 0] = -1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
@@ -129,6 +129,9 @@ class YolkfolkRestaurant2 extends Game {
 		vertices[10] =  0.1 + xoffset; vertices[11] =  0.2; vertices[12] = 0.7; vertices[13] = 1.0; vertices[14] = 0.0;
 		vertices[15] =  0.1 + xoffset; vertices[16] =  0.8; vertices[17] = 0.7; vertices[18] = 1.0; vertices[19] = 1.0;
 		lamp.unlock();
+		
+		//eggman.setPosition(xoffset, 0, 0);
+		eggman.update();
 	}
 	
 	override public function render(painter: Painter): Void {
@@ -167,6 +170,24 @@ class YolkfolkRestaurant2 extends Game {
 		kha.Sys.graphics.setVertexBuffer(lamp);
 		kha.Sys.graphics.drawArrays();
 		
-		eggman.render(time);
+		eggman.render(time, xoffset);
+	}
+	
+	private var aimx: Float = 0.0;
+	private var aimy: Float = 0.0;
+	private var xoffset: Float = 0.0;
+	
+	override public function mouseDown(xi: Int, yi: Int): Void {
+		var x: Float = xi;
+		var y: Float = yi;
+		x /= (1024 / 2);
+		x -= 1.0;
+		y /= (768 / 2);
+		y -= 1.0;
+		y *= -1.0;
+		
+		aimx = x + xoffset;
+		aimy = y;
+		eggman.setAim(aimx, aimy, 0);
 	}
 }
