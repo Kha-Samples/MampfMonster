@@ -45,6 +45,10 @@ class Eggman {
 		position = new Vector3(x, y, z);
 	}
 	
+	public function getPosition(): Vector3 {
+		return position;
+	}
+	
 	public function setAim(x: Float, y: Float, z: Float): Void {
 		aim = new Vector3(x, y, z);
 		var direction = aim.sub(position);

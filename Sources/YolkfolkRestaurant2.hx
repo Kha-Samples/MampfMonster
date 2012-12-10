@@ -88,8 +88,9 @@ class YolkfolkRestaurant2 extends Game {
 		super.update();
 		time += 1.0 / 60.0;
 		//var xoffset = 0;// -time / 30.0;
-		if (Math.abs(aimx - xoffset) > 0.01) {
-			if (aimx > -xoffset) xoffset -= 0.001;
+		var eggx = eggman.getPosition().x;
+		if (Math.abs(eggx - xoffset) > 0.01) {
+			if (eggx > -xoffset) xoffset -= 0.001;
 			else xoffset += 0.001;
 		}
 		//else xoffset += 0.001;
