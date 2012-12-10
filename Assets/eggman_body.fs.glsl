@@ -2,6 +2,7 @@
 precision highp float;
 #endif
 
+varying vec4 pos;
 uniform float time;
 //uniform vec2 mouse;
 uniform vec2 resolution;
@@ -13,10 +14,10 @@ float PI = 3.14159265358979323846264;
 vec3 lightPosition = vec3(100.0, 200.0, 500.0);
 vec3 eye = vec3(0.0, 200.0, 500.0);
 
-vec2 center = vec2(350.0, 200.0);
-vec2 f1 = center + vec2(0.0, -100.0);
-vec2 f2 = center + vec2(0.0, 100.0);
-float ellipseConstant = 245.0;
+uniform vec2 center;
+vec2 f1 = center + vec2(0.0, -0.30);
+vec2 f2 = center + vec2(0.0, 0.30);
+float ellipseConstant = 0.68;
 
 float square(float value) {
 	return value * value;
@@ -45,7 +46,7 @@ vec3 angleBisector(vec3 a, vec3 b) {
 }
 
 void main() {
-	vec2 position = gl_FragCoord.xy;
+	vec2 position = pos.xy;
 
 	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 	
