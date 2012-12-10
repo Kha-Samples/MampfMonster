@@ -194,7 +194,7 @@ class Eggman {
 		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);
 		kha.Sys.graphics.drawArrays();
 	
-		drawObject(time, earTexture, earNormals, 0.26 + position.x, 0.18 + position.y, 0.3, 0.3, false, 0.0);
+		drawObject(time, earTexture, earNormals, 0.26 + position.x + xoffset, 0.18 + position.y, 0.3, 0.3, false, 0.0);
 	}
 	
 	public function render(time: Float, xoffset: Float): Void {
@@ -202,25 +202,25 @@ class Eggman {
 		var angle = this.angle + Math.PI;
 		angle = angle % (Math.PI * 2.0);
 		var z = Math.cos(angle);
-		if (z <= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z <= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x + xoffset, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z <= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z <= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x + xoffset, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
 		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		angle = this.angle + Math.PI;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z <= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z <= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z <= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z <= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
 		drawBody(time, xoffset);
 
@@ -228,24 +228,24 @@ class Eggman {
 		angle = this.angle + Math.PI;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z > 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z > 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x + xoffset, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z > 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z > 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x + xoffset, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
 		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		angle = this.angle + Math.PI;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z > 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z > 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z > 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z > 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 	}
 }

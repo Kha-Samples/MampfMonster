@@ -88,6 +88,11 @@ class YolkfolkRestaurant2 extends Game {
 		super.update();
 		time += 1.0 / 60.0;
 		//var xoffset = 0;// -time / 30.0;
+		if (Math.abs(aimx - xoffset) > 0.01) {
+			if (aimx > -xoffset) xoffset -= 0.001;
+			else xoffset += 0.001;
+		}
+		//else xoffset += 0.001;
 		
 		var vertices = backWall.lock();
 		vertices[ 0] = -1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
@@ -190,7 +195,7 @@ class YolkfolkRestaurant2 extends Game {
 		y -= 1.0;
 		y *= -1.0;
 		
-		aimx = x + xoffset;
+		aimx = x - xoffset;
 		aimy = y;
 		eggman.setAim(aimx, aimy, 0);
 	}
