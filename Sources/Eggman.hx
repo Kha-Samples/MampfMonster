@@ -29,8 +29,17 @@ class Eggman {
 	
 	private var position: Vector3;
 	private var aim: Vector3;
+	private var angle: Float;
+	private var rotaim: Float;
 	
 	private var moving: Bool = false;
+	private var rotating: Bool = false;
+	
+	private var lightPosition: Vector3;
+	
+	public function setLight(position: Vector3): Void {
+		lightPosition = position;
+	}
 	
 	public function setPosition(x: Float, y: Float, z: Float): Void {
 		position = new Vector3(x, y, z);
@@ -38,11 +47,34 @@ class Eggman {
 	
 	public function setAim(x: Float, y: Float, z: Float): Void {
 		aim = new Vector3(x, y, z);
-		moving = true;
+		var direction = aim.sub(position);
+		rotaim = Math.atan2(direction.y, direction.x);
+		rotating = true;
+		moving = false;
 	}
 	
 	public function update(): Void {
-		if (moving) {
+		var rotspeed = 0.02;
+		//angle += rotspeed;
+		if (rotating) {
+			if (angle < rotaim) {
+				angle += rotspeed;
+				if (angle >= rotaim) {
+					angle = rotaim;
+					rotating = false;
+					moving = true;
+				}
+			}
+			else if (angle > rotaim) {
+				angle -= rotspeed;
+				if (angle <= rotaim) {
+					angle = rotaim;
+					rotating = false;
+					moving = true;
+				}
+			}
+		}
+		else if (moving) {
 			var speed = aim.sub(position);
 			if (speed.length <= 0.005) {
 				position = aim;
@@ -57,6 +89,7 @@ class Eggman {
 	public function new() {
 		position = new Vector3();
 		aim = new Vector3();
+		angle = 0;
 		var structure = new VertexStructure();
 		structure.add("position", VertexData.Float3);
 		bodyVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure);
@@ -109,6 +142,7 @@ class Eggman {
 
 		partsFragmentShader.setFloat("time", time);
 		partsFragmentShader.setFloat2("resolution", 1024.0, 768.0);
+		partsFragmentShader.setFloat3("lightPosition", lightPosition.x, lightPosition.y, lightPosition.z);
 		
 		var vertices = partsVertexBuffer.lock();
 		vertices[ 0] = x - w / 2.0; vertices[ 1] = y - h / 2.0; vertices[ 2] = 0.0;
@@ -145,8 +179,10 @@ class Eggman {
 		kha.Sys.graphics.linkShaders();
 		
 		bodyFragmentShader.setFloat("time", time);
+		bodyFragmentShader.setFloat("angle", angle);
 		bodyFragmentShader.setFloat2("resolution", 1024.0, 768.0);
-		bodyFragmentShader.setFloat2("center", position.x + xoffset, position.y);
+		bodyFragmentShader.setFloat2("center", position.x + xoffset + 0.1, position.y - 0.2);
+		bodyFragmentShader.setFloat3("lightPosition", lightPosition.x, lightPosition.y, lightPosition.z);
 
 		bodyTexture.set(0);
 		bodyFragmentShader.setInt("sampler", 0);
@@ -158,50 +194,58 @@ class Eggman {
 		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);
 		kha.Sys.graphics.drawArrays();
 	
-		drawObject(time, earTexture, earNormals, 0.26, 0.3, 0.3, 0.3, false, 0.0);
+		drawObject(time, earTexture, earNormals, 0.26 + position.x, 0.18 + position.y, 0.3, 0.3, false, 0.0);
 	}
 	
 	public function render(time: Float, xoffset: Float): Void {
-		var angle = Math.PI + time * Math.PI * 2.0 / 20.0;
+		//var angle = Math.PI + time * Math.PI * 2.0 / 20.0;
+		var angle = this.angle + Math.PI;
 		angle = angle % (Math.PI * 2.0);
 		var z = Math.cos(angle);
-		if (z <= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1, -0.4, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z <= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
-		angle = time * Math.PI * 2.0 / 20.0;
+		//angle = time * Math.PI * 2.0 / 20.0;
+		angle = this.angle;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z <= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1, -0.4, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z <= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
-		angle = Math.PI + time * Math.PI * 2.0 / 20.0;
+		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
+		angle = this.angle + Math.PI;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z <= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1, -0.75, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z <= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
-		angle = time * Math.PI * 2.0 / 20.0;
+		//angle = time * Math.PI * 2.0 / 20.0;
+		angle = this.angle;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z <= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1, -0.75, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z <= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
 		drawBody(time, xoffset);
 
-		angle = Math.PI + time * Math.PI * 2.0 / 20.0;
+		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
+		angle = this.angle + Math.PI;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z > 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1, -0.4, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z > 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
-		angle = time * Math.PI * 2.0 / 20.0;
+		//angle = time * Math.PI * 2.0 / 20.0;
+		angle = this.angle;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z > 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1, -0.4, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z > 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
-		angle = Math.PI + time * Math.PI * 2.0 / 20.0;
+		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
+		angle = this.angle + Math.PI;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z > 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1, -0.75, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z > 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 
-		angle = time * Math.PI * 2.0 / 20.0;
+		//angle = time * Math.PI * 2.0 / 20.0;
+		angle = this.angle;
 		angle = angle % (Math.PI * 2.0);
 		z = Math.cos(angle);
-		if (z > 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1, -0.75, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
+		if (z > 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z);
 	}
 }

@@ -12,6 +12,7 @@ import kha.graphics.VertexStructure;
 import kha.Loader;
 import kha.LoadingScreen;
 import kha.Painter;
+import kha.Vector3;
 
 class YolkfolkRestaurant2 extends Game {
 	private var vertexShader: VertexShader;
@@ -131,6 +132,7 @@ class YolkfolkRestaurant2 extends Game {
 		lamp.unlock();
 		
 		//eggman.setPosition(xoffset, 0, 0);
+		eggman.setLight(new Vector3(0, 0.5, 0.7));
 		eggman.update();
 	}
 	
@@ -180,6 +182,8 @@ class YolkfolkRestaurant2 extends Game {
 	override public function mouseDown(xi: Int, yi: Int): Void {
 		var x: Float = xi;
 		var y: Float = yi;
+		x -= 40;
+		y -= 200;
 		x /= (1024 / 2);
 		x -= 1.0;
 		y /= (768 / 2);

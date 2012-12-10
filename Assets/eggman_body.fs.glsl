@@ -11,13 +11,14 @@ uniform sampler2D normals;
 uniform sampler2D facetex;
 
 float PI = 3.14159265358979323846264;
-vec3 lightPosition = vec3(100.0, 200.0, 500.0);
+uniform vec3 lightPosition;// = vec3(100.0, 200.0, 500.0);
 vec3 eye = vec3(0.0, 200.0, 500.0);
 
+uniform float angle;
 uniform vec2 center;
-vec2 f1 = center + vec2(0.0, -0.30);
-vec2 f2 = center + vec2(0.0, 0.30);
-float ellipseConstant = 0.68;
+vec2 f1 = center + vec2(0.0, -0.41); //-100
+vec2 f2 = center + vec2(0.0, 0.41); //100
+float ellipseConstant = 0.90; //245
 
 float square(float value) {
 	return value * value;
@@ -50,8 +51,8 @@ void main() {
 
 	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 	
-	lightPosition.x = sin(time) * 1000.0;
-	lightPosition.y = sin(time * 0.5) * 2000.0;
+	//lightPosition.x = sin(time) * 1000.0;
+	//lightPosition.y = sin(time * 0.5) * 2000.0;
 	
 	if (distance(position, f1) + distance(position, f2) < ellipseConstant) {
 		float radius = calcRadius(position, f1, f2, ellipseConstant);
@@ -69,9 +70,10 @@ void main() {
 
 		if (position.x < center.x) winkel = PI / 2.0 - winkel;
 		else winkel += PI / 2.0;
+		winkel -= angle;
 		winkel /= PI * 2.0;
 
-		vec2 texcoord = vec2(winkel - time / 20.0, (position.y - center.y + ellipseConstant / 2.0) / ellipseConstant);
+		vec2 texcoord = vec2(winkel, (position.y - center.y + ellipseConstant / 2.0) / ellipseConstant);
 
 		vec3 tangentnormal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
 		normal.x = dot(tangentnormal, cross(tangent, normal));
@@ -86,10 +88,6 @@ void main() {
 		float specular = pow(saturate(dot(h, normal)), 15.0);
 		float light = 0.2 + diffuse * 0.5;
 		
-		//winkel *= 20.0;
-		//gl_FragColor = vec4(muster(vec2(winkel - time / 100.0, position.y)) * light + specular, 1.0);
-		//gl_FragColor = vec4(diffuse, diffuse, diffuse, 1.0);
-		//gl_FragColor = vec4(normal, 1.0);
 		float alpha = texture2D(facetex, texcoord).a;
 		vec3 tex = texture2D(facetex, texcoord).rgb * alpha + texture2D(sampler, texcoord).rgb * (1.0 - alpha);
 		gl_FragColor = vec4(tex * light + specular * (1.0 - alpha), 1.0);
