@@ -37,8 +37,8 @@ class CookingBook
 		myRezepte.push(new Rezept().Create2("Spaghetti", EZutat.TOMATE, EZutat.SPAGHETTI));
 		myRezepte.push(new Rezept().Create3("Tomatensuppe", EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE));
 		myRezepte.push(new Rezept().Create4("SpaghettiExtra", EZutat.TOMATE, EZutat.TOMATE, EZutat.SPAGHETTI, EZutat.SPAGHETTI));
-		myRezepte.push(new Rezept().Create5("Grosser Tomatensalat", EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE));
-		myRezepte.push(new Rezept().Create6("Grosse Tomatensuppe", EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE));
+		//myRezepte.push(new Rezept().Create5("Grosser Tomatensalat", EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE, EZutat.TOMATE));
+		myRezepte.push(new Rezept().Create6("SpaghettiExtra mit Tomatensalat", EZutat.TOMATE, EZutat.TOMATE, EZutat.SPAGHETTI, EZutat.SPAGHETTI, EZutat.TOMATE, EZutat.TOMATE));
 		
 		myAnzPages = myRezepte.length;
 		myRezeptPicPos = new Array<Position>();
@@ -63,12 +63,16 @@ class CookingBook
 			myButCookingBookClose = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKOPEN, 400, 0);
 			ShowRezept();
 			ShowBookButtons();
+			//open scratchpad
+			StGameManager.MyLagerManager().showRezeptWindow(myRezepte[myCurrentRecept]);
 		}
 		else
 		{
 			myButCookingBookOpen = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKCLOSE, 400, 0);
 			ShowRezept();
 			CloseBookButtons();
+			//close scratchpad
+			StGameManager.MyLagerManager().closeWindow();
 		}
 			
 	}
@@ -223,6 +227,11 @@ class CookingBook
 					this.changePage(true);
 					CloseRezept();
 					ShowRezept();
+					
+					//change Rezept for scratchpad
+					StGameManager.MyLagerManager().closeWindow();
+					StGameManager.MyLagerManager().showRezeptWindow(myRezepte[myCurrentRecept]);
+					
 				}
 			}
 			
@@ -233,6 +242,10 @@ class CookingBook
 					this.changePage(false);
 					CloseRezept();
 					ShowRezept();
+					
+					//change Rezept for scratchpad
+					StGameManager.MyLagerManager().closeWindow();
+					StGameManager.MyLagerManager().showRezeptWindow(myRezepte[myCurrentRecept]);
 				}
 			}
 		}

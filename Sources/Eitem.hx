@@ -13,6 +13,8 @@ enum Eitem {
 	BUTBOOKNEXT;
 	BUTBOOKBACK;
 	NOTIZBLOCK;
+	OK;
+	CANCEL;
 	//BookIcon_1;
 	
 }

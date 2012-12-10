@@ -14,29 +14,45 @@ class LagerDaten
 	private var mySpriteListe:Array<Sprite>;
 	private var myStartPosition:Position;
 	private var myPosition:Position;
+	private var myTempIsRezept:Bool;
+	private var myTempSize:Int;
+	private var myRezeptHaveAll:Bool;
 	
 	public function new(paZutat:EZutat, paHaben:Int, paStartPosition:Position) 
 	{
 		myZutat = paZutat;
 		myHaben = paHaben;
-		myMax = 6;
-		myStartPosition = paStartPosition;
-		createSprites();
+		myMax = 4;
+		myPosition = new Position(paStartPosition.x, paStartPosition.y);
+		myStartPosition = new Position(paStartPosition.x, paStartPosition.y);
+		//createSprites();
 	}
-	private function createSprites()
+	public function createRezeptSprites(paISRezept:Bool, paSize:Int) : Position
 	{
-		myPosition = myStartPosition;
+		myTempIsRezept = paISRezept;
+		myTempSize = paSize;
+		return createSprites();
+	}
+	
+	public function createSprites() : Position
+	{
+		myPosition = new Position(myStartPosition.x, myStartPosition.y);
 		mySpriteListe = new Array<Sprite>();
+		myRezeptHaveAll = true;//reset
 		//Bild und Werkzeuge
-		var temp :Sprite = StGameManager.MyGameManager().addItem(StHelper.changeStringToEItem(Std.string(myZutat)), myPosition.x, myPosition.y);
-		mySpriteListe.push(temp);
+		//var temp :Sprite = StGameManager.MyGameManager().addItem(StHelper.changeStringToEItem(Std.string(myZutat)), myPosition.x, myPosition.y);
+		//mySpriteListe.push(temp);
 		//weiter
 		//
-		myPosition.y += 70;
+		//myPosition.y += 70;
 		//Bestand
 		var counter:Int = 0;
 		var WareCounter:Int = 0;
-		while (counter < myMax)
+		var tempSize = myMax;
+		if (myTempIsRezept)
+			tempSize = myTempSize;
+			
+		while (counter < tempSize)
 		{
 			if (counter < myHaben)//guthaben
 			{
@@ -53,12 +69,26 @@ class LagerDaten
 				var temp :Sprite = StGameManager.MyGameManager().addItemByString("" + Std.string(l_Item) + "_SW" , myPosition.x, myPosition.y);
 				mySpriteListe.push(temp);
 				myPosition.x += 70;
+				if (myTempIsRezept)//wenn rezept
+				{
+					myRezeptHaveAll = false;
+				}
 			}
 			//myPosition.x = myStartPosition.x;
 			counter++;
 		}
-		//mySpriteListe
-		
+		myTempIsRezept = false;//reset
+		//mySpriteListe	
+		return myPosition;
+	}
+	public function delSprites() : Void
+	{
+		if(mySpriteListe!= null)
+			for (lagerSprite in mySpriteListe)
+			{
+				StGameManager.MyGameManager().delItem(lagerSprite);
+			}
+		mySpriteListe = null;
 	}
 	
 	public function getMax():Int
@@ -89,5 +119,8 @@ class LagerDaten
 	public function getSpriteListe():Array<Sprite>
 	{
 		return mySpriteListe;
+	}
+	public function getRezeptHaveAll() : Bool {
+		return myRezeptHaveAll;
 	}
 }

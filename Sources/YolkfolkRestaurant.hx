@@ -14,8 +14,10 @@ class YolkfolkRestaurant extends Game {
 	public function new(): Void {
 		super("Yolkfolk Restaurant", false);
 		StGameManager.InitGame(this);
+		
 		StGameManager.InitCookingBook(new CookingBook());
 		StGameManager.InitLager(new Lager());
+		
 	}
 	
 	public override function init(): Void {
@@ -42,7 +44,8 @@ class YolkfolkRestaurant extends Game {
 		
 		StGameManager.MyCookingBookManager().GUION();
 		//testphase start
-		StGameManager.MyLagerManager().GUION();
+		StGameManager.MyLagerManager().createLager();
+		//StGameManager.MyLagerManager().GUION();
 		//ende
 	}
 	
