@@ -46,7 +46,7 @@ class Eggman {
 	private var rightFootSpeed: Float;
 	private var rightFootMoving: Bool;
 	
-	private static var jump: Float = 0.025;
+	private static var jump: Float = 0.02;
 	
 	public function setLight(position: Vector3): Void {
 		lightPosition = position;
@@ -122,16 +122,16 @@ class Eggman {
 		}
 		
 		if (moving) {
-			leftHandRot += 0.05;
-			rightHandRot += 0.05;
+			leftHandRot += 0.07;
+			rightHandRot += 0.07;
+			leftHandRot = leftHandRot % (Math.PI * 2.0);
+			rightHandRot = rightHandRot % (Math.PI * 2.0);
 		}
 		else {
 			if (leftHandRot > 0) {
-				leftHandRot = leftHandRot % Math.PI;
-				rightHandRot = rightHandRot % Math.PI;
-				leftHandRot += 0.05;
-				rightHandRot += 0.05;
-				if (leftHandRot > Math.PI) {
+				leftHandRot += 0.07;
+				rightHandRot += 0.07;
+				if (leftHandRot > Math.PI * 2.0) {
 					leftHandRot = 0;
 					rightHandRot = 0;
 				}
@@ -173,7 +173,7 @@ class Eggman {
 				moving = false;
 				return;
 			}
-			speed.length = 0.005;
+			speed.length = 0.003;
 			position = position.add(speed);
 		}
 	}
@@ -281,7 +281,7 @@ class Eggman {
 		bodyFragmentShader.setFloat("time", time);
 		bodyFragmentShader.setFloat("angle", angle);
 		bodyFragmentShader.setFloat2("resolution", 1024.0, 768.0);
-		bodyFragmentShader.setFloat3("center", position.x + xoffset + 0.1, position.y - 0.2, calcZ());
+		bodyFragmentShader.setFloat3("center", position.x + xoffset + 0.05, position.y - 0.1, calcZ());
 		bodyFragmentShader.setFloat3("lightPosition", lightPosition.x, lightPosition.y, lightPosition.z);
 
 		bodyTexture.set(0);
@@ -294,15 +294,15 @@ class Eggman {
 		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);
 		kha.Sys.graphics.drawArrays();
 	
-		drawObject(time, earTexture, earNormals, 0.26 + position.x + xoffset, 0.18 + position.y, 0.3, 0.3, false, calcZ());
+		drawObject(time, earTexture, earNormals, 0.13 + position.x + xoffset, 0.09 + position.y, 0.15, 0.15, false, calcZ());
 	}
 	
 	private function calcZ(): Float {
-		return YolkfolkRestaurant2.calcZ(position.y - 0.2);
+		return YolkfolkRestaurant2.calcZ(position.y - 0.8);
 	}
 	
 	private function adjustZ(z: Float): Float {
-		return z /= -12;
+		return z /= -24;
 	}
 	
 	private function adjustAngle(angle: Float): Float {
@@ -317,7 +317,7 @@ class Eggman {
 		angle = adjustAngle(angle);
 		var z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x + xoffset, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
@@ -325,21 +325,21 @@ class Eggman {
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x + xoffset, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		angle = this.angle + Math.PI;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y + leftFootHeight, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + leftFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y + rightFootHeight, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + rightFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		drawBody(time, xoffset);
 
@@ -349,7 +349,7 @@ class Eggman {
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x + xoffset, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
@@ -357,20 +357,20 @@ class Eggman {
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.3 + 0.1 + position.x + xoffset, -0.4 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		angle = this.angle + Math.PI;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y + leftFootHeight, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + leftFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y + rightFootHeight, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + rightFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 	}
 }

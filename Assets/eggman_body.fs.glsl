@@ -16,9 +16,9 @@ vec3 eye = vec3(0.0, 200.0, 500.0);
 
 uniform float angle;
 uniform vec3 center;
-vec2 f1 = center.xy / center.z + vec2(0.0, -0.41 / center.z); //-100
-vec2 f2 = center.xy / center.z + vec2(0.0, 0.41 / center.z); //100
-float ellipseConstant = 0.90 / center.z; //245
+vec2 f1 = center.xy / center.z + vec2(0.0, -0.205 / center.z); //-100
+vec2 f2 = center.xy / center.z + vec2(0.0, 0.205 / center.z); //100
+float ellipseConstant = 0.45 / center.z; //245
 
 float square(float value) {
 	return value * value;
