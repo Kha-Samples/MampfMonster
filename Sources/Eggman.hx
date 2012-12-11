@@ -37,6 +37,15 @@ class Eggman {
 	
 	private var lightPosition: Vector3;
 	
+	private var leftHandRot: Float;
+	private var rightHandRot: Float;
+	private var leftFootHeight: Float;
+	private var leftFootSpeed: Float;
+	private var leftFootMoving: Bool;
+	private var rightFootHeight: Float;
+	private var rightFootSpeed: Float;
+	private var rightFootMoving: Bool;
+	
 	public function setLight(position: Vector3): Void {
 		lightPosition = position;
 	}
@@ -58,15 +67,89 @@ class Eggman {
 	}
 	
 	public function update(): Void {
+		var acc = -0.0025;
+		var jump = 0.025;
+		if (moving) {
+			leftHandRot += 0.05;
+			rightHandRot += 0.05;
+			
+			if (leftFootMoving) {
+				//var goingUp = leftFootSpeed > 0;
+				leftFootSpeed += acc;
+				//if (goingUp && leftFootSpeed < 0) rightFootMoving = true;
+				leftFootHeight += leftFootSpeed;
+				if (leftFootHeight < 0) {
+					leftFootHeight = 0;
+					//leftFootSpeed = jump;
+					if (!rightFootMoving) {
+						rightFootSpeed = jump;
+						rightFootMoving = true;
+					}
+					leftFootMoving = false;
+				}
+			}
+			
+			if (rightFootMoving) {
+				rightFootSpeed += acc;
+				rightFootHeight += rightFootSpeed;
+				if (rightFootHeight < 0) {
+					rightFootHeight = 0;
+					if (!leftFootMoving) {
+						leftFootSpeed = jump;
+						leftFootMoving = true;
+					}
+					rightFootMoving = false;
+				}
+			}
+		}
+		else {
+			if (leftHandRot > 0) {
+				leftHandRot = leftHandRot % Math.PI;
+				rightHandRot = rightHandRot % Math.PI;
+				leftHandRot += 0.05;
+				rightHandRot += 0.05;
+				if (leftHandRot > Math.PI) {
+					leftHandRot = 0;
+					rightHandRot = 0;
+				}
+			}
+			
+			leftFootSpeed += acc;
+			leftFootHeight += leftFootSpeed;
+			if (leftFootHeight < 0) {
+				leftFootHeight = 0;
+				leftFootSpeed = 0;
+				leftFootMoving = false;
+			}
+			
+			rightFootSpeed += acc;
+			rightFootHeight += rightFootSpeed;
+			if (rightFootHeight < 0) {
+				rightFootHeight = 0;
+				rightFootSpeed = 0;
+				rightFootMoving = false;
+			}
+		}
 		var rotspeed = 0.02;
 		//angle += rotspeed;
 		if (rotating) {
+			angle = adjustAngle(angle);
+			rotaim = adjustAngle(rotaim);
+			
+			var amount1 = Math.abs(angle - rotaim);
+			var amount2 = Math.abs(angle - (rotaim - Math.PI * 2.0));
+			if (amount2 < amount1) {
+				rotaim = rotaim - Math.PI * 2.0;
+			}
+			
 			if (angle < rotaim) {
 				angle += rotspeed;
 				if (angle >= rotaim) {
 					angle = rotaim;
 					rotating = false;
 					moving = true;
+					leftFootSpeed = jump;
+					leftFootMoving = true;
 				}
 			}
 			else if (angle > rotaim) {
@@ -75,6 +158,8 @@ class Eggman {
 					angle = rotaim;
 					rotating = false;
 					moving = true;
+					leftFootSpeed = jump;
+					leftFootMoving = true;
 				}
 			}
 		}
@@ -91,6 +176,14 @@ class Eggman {
 	}
 	
 	public function new() {
+		leftHandRot = 0;
+		rightHandRot = 0;
+		leftFootHeight = 0;
+		leftFootSpeed = 0;
+		rightFootHeight = 0;
+		rightFootSpeed = 0;
+		leftFootMoving = false;
+		rightFootMoving = false;
 		position = new Vector3(0, 0, 0.5);
 		aim = new Vector3();
 		angle = 0;
@@ -217,6 +310,7 @@ class Eggman {
 	public function render(time: Float, xoffset: Float): Void {
 		//var angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		var angle = this.angle + Math.PI;
+		angle += Math.sin(leftHandRot) * 0.5;
 		angle = adjustAngle(angle);
 		var z = Math.cos(angle);
 		z = adjustZ(z);
@@ -224,6 +318,7 @@ class Eggman {
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
+		angle += Math.sin(rightHandRot) * 0.5;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
@@ -234,19 +329,20 @@ class Eggman {
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y + leftFootHeight, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y + rightFootHeight, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
 
 		drawBody(time, xoffset);
 
 		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		angle = this.angle + Math.PI;
+		angle += Math.sin(leftHandRot) * 0.5;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
@@ -254,6 +350,7 @@ class Eggman {
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
+		angle += Math.sin(rightHandRot) * 0.5;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
@@ -264,13 +361,13 @@ class Eggman {
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y + leftFootHeight, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.2 + 0.1 + position.x + xoffset, -0.75 + position.y + rightFootHeight, 0.5, 0.5, (angle > Math.PI) ? true : false, z + calcZ());
 	}
 }
