@@ -15,10 +15,10 @@ uniform vec3 lightPosition;// = vec3(100.0, 200.0, 500.0);
 vec3 eye = vec3(0.0, 200.0, 500.0);
 
 uniform float angle;
-uniform vec2 center;
-vec2 f1 = center + vec2(0.0, -0.41); //-100
-vec2 f2 = center + vec2(0.0, 0.41); //100
-float ellipseConstant = 0.90; //245
+uniform vec3 center;
+vec2 f1 = center.xy / center.z + vec2(0.0, -0.41 / center.z); //-100
+vec2 f2 = center.xy / center.z + vec2(0.0, 0.41 / center.z); //100
+float ellipseConstant = 0.90 / center.z; //245
 
 float square(float value) {
 	return value * value;
@@ -56,7 +56,7 @@ void main() {
 	
 	if (distance(position, f1) + distance(position, f2) < ellipseConstant) {
 		float radius = calcRadius(position, f1, f2, ellipseConstant);
-		float winkel = asin(abs(position.x - center.x) / radius);
+		float winkel = asin(abs(position.x - center.x / center.z) / radius);
 		
 		float z = radius * cos(winkel);
 		//z = sqrt(square(radius) - square(position.x - center.x));
@@ -68,12 +68,12 @@ void main() {
 
 		vec3 tangent = angleBisector(world - vec3(f2, 0.0), vec3(f1, 0.0) - world);
 
-		if (position.x < center.x) winkel = PI / 2.0 - winkel;
+		if (position.x < center.x / center.z) winkel = PI / 2.0 - winkel;
 		else winkel += PI / 2.0;
 		winkel -= angle;
 		winkel /= PI * 2.0;
 
-		vec2 texcoord = vec2(winkel, (position.y - center.y + ellipseConstant / 2.0) / ellipseConstant);
+		vec2 texcoord = vec2(winkel, (position.y - center.y / center.z + ellipseConstant / 2.0) / ellipseConstant);
 
 		vec3 tangentnormal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
 		normal.x = dot(tangentnormal, cross(tangent, normal));

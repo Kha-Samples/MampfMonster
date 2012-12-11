@@ -55,7 +55,7 @@ class YolkfolkRestaurant2 extends Game {
 			"varying vec2 texcoord;" +
 			"void main() {" +
 				"texcoord = tex;" +
-				"gl_Position = position = vec4(pos.x, pos.y * pos.z, pos.z * pos.z, pos.z);" +
+				"gl_Position = position = vec4(pos.x, pos.y, pos.z * pos.z, pos.z);" +
 			"}"
 		);
 		fragmentShader = kha.Sys.graphics.createFragmentShader(
@@ -82,6 +82,11 @@ class YolkfolkRestaurant2 extends Game {
 		lamp = kha.Sys.graphics.createVertexBuffer(4, structure);
 		
 		Configuration.setScreen(this);
+	}
+	
+	public static function calcZ(y: Float): Float {
+		if (y < 0) return (y + 1) / 2 + 0.5;
+		else return 1.0;
 	}
 	
 	override public function update(): Void {
@@ -198,6 +203,6 @@ class YolkfolkRestaurant2 extends Game {
 		
 		aimx = x - xoffset;
 		aimy = y;
-		eggman.setAim(aimx, aimy, 0);
+		eggman.setAim(aimx, aimy, calcZ(aimy));
 	}
 }

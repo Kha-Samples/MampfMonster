@@ -5,5 +5,5 @@ varying vec2 texcoord;
 
 void main() {
 	texcoord = tex;
-	gl_Position = position = vec4(pos, 1.0);
+	gl_Position = position = vec4(pos.x, pos.y, 0.5, pos.z);
 }
