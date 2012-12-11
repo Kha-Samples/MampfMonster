@@ -46,6 +46,8 @@ class Eggman {
 	private var rightFootSpeed: Float;
 	private var rightFootMoving: Bool;
 	
+	private static var jump: Float = 0.025;
+	
 	public function setLight(position: Vector3): Void {
 		lightPosition = position;
 	}
@@ -64,15 +66,14 @@ class Eggman {
 		rotaim = Math.atan2(direction.y, direction.x);
 		rotating = true;
 		moving = false;
+		
+		leftFootSpeed = jump;
+		leftFootMoving = true;	
 	}
 	
 	public function update(): Void {
 		var acc = -0.0025;
-		var jump = 0.025;
-		if (moving) {
-			leftHandRot += 0.05;
-			rightHandRot += 0.05;
-			
+		if (moving || rotating) {
 			if (leftFootMoving) {
 				//var goingUp = leftFootSpeed > 0;
 				leftFootSpeed += acc;
@@ -103,17 +104,6 @@ class Eggman {
 			}
 		}
 		else {
-			if (leftHandRot > 0) {
-				leftHandRot = leftHandRot % Math.PI;
-				rightHandRot = rightHandRot % Math.PI;
-				leftHandRot += 0.05;
-				rightHandRot += 0.05;
-				if (leftHandRot > Math.PI) {
-					leftHandRot = 0;
-					rightHandRot = 0;
-				}
-			}
-			
 			leftFootSpeed += acc;
 			leftFootHeight += leftFootSpeed;
 			if (leftFootHeight < 0) {
@@ -128,6 +118,23 @@ class Eggman {
 				rightFootHeight = 0;
 				rightFootSpeed = 0;
 				rightFootMoving = false;
+			}
+		}
+		
+		if (moving) {
+			leftHandRot += 0.05;
+			rightHandRot += 0.05;
+		}
+		else {
+			if (leftHandRot > 0) {
+				leftHandRot = leftHandRot % Math.PI;
+				rightHandRot = rightHandRot % Math.PI;
+				leftHandRot += 0.05;
+				rightHandRot += 0.05;
+				if (leftHandRot > Math.PI) {
+					leftHandRot = 0;
+					rightHandRot = 0;
+				}
 			}
 		}
 		var rotspeed = 0.02;
@@ -148,8 +155,6 @@ class Eggman {
 					angle = rotaim;
 					rotating = false;
 					moving = true;
-					leftFootSpeed = jump;
-					leftFootMoving = true;
 				}
 			}
 			else if (angle > rotaim) {
@@ -158,8 +163,6 @@ class Eggman {
 					angle = rotaim;
 					rotating = false;
 					moving = true;
-					leftFootSpeed = jump;
-					leftFootMoving = true;
 				}
 			}
 		}

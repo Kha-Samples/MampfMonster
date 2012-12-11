@@ -173,6 +173,13 @@ class YolkfolkRestaurant2 extends Game {
 		kha.Sys.graphics.setVertexBuffer(door);
 		kha.Sys.graphics.drawArrays();
 		
+		eggman.render(time, xoffset);
+		
+		kha.Sys.graphics.setVertexShader(vertexShader);
+		kha.Sys.graphics.setFragmentShader(fragmentShader);
+		kha.Sys.graphics.linkShaders();
+		fragmentShader.setInt("sampler", 0);
+		
 		tableTexture.set(0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(table);
@@ -182,8 +189,6 @@ class YolkfolkRestaurant2 extends Game {
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(lamp);
 		kha.Sys.graphics.drawArrays();
-		
-		eggman.render(time, xoffset);
 	}
 	
 	private var aimx: Float = 0.0;
