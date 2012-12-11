@@ -298,7 +298,7 @@ class Eggman {
 	}
 	
 	private function calcZ(): Float {
-		return YolkfolkRestaurant2.calcZ(position.y - 0.8);
+		return YolkfolkRestaurant2.calcZ(position.y -0.75 / 2.0 - 0.25 / 2.0);
 	}
 	
 	private function adjustZ(z: Float): Float {
