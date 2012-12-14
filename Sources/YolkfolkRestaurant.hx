@@ -17,6 +17,7 @@ class YolkfolkRestaurant extends Game {
 		
 		StGameManager.InitCookingBook(new CookingBook());
 		StGameManager.InitLager(new Lager());
+		StGameManager.InitSpriteButtonManager(new SpriteButtonManager(scene));
 		
 	}
 	
@@ -43,8 +44,9 @@ class YolkfolkRestaurant extends Game {
 		myItem_01 = StGameManager.MyGameManager().addItem(Eitem.TOMATE, 0, 0);
 		
 		StGameManager.MyCookingBookManager().GUION();
-		//testphase start
 		StGameManager.MyLagerManager().createLager();
+		//testphase start
+		StGameManager.MySpriteButtonManager().createButton(ESpriteButton.BUTCART, new Position(100,0));
 		//StGameManager.MyLagerManager().GUION();
 		//ende
 	}
@@ -89,7 +91,7 @@ class YolkfolkRestaurant extends Game {
 		
 		
 	}
-	
+
 	public function addItem(id: Eitem, x: Float, y: Float): Item {
 			
 		//var item = new Item().createByID(id);
@@ -129,10 +131,11 @@ class YolkfolkRestaurant extends Game {
 		chair2.y = y + 140;
 		scene.addEnemy(chair2);
 	}
-	
 	override public function mouseDown(paX: Int, paY: Int): Void 
 	{ 
 		
+		StGameManager.MySpriteButtonManager().OnMouseKlick(paX, paY);
+		StGameManager.MyCookingBookManager().reflashUpdate();//immer erst nach den Spritebuttonmanager(OnMouseKlick) aufrufen sonst werden die befehle nicht ausgeführt
 		
 		if (myItem_01 == null)
 		{
@@ -151,7 +154,13 @@ class YolkfolkRestaurant extends Game {
 		StGameManager.MyLagerManager().moouseEvent(paX, paY);
 	}
 	
+	override public function mouseMove(paX: Int, paY: Int): Void
+	{
+		StGameManager.MySpriteButtonManager().update(paX, paY);
+		
+	}
 	override public function buttonDown(button: Button): Void {
+		
 		switch (button) {
 		case Button.LEFT:
 			cook.left = true;

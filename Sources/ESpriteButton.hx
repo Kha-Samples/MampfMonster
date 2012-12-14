@@ -1,0 +1,9 @@
+package;
+
+enum ESpriteButton
+{
+	NONE;
+	BUTCART;
+	BUTCOOKINGBOOKOPEN;
+	BUTCOOKINGBOOKCLOSE;
+}

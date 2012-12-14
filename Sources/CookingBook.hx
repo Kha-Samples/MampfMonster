@@ -14,8 +14,11 @@ class CookingBook
 	public var myBookPosition : Position;
 	public var myIsOpen : Bool = false;
 	public var myBook : Sprite = null;
-	public var myButCookingBookOpen : Item;
-	public var myButCookingBookClose : Item;
+	//public var myButCookingBookOpen : Item;
+	//public var myButCookingBookClose : Item;
+	
+	private var myButSpriteCookingBookOpen : SpriteButton;
+	private var myButSpriteCookingBookClose : SpriteButton;
 	
 	private var myButNext : Item;
 	private var myButNextPosition : Position;
@@ -51,6 +54,7 @@ class CookingBook
 		
 		myButBackPosition = new Position(myBookPosition.x + 50, myBookPosition.y +320 );
 		myButNextPosition = new Position(myBookPosition.x + 410, myBookPosition.y +320 );
+		
 			
 	}
 	
@@ -60,7 +64,12 @@ class CookingBook
 		
 		if (myIsOpen)
 		{
-			myButCookingBookClose = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKOPEN, 400, 0);
+			//myButCookingBookClose = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKOPEN, 400, 0);
+			if(myButSpriteCookingBookClose == null)
+				myButSpriteCookingBookClose = StGameManager.MySpriteButtonManager().createButton(ESpriteButton.BUTCOOKINGBOOKOPEN, new Position(500, 0 ));
+			else
+				myButSpriteCookingBookClose.setVisible(true);
+			
 			ShowRezept();
 			ShowBookButtons();
 			//open scratchpad
@@ -68,7 +77,13 @@ class CookingBook
 		}
 		else
 		{
-			myButCookingBookOpen = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKCLOSE, 400, 0);
+			//myButCookingBookOpen = StGameManager.MyGameManager().addItem(Eitem.BUTCOOKINGBOOKCLOSE, 400, 0);
+			
+			if(myButSpriteCookingBookOpen == null)
+				myButSpriteCookingBookOpen = StGameManager.MySpriteButtonManager().createButton(ESpriteButton.BUTCOOKINGBOOKCLOSE, new Position(500, 0 ));
+			else
+				myButSpriteCookingBookOpen.setVisible(true);
+				
 			ShowRezept();
 			CloseBookButtons();
 			//close scratchpad
@@ -80,6 +95,8 @@ class CookingBook
 	{
 		myButBack = StGameManager.MyGameManager().addItem(Eitem.BUTBOOKBACK, myButBackPosition.x, myButBackPosition.y);
 		myButNext = StGameManager.MyGameManager().addItem(Eitem.BUTBOOKNEXT, myButNextPosition.x, myButNextPosition.y);
+	
+		
 	}
 	
 	private function CloseBookButtons()
@@ -154,6 +171,12 @@ class CookingBook
 	
 	public function GUIOFF()
 	{
+		if(myButSpriteCookingBookOpen != null)
+			myButSpriteCookingBookOpen.setVisible(false);
+			
+		if(myButSpriteCookingBookClose != null)
+			myButSpriteCookingBookClose.setVisible(false);
+		/*	
 		if (myButCookingBookOpen != null) 
 		{
 			StGameManager.MyGameManager().delItem(myButCookingBookOpen);
@@ -164,7 +187,7 @@ class CookingBook
 		{
 			StGameManager.MyGameManager().delItem(myButCookingBookClose);
 			myButCookingBookClose = null;
-		}
+		}*/
 	}
 	
 	
@@ -184,14 +207,37 @@ class CookingBook
 		myBook = null;
 	}
 	
+	public function reflashUpdate() {
+		
+		if (!myIsOpen)
+		{
+			if (myButSpriteCookingBookOpen != null) {
+				if (myButSpriteCookingBookOpen.assimilateOrder()){
+					this.openBook();
+					this.reflashGUI();
+				}
+			}
+		}
+		else
+		{
+			if (myButSpriteCookingBookClose != null) {
+				if (myButSpriteCookingBookClose.assimilateOrder()){
+					this.closeBook();
+					this.reflashGUI();
+				}
+			}
+		}
+	}
 	public function moouseEvent(paX:Int, paY:Int)
 	{
+		
+
 		mouseEventCookingBookIcon(paX, paY);
 		mouseEventChangePages(paX, paY);
 	}
 	
 	private function mouseEventCookingBookIcon(paX:Int, paY:Int)
-	{
+	{/*
 		if (!myIsOpen)
 		{
 			if (myButCookingBookOpen != null)
@@ -213,7 +259,7 @@ class CookingBook
 					this.reflashGUI();
 				}
 			}
-		}
+		}*/
 	}
 	
 	private function mouseEventChangePages(paX:Int, paY:Int)

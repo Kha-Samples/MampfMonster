@@ -9,6 +9,7 @@ import kha.Image;
 //Daniel: die Images müssen noch Local und im Projekt umbenannt werden... damit die namen aus den enum erstellt werden können
 class Item extends Sprite {
 	private static var myId:String;
+	private var id: Eitem;
 		private function new(): Void {
 			var temp : Image = Loader.the.getImage("img_" + myId );
 			var x:Int = 0;
@@ -42,6 +43,6 @@ class Item extends Sprite {
 	private function setID(paId:Eitem) {
 		id = paId;
 	}
-	private var id: Eitem;
+	
 }
 

@@ -173,6 +173,13 @@
 			"name": "img_NOTIZBLOCK",
 			"scale": 1
 		},
+		{
+			"id": "dd24f874-1bbe-11e2-892e-0800200c9a66",
+			"type": "image",
+			"file": "img_ButCart.png",
+			"name": "img_BUTCART",
+			"scale": 1
+		},
 
 		{
 			"id": "7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
@@ -339,6 +346,7 @@
 				"dd24f871-1bbe-11e2-892e-0800200c9a66",
 				"dd24f872-1bbe-11e2-892e-0800200c9a66",
 				"dd24f873-1bbe-11e2-892e-0800200c9a66",
+				"dd24f874-1bbe-11e2-892e-0800200c9a66",
 				"49c8f990-1c77-11e2-892e-0800200c9a66",
 				"1bfdbca0-398a-11e2-81c1-0800200c9a66"
 			]

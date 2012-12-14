@@ -12,11 +12,13 @@ class StGameManager
 	private var myGame : YolkfolkRestaurant;
 	private var myCookingBook : CookingBook;
 	private var myLager : Lager;
+	private var mySpriteButtonManager : SpriteButtonManager;
 	
-	private function new() 
+	private function new() : Void
 	{
 		
 	}
+	
 	
 	public static function  InitGame(paValue : YolkfolkRestaurant)
 	{
@@ -41,6 +43,14 @@ class StGameManager
 			INSTANCE = new StGameManager();
 		}
 		INSTANCE.myLager = paValue;
+	}
+	public static function  InitSpriteButtonManager(paValue : SpriteButtonManager)
+	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = new StGameManager();
+		}
+		INSTANCE.mySpriteButtonManager = paValue;
 	}
 	
 	public static function MyGameManager(): YolkfolkRestaurant
@@ -67,5 +77,13 @@ class StGameManager
 			INSTANCE = new StGameManager();
 		}
 		return INSTANCE.myLager;
+	}
+	public static function MySpriteButtonManager(): SpriteButtonManager
+	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = new StGameManager();
+		}
+		return INSTANCE.mySpriteButtonManager;
 	}
 	}
