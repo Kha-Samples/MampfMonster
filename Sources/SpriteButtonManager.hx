@@ -42,15 +42,33 @@ class SpriteButtonManager
 		}
 	}
 	
-	public function OnMouseKlick(paX: Int, paY: Int) : Void {
+	public function onMouseKlick(paX: Int, paY: Int) : Void {
 		var daten : SpriteButton;
 		for(daten in myButtonList){
 			if (StHelper.IsOverTestBySprite(paX, paY, daten)) {
-				//daten.setVisible(!daten.getVisible());
+
 				if(daten.getVisible())
 					daten.setOrder();
 			}
 		}
+	}
+	public function haveButtonOrder(paButtonFunktion : ESpriteButton) : Bool
+	{
+		var daten : SpriteButton;
+		for(daten in myButtonList){
+			if (daten.GetButtonFunktion() == paButtonFunktion) {
+				return daten.assimilateOrder();
+			}
+		}
+		return false;
+	}
+	public function resetAssimailatenOrder()
+	{
+		var daten : SpriteButton;
+		for(daten in myButtonList){
+			daten.resetAssimaltionOrder();
+		}
+		
 	}
 	
 }

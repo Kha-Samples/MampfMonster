@@ -1,382 +1,390 @@
 {
-	"format": 1,
-	"game":
-	{
-		"name": "Yolkfolk Restaurant",
-		"width": 1024,
-		"height": 768
-	},
-	"assets":
-	[
-		{
-			"id": "39766010-1b7c-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "yolk.png",
-			"name": "yolk",
-			"scale": 3,
-			"background":
-			{
-				"red": 255,
-				"green": 0,
-				"blue": 255
-			}
-		},
-		{
-			"id": "07acefa0-1b94-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "foot.png",
-			"name": "foot",
-			"scale": 3,
-			"background":
-			{
-				"red": 255,
-				"green": 0,
-				"blue": 255
-			}
-		},
-		{
-			"id": "12930170-1b94-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "hand.png",
-			"name": "hand",
-			"scale": 3,
-			"background":
-			{
-				"red": 255,
-				"green": 0,
-				"blue": 255
-			}
-		},
-		{
-			"id": "e926b030-1bba-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "054-Wall02.png",
-			"name": "054-Wall02",
-			"scale": 3
-		},
-		{
-			"id": "d0279f50-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "table.png",
-			"name": "table",
-			"scale": 3
-		},
-		{
-			"id": "d6d6e540-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "chair1.png",
-			"name": "chair1",
-			"scale": 3
-		},
-		{
-			"id": "d6d6e541-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "chair2.png",
-			"name": "chair2",
-			"scale": 3
-		},
-		{
-			"id": "dd24f860-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_TOMATE.png",
-			"name": "img_TOMATE",
-			"scale": 1
-		},
-		{
-			"id": "dd24f861-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_BookIcon_1.png",
-			"name": "img_BookIcon_1",
-			"scale": 1
-		},
-		{
-			"id": "dd24f862-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_BookIcon_2.png",
-			"name": "img_BookIcon_2",
-			"scale": 1
-		},
-		{
-			"id": "dd24f863-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_COOKINGBOOK.png",
-			"name": "img_COOKINGBOOK",
-			"scale": 1
-		},
-		{
-			"id": "dd24f864-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_SPAGHETTI.png",
-			"name": "img_SPAGHETTI",
-			"scale": 1
-		},
-		{
-			"id": "dd24f865-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_OK.png",
-			"name": "img_OK",
-			"scale": 1
-		},
-		{
-			"id": "dd24f866-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_Cancel.png",
-			"name": "img_CANCEL",
-			"scale": 1
-		},
-		{
-			"id": "dd24f867-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_BUTBOOKNEXT.png",
-			"name": "img_BUTBOOKNEXT",
-			"scale": 1
-		},
-		{
-			"id": "dd24f868-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_BUTBOOKBACK.png",
-			"name": "img_BUTBOOKBACK",
-			"scale": 1
-		},
-		{
-			"id": "dd24f869-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_BUTCOOKINGBOOKOPEN.png",
-			"name": "img_BUTCOOKINGBOOKOPEN",
-			"scale": 1
-		},
-		{
-			"id": "dd24f870-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_BUTCOOKINGBOOKCLOSE.png",
-			"name": "img_BUTCOOKINGBOOKCLOSE",
-			"scale": 1
-		},
-		{
-			"id": "dd24f871-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_SPAGHETTI_SW.png",
-			"name": "img_SPAGHETTI_SW",
-			"scale": 1
-		},
-		{
-			"id": "dd24f872-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_TOMATE_SW.png",
-			"name": "img_TOMATE_SW",
-			"scale": 1
-		},
-		{
-			"id": "dd24f873-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_NOTIZBLOCK.png",
-			"name": "img_NOTIZBLOCK",
-			"scale": 1
-		},
-		{
-			"id": "dd24f874-1bbe-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "img_ButCart.png",
-			"name": "img_BUTCART",
-			"scale": 1
-		},
-
-		{
-			"id": "7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
-			"type": "blob",
-			"file": "restaurant.map",
-			"name": "restaurant.map"
-		},
-		{
-			"id": "49c8f990-1c77-11e2-892e-0800200c9a66",
-			"type": "image",
-			"file": "hat.png",
-			"name": "hat",
-			"scale": 3,
-			"background":
-			{
-				"red": 255,
-				"green": 0,
-				"blue": 255
-			}
-		},
-		{
-			"id": "1bfdbca0-398a-11e2-81c1-0800200c9a66",
-			"type": "sound",
-			"file": "jump",
-			"name": "jump"
-		},
-		{
-			"id": "55c8e2d0-3e84-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "pattern_wall_restaurant.png",
-			"name": "pattern_wall_restaurant"
-		},
-		{
-			"id": "af348e10-3ea1-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_floor_frontal.png",
-			"name": "img_floor_frontal"
-		},
-		{
-			"id": "284104f0-3ea2-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_kitchendoor_frontal.png",
-			"name": "img_kitchendoor_frontal"
-		},
-		{
-			"id": "c7376330-3f22-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_table.png",
-			"name": "img_table"
-		},
-		{
-			"id": "d69f0580-3f22-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_lamp2.png",
-			"name": "img_lamp2"
-		},
-		{
-			"id": "4f57afb0-3f26-11e2-a25f-0800200c9a66",
-			"type": "blob",
-			"file": "eggman_body.vs.glsl",
-			"name": "eggman_body.vs.glsl"
-		},
-		{
-			"id": "4f57afb1-3f26-11e2-a25f-0800200c9a66",
-			"type": "blob",
-			"file": "eggman_body.fs.glsl",
-			"name": "eggman_body.fs.glsl"
-		},
-		{
-			"id": "4f57afb2-3f26-11e2-a25f-0800200c9a66",
-			"type": "blob",
-			"file": "eggman_parts.vs.glsl",
-			"name": "eggman_parts.vs.glsl"
-		},
-		{
-			"id": "4f57afb3-3f26-11e2-a25f-0800200c9a66",
-			"type": "blob",
-			"file": "eggman_parts.fs.glsl",
-			"name": "eggman_parts.fs.glsl"
-		},
-		{
-			"id": "220edcd0-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_ear09_overlay.png",
-			"name": "img_ear09_overlay"
-		},
-		{
-			"id": "220edcd1-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_ear09n.png",
-			"name": "img_ear09n"
-		},
-		{
-			"id": "220edcd2-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_face_a1.png",
-			"name": "img_face_a1"
-		},
-		{
-			"id": "220edcd3-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_foot_chef_overlay.png",
-			"name": "img_foot_chef_overlay"
-		},
-		{
-			"id": "220edcd4-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_foot_chefn.png",
-			"name": "img_foot_chefn"
-		},
-		{
-			"id": "220edcd5-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_fur2.png",
-			"name": "img_fur2"
-		},
-		{
-			"id": "220edcd6-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_fur2n.png",
-			"name": "img_fur2n"
-		},
-		{
-			"id": "220edcd7-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_hand_chef_overlay.png",
-			"name": "img_hand_chef_overlay"
-		},
-		{
-			"id": "220edcd8-3f27-11e2-a25f-0800200c9a66",
-			"type": "image",
-			"file": "img_hand_chefn.png",
-			"name": "img_hand_chefn"
-		}
-	],
-	"rooms":
-	[
-		{
-			"id" : "40209cf0-1b7c-11e2-892e-0800200c9a66",
-			"name": "restaurant",
-			"parent": null,
-			"neighbours": [],
-			"assets":
-			[
-				"39766010-1b7c-11e2-892e-0800200c9a66",
-				"07acefa0-1b94-11e2-892e-0800200c9a66",
-				"12930170-1b94-11e2-892e-0800200c9a66",
-				"e926b030-1bba-11e2-892e-0800200c9a66",
-				"7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
-				"d0279f50-1bbe-11e2-892e-0800200c9a66",
-				"d6d6e540-1bbe-11e2-892e-0800200c9a66",
-				"d6d6e541-1bbe-11e2-892e-0800200c9a66",
-				"dd24f860-1bbe-11e2-892e-0800200c9a66",
-				"dd24f861-1bbe-11e2-892e-0800200c9a66",
-				"dd24f862-1bbe-11e2-892e-0800200c9a66",
-				"dd24f863-1bbe-11e2-892e-0800200c9a66",
-				"dd24f864-1bbe-11e2-892e-0800200c9a66",
-				"dd24f865-1bbe-11e2-892e-0800200c9a66",
-				"dd24f866-1bbe-11e2-892e-0800200c9a66",
-				"dd24f867-1bbe-11e2-892e-0800200c9a66",
-				"dd24f868-1bbe-11e2-892e-0800200c9a66",
-				"dd24f869-1bbe-11e2-892e-0800200c9a66",
-				"dd24f870-1bbe-11e2-892e-0800200c9a66",
-				"dd24f871-1bbe-11e2-892e-0800200c9a66",
-				"dd24f872-1bbe-11e2-892e-0800200c9a66",
-				"dd24f873-1bbe-11e2-892e-0800200c9a66",
-				"dd24f874-1bbe-11e2-892e-0800200c9a66",
-				"49c8f990-1c77-11e2-892e-0800200c9a66",
-				"1bfdbca0-398a-11e2-81c1-0800200c9a66"
-			]
-		},
-		{
-			"id": "5e0a1360-3e84-11e2-a25f-0800200c9a66",
-			"name": "restaurant2",
-			"parent": null,
-			"neighbours": [],
-			"assets":
-			[
-				"55c8e2d0-3e84-11e2-a25f-0800200c9a66",
-				"af348e10-3ea1-11e2-a25f-0800200c9a66",
-				"284104f0-3ea2-11e2-a25f-0800200c9a66",
-				"c7376330-3f22-11e2-a25f-0800200c9a66",
-				"d69f0580-3f22-11e2-a25f-0800200c9a66",
-				"4f57afb0-3f26-11e2-a25f-0800200c9a66",
-				"4f57afb1-3f26-11e2-a25f-0800200c9a66",
-				"4f57afb2-3f26-11e2-a25f-0800200c9a66",
-				"4f57afb3-3f26-11e2-a25f-0800200c9a66",
-				"220edcd0-3f27-11e2-a25f-0800200c9a66",
-				"220edcd1-3f27-11e2-a25f-0800200c9a66",
-				"220edcd2-3f27-11e2-a25f-0800200c9a66",
-				"220edcd3-3f27-11e2-a25f-0800200c9a66",
-				"220edcd4-3f27-11e2-a25f-0800200c9a66",
-				"220edcd5-3f27-11e2-a25f-0800200c9a66",
-				"220edcd6-3f27-11e2-a25f-0800200c9a66",
-				"220edcd7-3f27-11e2-a25f-0800200c9a66",
-				"220edcd8-3f27-11e2-a25f-0800200c9a66"
-			]
-		}
-	]
+  "format": 1,
+  "game": {
+    "name": "Yolkfolk Restaurant",
+    "width": 1024,
+    "height": 768
+  },
+  "assets": [
+    {
+      "id": "39766010-1b7c-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "yolk.png",
+      "name": "yolk",
+      "scale": 3.0,
+      "background": {
+        "red": 255,
+        "green": 0,
+        "blue": 255
+      }
+    },
+    {
+      "id": "07acefa0-1b94-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "foot.png",
+      "name": "foot",
+      "scale": 3.0,
+      "background": {
+        "red": 255,
+        "green": 0,
+        "blue": 255
+      }
+    },
+    {
+      "id": "12930170-1b94-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "hand.png",
+      "name": "hand",
+      "scale": 3.0,
+      "background": {
+        "red": 255,
+        "green": 0,
+        "blue": 255
+      }
+    },
+    {
+      "id": "e926b030-1bba-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "054-Wall02.png",
+      "name": "054-Wall02",
+      "scale": 3.0
+    },
+    {
+      "id": "d0279f50-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "table.png",
+      "name": "table",
+      "scale": 3.0
+    },
+    {
+      "id": "d6d6e540-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "chair1.png",
+      "name": "chair1",
+      "scale": 3.0
+    },
+    {
+      "id": "d6d6e541-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "chair2.png",
+      "name": "chair2",
+      "scale": 3.0
+    },
+    {
+      "id": "dd24f860-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_TOMATE.png",
+      "name": "img_TOMATE",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f861-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_BookIcon_1.png",
+      "name": "img_BookIcon_1",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f862-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_BookIcon_2.png",
+      "name": "img_BookIcon_2",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f863-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_COOKINGBOOK.png",
+      "name": "img_COOKINGBOOK",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f864-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_SPAGHETTI.png",
+      "name": "img_SPAGHETTI",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f865-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_OK.png",
+      "name": "img_OK",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f866-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_Cancel.png",
+      "name": "img_CANCEL",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f869-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_BUTCOOKINGBOOKOPEN.png",
+      "name": "img_BUTCOOKINGBOOKOPEN",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f870-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_BUTCOOKINGBOOKCLOSE.png",
+      "name": "img_BUTCOOKINGBOOKCLOSE",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f871-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_SPAGHETTI_SW.png",
+      "name": "img_SPAGHETTI_SW",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f872-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_TOMATE_SW.png",
+      "name": "img_TOMATE_SW",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f873-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_NOTIZBLOCK.png",
+      "name": "img_NOTIZBLOCK",
+      "scale": 1.0
+    },
+    {
+      "id": "dd24f874-1bbe-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "img_ButCart.png",
+      "name": "img_BUTCART",
+      "scale": 1.0
+    },
+    {
+      "id": "7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
+      "type": "blob",
+      "file": "restaurant.map",
+      "name": "restaurant.map",
+      "scale": 1.0
+    },
+    {
+      "id": "49c8f990-1c77-11e2-892e-0800200c9a66",
+      "type": "image",
+      "file": "hat.png",
+      "name": "hat",
+      "scale": 3.0,
+      "background": {
+        "red": 255,
+        "green": 0,
+        "blue": 255
+      }
+    },
+    {
+      "id": "1bfdbca0-398a-11e2-81c1-0800200c9a66",
+      "type": "sound",
+      "file": "jump",
+      "name": "jump",
+      "scale": 1.0
+    },
+    {
+      "id": "55c8e2d0-3e84-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "pattern_wall_restaurant.png",
+      "name": "pattern_wall_restaurant",
+      "scale": 1.0
+    },
+    {
+      "id": "af348e10-3ea1-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_floor_frontal.png",
+      "name": "img_floor_frontal",
+      "scale": 1.0
+    },
+    {
+      "id": "284104f0-3ea2-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_kitchendoor_frontal.png",
+      "name": "img_kitchendoor_frontal",
+      "scale": 1.0
+    },
+    {
+      "id": "c7376330-3f22-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_table.png",
+      "name": "img_table",
+      "scale": 1.0
+    },
+    {
+      "id": "d69f0580-3f22-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_lamp2.png",
+      "name": "img_lamp2",
+      "scale": 1.0
+    },
+    {
+      "id": "4f57afb0-3f26-11e2-a25f-0800200c9a66",
+      "type": "blob",
+      "file": "eggman_body.vs.glsl",
+      "name": "eggman_body.vs.glsl",
+      "scale": 1.0
+    },
+    {
+      "id": "4f57afb1-3f26-11e2-a25f-0800200c9a66",
+      "type": "blob",
+      "file": "eggman_body.fs.glsl",
+      "name": "eggman_body.fs.glsl",
+      "scale": 1.0
+    },
+    {
+      "id": "4f57afb2-3f26-11e2-a25f-0800200c9a66",
+      "type": "blob",
+      "file": "eggman_parts.vs.glsl",
+      "name": "eggman_parts.vs.glsl",
+      "scale": 1.0
+    },
+    {
+      "id": "4f57afb3-3f26-11e2-a25f-0800200c9a66",
+      "type": "blob",
+      "file": "eggman_parts.fs.glsl",
+      "name": "eggman_parts.fs.glsl",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd0-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_ear09_overlay.png",
+      "name": "img_ear09_overlay",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd1-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_ear09n.png",
+      "name": "img_ear09n",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd2-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_face_a1.png",
+      "name": "img_face_a1",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd3-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_foot_chef_overlay.png",
+      "name": "img_foot_chef_overlay",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd4-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_foot_chefn.png",
+      "name": "img_foot_chefn",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd5-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_fur2.png",
+      "name": "img_fur2",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd6-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_fur2n.png",
+      "name": "img_fur2n",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd7-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_hand_chef_overlay.png",
+      "name": "img_hand_chef_overlay",
+      "scale": 1.0
+    },
+    {
+      "id": "220edcd8-3f27-11e2-a25f-0800200c9a66",
+      "type": "image",
+      "file": "img_hand_chefn.png",
+      "name": "img_hand_chefn",
+      "scale": 1.0
+    },
+    {
+      "id": "c5ef5906-efc2-48b7-b365-1c5bff866cdc",
+      "type": "image",
+      "file": "img_ButArrowLeft.png",
+      "name": "img_BUTBOOKBACK",
+      "scale": 1.0
+    },
+    {
+      "id": "12631a84-6a6c-4e02-b540-955bf3cbbdef",
+      "type": "image",
+      "file": "img_ButArrowRight.png",
+      "name": "img_BUTBOOKNEXT",
+      "scale": 1.0
+    }
+  ],
+  "rooms": [
+    {
+      "id": "40209cf0-1b7c-11e2-892e-0800200c9a66",
+      "name": "restaurant",
+      "neighbours": [],
+      "assets": [
+        "39766010-1b7c-11e2-892e-0800200c9a66",
+        "07acefa0-1b94-11e2-892e-0800200c9a66",
+        "12930170-1b94-11e2-892e-0800200c9a66",
+        "e926b030-1bba-11e2-892e-0800200c9a66",
+        "7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
+        "d0279f50-1bbe-11e2-892e-0800200c9a66",
+        "d6d6e540-1bbe-11e2-892e-0800200c9a66",
+        "d6d6e541-1bbe-11e2-892e-0800200c9a66",
+        "dd24f860-1bbe-11e2-892e-0800200c9a66",
+        "dd24f861-1bbe-11e2-892e-0800200c9a66",
+        "dd24f862-1bbe-11e2-892e-0800200c9a66",
+        "dd24f863-1bbe-11e2-892e-0800200c9a66",
+        "dd24f864-1bbe-11e2-892e-0800200c9a66",
+        "dd24f865-1bbe-11e2-892e-0800200c9a66",
+        "dd24f866-1bbe-11e2-892e-0800200c9a66",
+        "dd24f869-1bbe-11e2-892e-0800200c9a66",
+        "dd24f870-1bbe-11e2-892e-0800200c9a66",
+        "dd24f871-1bbe-11e2-892e-0800200c9a66",
+        "dd24f872-1bbe-11e2-892e-0800200c9a66",
+        "dd24f873-1bbe-11e2-892e-0800200c9a66",
+        "dd24f874-1bbe-11e2-892e-0800200c9a66",
+        "49c8f990-1c77-11e2-892e-0800200c9a66",
+        "1bfdbca0-398a-11e2-81c1-0800200c9a66",
+        "c5ef5906-efc2-48b7-b365-1c5bff866cdc",
+		"12631a84-6a6c-4e02-b540-955bf3cbbdef"
+      ]
+    },
+    {
+      "id": "5e0a1360-3e84-11e2-a25f-0800200c9a66",
+      "name": "restaurant2",
+      "neighbours": [],
+      "assets": [
+        "55c8e2d0-3e84-11e2-a25f-0800200c9a66",
+        "af348e10-3ea1-11e2-a25f-0800200c9a66",
+        "284104f0-3ea2-11e2-a25f-0800200c9a66",
+        "c7376330-3f22-11e2-a25f-0800200c9a66",
+        "d69f0580-3f22-11e2-a25f-0800200c9a66",
+        "4f57afb0-3f26-11e2-a25f-0800200c9a66",
+        "4f57afb1-3f26-11e2-a25f-0800200c9a66",
+        "4f57afb2-3f26-11e2-a25f-0800200c9a66",
+        "4f57afb3-3f26-11e2-a25f-0800200c9a66",
+        "220edcd0-3f27-11e2-a25f-0800200c9a66",
+        "220edcd1-3f27-11e2-a25f-0800200c9a66",
+        "220edcd2-3f27-11e2-a25f-0800200c9a66",
+        "220edcd3-3f27-11e2-a25f-0800200c9a66",
+        "220edcd4-3f27-11e2-a25f-0800200c9a66",
+        "220edcd5-3f27-11e2-a25f-0800200c9a66",
+        "220edcd6-3f27-11e2-a25f-0800200c9a66",
+        "220edcd7-3f27-11e2-a25f-0800200c9a66",
+        "220edcd8-3f27-11e2-a25f-0800200c9a66"
+      ]
+    }
+  ]
 }

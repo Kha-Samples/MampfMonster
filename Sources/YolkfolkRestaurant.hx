@@ -134,9 +134,10 @@ class YolkfolkRestaurant extends Game {
 	override public function mouseDown(paX: Int, paY: Int): Void 
 	{ 
 		
-		StGameManager.MySpriteButtonManager().OnMouseKlick(paX, paY);
-		StGameManager.MyCookingBookManager().reflashUpdate();//immer erst nach den Spritebuttonmanager(OnMouseKlick) aufrufen sonst werden die befehle nicht ausgeführt
-		
+		StGameManager.MySpriteButtonManager().onMouseKlick(paX, paY);
+		StGameManager.MyCookingBookManager().checkButtonEventOnMouseDown(paX, paY);//immer erst nach den Spritebuttonmanager(OnMouseKlick) aufrufen sonst werden die befehle nicht ausgeführt
+		StGameManager.MyLagerManager().setCurrentRezept(StGameManager.MyCookingBookManager().getCurrentRezept());//Rezept übertragen
+		StGameManager.MyLagerManager().checkButtonEventOnMouseDown(paX, paY);
 		if (myItem_01 == null)
 		{
 			myItem_01 = StGameManager.MyGameManager().addItem(Eitem.TOMATE, paX, paY);
@@ -146,12 +147,12 @@ class YolkfolkRestaurant extends Game {
 			StGameManager.MyGameManager().delItem(myItem_01);
 			myItem_01 = null;
 		}
+		StGameManager.MySpriteButtonManager().resetAssimailatenOrder();
 	}
 	
 	override public function mouseUp  (paX: Int, paY: Int): Void 
 	{ 
-		StGameManager.MyCookingBookManager().moouseEvent(paX, paY);
-		StGameManager.MyLagerManager().moouseEvent(paX, paY);
+		
 	}
 	
 	override public function mouseMove(paX: Int, paY: Int): Void

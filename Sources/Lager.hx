@@ -20,6 +20,7 @@ class Lager
 	var myLager:Array<EZutat>;
 	private var myNotizBlock :Sprite;
 	private var counter:Int = 2;//nur zum testen!!
+	private var myCurrentRezept: Rezept;
 	
 	public function new() 
 	{	
@@ -177,35 +178,28 @@ class Lager
 		myNotizBlock = null;
 	}
 	
-	public function moouseEvent(paX:Int, paY:Int) : Void
+	public function checkButtonEventOnMouseDown(paX:Int, paY:Int) : Void
 	{
-		mouseEventIcon(paX, paY);
+		//mouseEventIcon(paX, paY);
+		if (StGameManager.MySpriteButtonManager().haveButtonOrder(ESpriteButton.BUTCOOKINGBOOKCLOSE)){
+				this.showRezeptWindow(myCurrentRezept);
+			}
+		if (StGameManager.MySpriteButtonManager().haveButtonOrder(ESpriteButton.BUTCOOKINGBOOKOPEN)) {
+				this.closeWindow();
+			}
+		if (StGameManager.MySpriteButtonManager().haveButtonOrder(ESpriteButton.BUTBOOKNEXT)) {
+				this.closeWindow();
+				this.showRezeptWindow(myCurrentRezept);
+			}
+		if (StGameManager.MySpriteButtonManager().haveButtonOrder(ESpriteButton.BUTBOOKBACK)) {
+				this.closeWindow();
+				this.showRezeptWindow(myCurrentRezept);
+		}
 	}
 	
-	private function mouseEventIcon(paX:Int, paY:Int) : Void
-	{
-		if (!myIsOpen)
-		{
-			if (myButIconOpen != null)
-			{
-				if (StHelper.IsOverTestBySprite(paX, paY, myButIconOpen))
-				{
-					this.showWindow();
-					//this.reflashGUI();
-				}
-			}
-		}
-		else
-		{
-			if (myButIconClose != null)
-			{
-				if (StHelper.IsOverTestBySprite(paX, paY, myButIconClose))
-				{
-					this.closeWindow();
-					//this.reflashGUI();
-				}
-			}
-		}
+
+	public function setCurrentRezept(paRezept : Rezept) {
+		myCurrentRezept = paRezept;
 	}
 	
 }

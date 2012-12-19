@@ -17,9 +17,11 @@ class SpriteButton extends Sprite
 	private var myButtonSizeY : Int;
 	private var myEID : ESpriteButton;
 	private var myHaveOrder : Bool;
+	private var myAssimilate : Bool;
 	
 	private function new(paID : String): Void {
 			myHaveOrder = false;
+			myAssimilate = false;
 			var temp : Image = Loader.the.getImage("img_" + paID );
 			var x:Int = 0;
 			var y:Int = 0;
@@ -93,19 +95,22 @@ class SpriteButton extends Sprite
 	}
 	public function setOrder():Void {
 		myHaveOrder = true;
+		myAssimilate = false;
 	}
 	public function getOrder():Bool
 	{
 		return myHaveOrder;
 	}
 	public function assimilateOrder() :Bool {
-		var temp : Bool = myHaveOrder;
-		myHaveOrder = false;
-		return temp;
+		myAssimilate = true;
+		return myHaveOrder;
 	}
-/*
-	public override function update() : Void
+	public function resetAssimaltionOrder()
 	{
-		super.update();
-	}*/
+		if (myAssimilate)
+		{
+			myHaveOrder = false;
+			myAssimilate = false;
+		}
+	}
 }
