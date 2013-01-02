@@ -452,6 +452,48 @@
       "file": "memory/food/toast.png",
       "name": "memory/food/toast",
       "scale": 1.0
+    },
+    {
+      "id": "22c81fe8-d4bd-4981-a4b7-f2e8195b82c1",
+      "type": "image",
+      "file": "memory/class_green.png",
+      "name": "memory/class_green",
+      "scale": 1.0
+    },
+    {
+      "id": "ace099eb-5430-47a8-a605-bba819b351f1",
+      "type": "image",
+      "file": "memory/class_neutral.png",
+      "name": "memory/class_neutral",
+      "scale": 1.0
+    },
+    {
+      "id": "c5f56cea-8c00-4140-a1ea-71b7f65f04e2",
+      "type": "image",
+      "file": "memory/class_red.png",
+      "name": "memory/class_red",
+      "scale": 1.0
+    },
+    {
+      "id": "5d00acfa-5425-44d0-88df-e6408bd681dc",
+      "type": "image",
+      "file": "memory/class_right.png",
+      "name": "memory/class_right",
+      "scale": 1.0
+    },
+    {
+      "id": "376fa208-8bab-4a20-a8b5-1c3265ace80d",
+      "type": "image",
+      "file": "memory/class_wrong.png",
+      "name": "memory/class_wrong",
+      "scale": 1.0
+    },
+    {
+      "id": "f865fd25-d532-41fc-b792-f20e2fb1989a",
+      "type": "image",
+      "file": "memory/class_yellow.png",
+      "name": "memory/class_yellow",
+      "scale": 1.0
     }
   ],
   "rooms": [
@@ -534,7 +576,13 @@
         "62b91452-6d70-4499-92fc-c8306861007e",
         "36ab8475-529c-4a35-a79b-bce3d236f766",
         "58683f74-1f51-4aa2-ab90-2fa7893aef18",
-        "3d64ba97-7387-4659-abb4-6c4711cc0a58"
+        "3d64ba97-7387-4659-abb4-6c4711cc0a58",
+        "22c81fe8-d4bd-4981-a4b7-f2e8195b82c1",
+        "ace099eb-5430-47a8-a605-bba819b351f1",
+        "c5f56cea-8c00-4140-a1ea-71b7f65f04e2",
+        "5d00acfa-5425-44d0-88df-e6408bd681dc",
+        "376fa208-8bab-4a20-a8b5-1c3265ace80d",
+        "f865fd25-d532-41fc-b792-f20e2fb1989a"
       ]
     }
   ]

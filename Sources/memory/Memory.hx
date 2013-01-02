@@ -30,6 +30,7 @@ class Memory extends Game {
 		shadow = Loader.the.getImage("memory/shadow");
 		dragger = new FoodDragger();
 		Food.cook();
+		ClassPlate.init();
 		cards = new Array<Card>();
 		
 		var foodCount = 0;
@@ -61,11 +62,13 @@ class Memory extends Game {
 				var yy = y + Random.getUpTo(40) - 20;
 				var food = foodPile[Random.getUpTo(foodPile.length - 1)];
 				foodPile.remove(food);
-				cards.push(new Card(xx, yy, food));
+				//cards.push(new Card(xx, yy, food));
+				cards.push(new Card(xx, yy, Food.all[0]));
 				y += 190;
 			}
 			x += 200;
 		}
+		setInstance();
 		Configuration.setScreen(this);
 	}
 	
@@ -104,6 +107,10 @@ class Memory extends Game {
 	var secondCard: Card = null;
 	var waiting: Int = 0;
 	var dragging = false;
+	
+	public function nextRound(): Void {
+		dragging = false;
+	}
 	
 	override public function mouseDown(x: Int, y: Int): Void {
 		if (dragging) {
