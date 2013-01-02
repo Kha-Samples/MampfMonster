@@ -62,8 +62,8 @@ class Memory extends Game {
 				var yy = y + Random.getUpTo(40) - 20;
 				var food = foodPile[Random.getUpTo(foodPile.length - 1)];
 				foodPile.remove(food);
-				//cards.push(new Card(xx, yy, food));
-				cards.push(new Card(xx, yy, Food.all[0]));
+				cards.push(new Card(xx, yy, food));
+				//cards.push(new Card(xx, yy, Food.all[0]));
 				y += 190;
 			}
 			x += 200;

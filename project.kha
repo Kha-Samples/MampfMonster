@@ -346,112 +346,128 @@
       "type": "image",
       "file": "memory/card_back.png",
       "name": "memory/card_back",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "7a37b0bb-2c83-4622-93b0-b3a8f4f4f1bf",
       "type": "image",
       "file": "memory/food/peas.png",
       "name": "memory/food/peas",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "6a03346b-2d2a-4c34-90ab-2310102c4e6f",
       "type": "image",
       "file": "memory/food/donut.png",
       "name": "memory/food/donut",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "7089f206-73b2-41ee-99d9-895838391f60",
       "type": "image",
       "file": "memory/food/fries.png",
       "name": "memory/food/fries",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "3488c08b-953b-4f39-a2ab-4ff164306f9e",
       "type": "image",
       "file": "memory/food/mango.png",
       "name": "memory/food/mango",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "94e32201-a019-4efb-9dbf-7f7a824c26fe",
       "type": "image",
       "file": "memory/food/pizza.png",
       "name": "memory/food/pizza",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "7888205e-e1bb-4a6f-b37f-155bdaf33369",
       "type": "image",
       "file": "memory/food/avokado.png",
       "name": "memory/food/avokado",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "e84d0b81-8936-491e-92bc-65a9dc37e397",
       "type": "image",
       "file": "memory/food/cake.png",
       "name": "memory/food/cake",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "4a07f2db-2e10-43f5-a783-b0522c701e9d",
       "type": "image",
       "file": "memory/food/cheese.png",
       "name": "memory/food/cheese",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "8d66ce49-a094-47aa-a50c-9a8f1fe7473b",
       "type": "image",
       "file": "memory/food/cheeseburger.png",
       "name": "memory/food/cheeseburger",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "2ab2e010-ec37-4160-8513-5876ca52a522",
       "type": "image",
       "file": "memory/food/chips.png",
       "name": "memory/food/chips",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "137db9b8-9c25-4c81-a13e-e3b3c92d70da",
       "type": "image",
       "file": "memory/food/cucumber.png",
       "name": "memory/food/cucumber",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "62b91452-6d70-4499-92fc-c8306861007e",
       "type": "image",
       "file": "memory/food/friedegg.png",
       "name": "memory/food/friedegg",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "36ab8475-529c-4a35-a79b-bce3d236f766",
       "type": "image",
       "file": "memory/food/salad.png",
       "name": "memory/food/salad",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "58683f74-1f51-4aa2-ab90-2fa7893aef18",
       "type": "image",
       "file": "memory/food/steak.png",
       "name": "memory/food/steak",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "3d64ba97-7387-4659-abb4-6c4711cc0a58",
       "type": "image",
       "file": "memory/food/toast.png",
       "name": "memory/food/toast",
-      "scale": 1.0
+      "scale": 1.0,
+      "circle": true
     },
     {
       "id": "22c81fe8-d4bd-4981-a4b7-f2e8195b82c1",
