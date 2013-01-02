@@ -41,6 +41,20 @@ class FoodDragger {
 	public function setCards(first: Card, second: Card): Void {
 		this.first = first;
 		this.second = second;
+		switch (first.food.color) {
+			case MampfColor.Green:
+				green.setCorrect(true);
+				yellow.setCorrect(false);
+				red.setCorrect(false);
+			case MampfColor.Yellow:
+				green.setCorrect(false);
+				yellow.setCorrect(true);
+				red.setCorrect(false);
+			case MampfColor.Red:
+				green.setCorrect(false);
+				yellow.setCorrect(false);
+				red.setCorrect(true);
+		}
 		start1 = new Vector2(first.x, first.y);
 		start2 = new Vector2(second.x, second.y);
 		time = 0;
