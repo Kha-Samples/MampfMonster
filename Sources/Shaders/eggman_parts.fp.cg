@@ -8,9 +8,9 @@ float saturate(float value) {
 	return clamp(value, 0.0, 1.0);	
 }
 
-void main(in float4 position : NORMAL0, in float2 texcoord : TEXCOORD0, out float4 color : COLOR0) {
+void main(in float4 position : TEXCOORD1, in float2 texcoord : TEXCOORD0, out float4 color : COLOR0) {
 	color = float4(0.0, 0.0, 0.0, 1.0);
-	float3 normal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
+	float3 normal = tex2D(normals, texcoord).rgb * 2.0 - 1.0;
 	
 	float3 world = float3(color.xy, 0);
 	float3 lightDirection = normalize(world - lightPosition);
