@@ -204,11 +204,11 @@ class Eggman {
 		bodyNormals = kha.Sys.graphics.createTexture(Loader.the.getImage("img_fur2n"));
 		faceTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_face_a1"));
 		
-		bodyVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getBlob("eggman_body.vs.glsl").toString());
-		bodyFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getBlob("eggman_body.fs.glsl").toString());
+		bodyVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("eggman_body.vert").toString());
+		bodyFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_body.frag").toString());
 		
-		partsVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getBlob("eggman_parts.vs.glsl").toString());
-		partsFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getBlob("eggman_parts.fs.glsl").toString());
+		partsVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("eggman_parts.vert").toString());
+		partsFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_parts.frag").toString());
 		structure = new VertexStructure();
 		structure.add("pos", VertexData.Float3);
 		structure.add("tex", VertexData.Float2);

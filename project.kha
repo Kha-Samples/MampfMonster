@@ -224,30 +224,30 @@
     },
     {
       "id": "4f57afb0-3f26-11e2-a25f-0800200c9a66",
-      "type": "blob",
-      "file": "eggman_body.vs.glsl",
-      "name": "eggman_body.vs.glsl",
+      "type": "shader",
+      "file": "eggman_body.vert.glsl",
+      "name": "eggman_body.vert.glsl",
       "scale": 1.0
     },
     {
       "id": "4f57afb1-3f26-11e2-a25f-0800200c9a66",
-      "type": "blob",
-      "file": "eggman_body.fs.glsl",
-      "name": "eggman_body.fs.glsl",
+      "type": "shader",
+      "file": "eggman_body.frag.glsl",
+      "name": "eggman_body.frag.glsl",
       "scale": 1.0
     },
     {
       "id": "4f57afb2-3f26-11e2-a25f-0800200c9a66",
-      "type": "blob",
-      "file": "eggman_parts.vs.glsl",
-      "name": "eggman_parts.vs.glsl",
+      "type": "shader",
+      "file": "eggman_parts.vert.glsl",
+      "name": "eggman_parts.vert.glsl",
       "scale": 1.0
     },
     {
       "id": "4f57afb3-3f26-11e2-a25f-0800200c9a66",
-      "type": "blob",
-      "file": "eggman_parts.fs.glsl",
-      "name": "eggman_parts.fs.glsl",
+      "type": "shader",
+      "file": "eggman_parts.frag.glsl",
+      "name": "eggman_parts.frag.glsl",
       "scale": 1.0
     },
     {
