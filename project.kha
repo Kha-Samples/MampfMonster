@@ -223,34 +223,6 @@
       "scale": 1.0
     },
     {
-      "id": "4f57afb0-3f26-11e2-a25f-0800200c9a66",
-      "type": "shader",
-      "file": "eggman_body.vert.glsl",
-      "name": "eggman_body.vert.glsl",
-      "scale": 1.0
-    },
-    {
-      "id": "4f57afb1-3f26-11e2-a25f-0800200c9a66",
-      "type": "shader",
-      "file": "eggman_body.frag.glsl",
-      "name": "eggman_body.frag.glsl",
-      "scale": 1.0
-    },
-    {
-      "id": "4f57afb2-3f26-11e2-a25f-0800200c9a66",
-      "type": "shader",
-      "file": "eggman_parts.vert.glsl",
-      "name": "eggman_parts.vert.glsl",
-      "scale": 1.0
-    },
-    {
-      "id": "4f57afb3-3f26-11e2-a25f-0800200c9a66",
-      "type": "shader",
-      "file": "eggman_parts.frag.glsl",
-      "name": "eggman_parts.frag.glsl",
-      "scale": 1.0
-    },
-    {
       "id": "220edcd0-3f27-11e2-a25f-0800200c9a66",
       "type": "image",
       "file": "img_ear09_overlay.png",
@@ -555,10 +527,6 @@
         "284104f0-3ea2-11e2-a25f-0800200c9a66",
         "c7376330-3f22-11e2-a25f-0800200c9a66",
         "d69f0580-3f22-11e2-a25f-0800200c9a66",
-        "4f57afb0-3f26-11e2-a25f-0800200c9a66",
-        "4f57afb1-3f26-11e2-a25f-0800200c9a66",
-        "4f57afb2-3f26-11e2-a25f-0800200c9a66",
-        "4f57afb3-3f26-11e2-a25f-0800200c9a66",
         "220edcd0-3f27-11e2-a25f-0800200c9a66",
         "220edcd1-3f27-11e2-a25f-0800200c9a66",
         "220edcd2-3f27-11e2-a25f-0800200c9a66",
