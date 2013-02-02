@@ -1,5 +1,6 @@
 package;
 
+import kha.graphics.VertexType;
 import kha.Loader;
 import kha.graphics.FragmentShader;
 import kha.graphics.Texture;
@@ -191,7 +192,7 @@ class Eggman {
 		aim = new Vector3();
 		angle = 0;
 		var structure = new VertexStructure();
-		structure.add("position", VertexData.Float3);
+		structure.add("position", VertexData.Float3, VertexType.Position);
 		bodyVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure);
 		var vertices = bodyVertexBuffer.lock();
 		vertices[0] = -1.0; vertices[ 1] = -1.0; vertices[ 2] = 0.0;
@@ -210,8 +211,8 @@ class Eggman {
 		partsVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("eggman_parts.vert").toString());
 		partsFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_parts.frag").toString());
 		structure = new VertexStructure();
-		structure.add("pos", VertexData.Float3);
-		structure.add("tex", VertexData.Float2);
+		structure.add("pos", VertexData.Float3, VertexType.Position);
+		structure.add("tex", VertexData.Float2, VertexType.TexCoord);
 		partsVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure);
 		earTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_ear09_overlay"));
 		earNormals = kha.Sys.graphics.createTexture(Loader.the.getImage("img_ear09n"));

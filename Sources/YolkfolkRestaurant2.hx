@@ -9,6 +9,7 @@ import kha.graphics.VertexBuffer;
 import kha.graphics.VertexData;
 import kha.graphics.VertexShader;
 import kha.graphics.VertexStructure;
+import kha.graphics.VertexType;
 import kha.Loader;
 import kha.LoadingScreen;
 import kha.Painter;
@@ -71,8 +72,8 @@ class YolkfolkRestaurant2 extends Game {
 		);
 		
 		var structure = new VertexStructure();
-		structure.add("pos", VertexData.Float3);
-		structure.add("tex", VertexData.Float2);
+		structure.add("pos", VertexData.Float3, VertexType.Position);
+		structure.add("tex", VertexData.Float2, VertexType.TexCoord);
 		
 		backWall = kha.Sys.graphics.createVertexBuffer(4, structure);
 		floor = kha.Sys.graphics.createVertexBuffer(4, structure);
@@ -90,6 +91,7 @@ class YolkfolkRestaurant2 extends Game {
 	}
 	
 	override public function update(): Void {
+		if (eggman == null) return;
 		super.update();
 		time += 1.0 / 60.0;
 		//var xoffset = 0;// -time / 30.0;
@@ -148,6 +150,7 @@ class YolkfolkRestaurant2 extends Game {
 	}
 	
 	override public function render(painter: Painter): Void {
+		if (eggman == null) return;
 		kha.Sys.graphics.setVertexShader(vertexShader);
 		kha.Sys.graphics.setFragmentShader(fragmentShader);
 		kha.Sys.graphics.linkShaders();
