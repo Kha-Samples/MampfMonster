@@ -16,9 +16,9 @@ vec3 eye = vec3(0.0, 200.0, 500.0);
 
 uniform float angle;
 uniform vec3 center;
-vec2 f1 = center.xy / center.z + vec2(0.0, -0.41 / center.z); //-100
-vec2 f2 = center.xy / center.z + vec2(0.0, 0.41 / center.z); //100
-float ellipseConstant = 0.90 / center.z; //245
+vec2 f1;
+vec2 f2;
+float ellipseConstant;
 
 float square(float value) {
 	return value * value;
@@ -47,6 +47,10 @@ vec3 angleBisector(vec3 a, vec3 b) {
 }
 
 void main() {
+	f1 = center.xy / center.z + vec2(0.0, -0.22 / center.z); //-100
+	f2 = center.xy / center.z + vec2(0.0, 0.22 / center.z); //100
+	ellipseConstant = 0.485 / center.z; //245
+
 	vec2 position = pos.xy;
 
 	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);

@@ -38,7 +38,6 @@ class YolkfolkRestaurant2 extends Game {
 	
 	public function new() {
 		super("Yolkfolk Restaurant", false);
-		kha.Sys.needs3d = true;
 	}
 	
 	override public function init(): Void {
