@@ -3,6 +3,8 @@ package;
 import kha.Configuration;
 import kha.Game;
 import kha.graphics.FragmentShader;
+import kha.graphics.IndexBuffer;
+import kha.graphics.Program;
 import kha.graphics.Texture;
 import kha.graphics.TextureWrap;
 import kha.graphics.VertexBuffer;
@@ -18,6 +20,8 @@ import kha.Vector3;
 class YolkfolkRestaurant2 extends Game {
 	private var vertexShader: VertexShader;
 	private var fragmentShader: FragmentShader;
+	private var program: Program;
+	private var indexBuffer: IndexBuffer;
 	private var wallTexture: Texture;
 	private var floorTexture: Texture;
 	private var doorTexture: Texture;
@@ -49,31 +53,16 @@ class YolkfolkRestaurant2 extends Game {
 		doorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_kitchendoor_frontal"));
 		tableTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_table"));
 		lampTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_lamp2"));
-		vertexShader = kha.Sys.graphics.createVertexShader(
-			"attribute vec3 pos;" +
-			"attribute vec2 tex;" +
-			"varying vec4 position;" +
-			"varying vec2 texcoord;" +
-			"void main() {" +
-				"texcoord = tex;" +
-				"gl_Position = position = vec4(pos.x, pos.y, pos.z * pos.z, pos.z);" +
-			"}"
-		);
-		fragmentShader = kha.Sys.graphics.createFragmentShader(
-			"#ifdef GL_ES\n" +
-			"precision highp float;\n" +
-			"#endif\n" +
-			"uniform sampler2D sampler;\n" +
-			"varying vec4 position;\n" +
-			"varying vec2 texcoord;\n" +
-			"void main() {" +
-				"gl_FragColor = vec4(texture2D(sampler, texcoord).xyz, texture2D(sampler, texcoord).a);" +
-			"}"
-		);
+		vertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("level.vert").toString());
+		fragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("level.frag").toString());
+		program = kha.Sys.graphics.createProgram();
+		program.setVertexShader(vertexShader);
+		program.setFragmentShader(fragmentShader);
 		
 		var structure = new VertexStructure();
 		structure.add("pos", VertexData.Float3, VertexType.Position);
 		structure.add("tex", VertexData.Float2, VertexType.TexCoord);
+		program.link(structure);
 		
 		backWall = kha.Sys.graphics.createVertexBuffer(4, structure);
 		floor = kha.Sys.graphics.createVertexBuffer(4, structure);
@@ -82,7 +71,29 @@ class YolkfolkRestaurant2 extends Game {
 		table = kha.Sys.graphics.createVertexBuffer(4, structure);
 		lamp = kha.Sys.graphics.createVertexBuffer(4, structure);
 		
+		indexBuffer = createIndexBufferForQuads(1);
+		
 		Configuration.setScreen(this);
+	}
+	
+	public static function createIndexBufferForQuads(count: Int): IndexBuffer {
+		var ib = kha.Sys.graphics.createIndexBuffer(count * 3 * 2);
+		var buffer = ib.lock();
+		var i: Int = 0;
+		var bi: Int = 0;
+		while (bi < count * 3 * 2) {
+			buffer[bi + 0] = i;
+			buffer[bi + 1] = i + 1;
+			buffer[bi + 2] = i + 2;
+			buffer[bi + 3] = i + 2;
+			buffer[bi + 4] = i + 1;
+			buffer[bi + 5] = i + 3;
+			
+			i += 4;
+			bi += 6;
+		}
+		ib.unlock();
+		return ib;
 	}
 	
 	public static function calcZ(y: Float): Float {
@@ -151,47 +162,45 @@ class YolkfolkRestaurant2 extends Game {
 	
 	override public function render(painter: Painter): Void {
 		if (eggman == null) return;
-		kha.Sys.graphics.setVertexShader(vertexShader);
-		kha.Sys.graphics.setFragmentShader(fragmentShader);
-		kha.Sys.graphics.linkShaders();
-		fragmentShader.setInt("sampler", 0);
+		kha.Sys.graphics.setProgram(program);
+		kha.Sys.graphics.setInt(program.getConstantLocation("sampler"), 0);
+		kha.Sys.graphics.setIndexBuffer(indexBuffer);
 		
 		wallTexture.set(0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(backWall);
-		kha.Sys.graphics.drawArrays();
+		kha.Sys.graphics.drawIndexedVertices();
 		
 		floorTexture.set(0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(floor);
-		kha.Sys.graphics.drawArrays();
+		kha.Sys.graphics.drawIndexedVertices();
 		
 		wallTexture.set(0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(rightWall);
-		kha.Sys.graphics.drawArrays();
+		kha.Sys.graphics.drawIndexedVertices();
 		
 		doorTexture.set(0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(door);
-		kha.Sys.graphics.drawArrays();
+		kha.Sys.graphics.drawIndexedVertices();
 		
 		eggman.render(time, xoffset);
 		
-		kha.Sys.graphics.setVertexShader(vertexShader);
-		kha.Sys.graphics.setFragmentShader(fragmentShader);
-		kha.Sys.graphics.linkShaders();
-		fragmentShader.setInt("sampler", 0);
+		kha.Sys.graphics.setProgram(program);
+		kha.Sys.graphics.setInt(program.getConstantLocation("sampler"), 0);
+		kha.Sys.graphics.setIndexBuffer(indexBuffer);
 		
 		tableTexture.set(0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(table);
-		kha.Sys.graphics.drawArrays();
+		kha.Sys.graphics.drawIndexedVertices();
 		
 		lampTexture.set(0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(lamp);
-		kha.Sys.graphics.drawArrays();
+		kha.Sys.graphics.drawIndexedVertices();
 	}
 	
 	private var aimx: Float = 0.0;

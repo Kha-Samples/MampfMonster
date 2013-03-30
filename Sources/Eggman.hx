@@ -1,5 +1,7 @@
 package;
 
+import kha.graphics.IndexBuffer;
+import kha.graphics.Program;
 import kha.graphics.VertexType;
 import kha.Loader;
 import kha.graphics.FragmentShader;
@@ -11,9 +13,11 @@ import kha.graphics.VertexStructure;
 import kha.Vector3;
 
 class Eggman {
+	private var indexBuffer: IndexBuffer;
 	private var bodyVertexShader: VertexShader;
 	private var bodyFragmentShader: FragmentShader;
 	private var bodyVertexBuffer: VertexBuffer;
+	private var bodyProgram: Program;
 	private var bodyTexture: Texture;
 	private var bodyNormals: Texture;
 	private var faceTexture: Texture;
@@ -21,6 +25,7 @@ class Eggman {
 	private var partsVertexShader: VertexShader;
 	private var partsFragmentShader: FragmentShader;
 	private var partsVertexBuffer: VertexBuffer;
+	private var partsProgram: Program;
 	private var earTexture: Texture;
 	private var earNormals: Texture;
 	private var handtex: Texture;
@@ -180,6 +185,7 @@ class Eggman {
 	}
 	
 	public function new() {
+		indexBuffer = YolkfolkRestaurant2.createIndexBufferForQuads(1);
 		leftHandRot = 0;
 		rightHandRot = 0;
 		leftFootHeight = 0;
@@ -207,12 +213,20 @@ class Eggman {
 		
 		bodyVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("eggman_body.vert").toString());
 		bodyFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_body.frag").toString());
+		bodyProgram = kha.Sys.graphics.createProgram();
+		bodyProgram.setVertexShader(bodyVertexShader);
+		bodyProgram.setFragmentShader(bodyFragmentShader);
+		bodyProgram.link(structure);
 		
 		partsVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("eggman_parts.vert").toString());
 		partsFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_parts.frag").toString());
+		partsProgram = kha.Sys.graphics.createProgram();
 		structure = new VertexStructure();
 		structure.add("pos", VertexData.Float3, VertexType.Position);
 		structure.add("tex", VertexData.Float2, VertexType.TexCoord);
+		partsProgram.setVertexShader(partsVertexShader);
+		partsProgram.setFragmentShader(partsFragmentShader);
+		partsProgram.link(structure);
 		partsVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure);
 		earTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_ear09_overlay"));
 		earNormals = kha.Sys.graphics.createTexture(Loader.the.getImage("img_ear09n"));
@@ -237,13 +251,11 @@ class Eggman {
 			w *= z;
 			h *= z;
 		}*/
-		kha.Sys.graphics.setVertexShader(partsVertexShader);
-		kha.Sys.graphics.setFragmentShader(partsFragmentShader);
-		kha.Sys.graphics.linkShaders();
+		kha.Sys.graphics.setProgram(partsProgram);
 
-		partsFragmentShader.setFloat("time", time);
-		partsFragmentShader.setFloat2("resolution", 1024.0, 768.0);
-		partsFragmentShader.setFloat3("lightPosition", lightPosition.x, lightPosition.y, lightPosition.z);
+		kha.Sys.graphics.setFloat(partsProgram.getConstantLocation("time"), time);
+		kha.Sys.graphics.setFloat2(partsProgram.getConstantLocation("resolution"), 1024.0, 768.0);
+		kha.Sys.graphics.setFloat3(partsProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 		
 		var vertices = partsVertexBuffer.lock();
 		vertices[ 0] = x - w / 2.0; vertices[ 1] = y - h / 2.0; vertices[ 2] = z;
@@ -266,34 +278,34 @@ class Eggman {
 		kha.Sys.graphics.setVertexBuffer(partsVertexBuffer);
 		
 		texture.set(0);
-		partsFragmentShader.setInt("sampler", 0);
+		kha.Sys.graphics.setInt(partsProgram.getConstantLocation("sampler"), 0);
 		
 		normals.set(1);
-		partsFragmentShader.setInt("normals", 1);
+		kha.Sys.graphics.setInt(partsProgram.getConstantLocation("normals"), 1);
 
-		kha.Sys.graphics.drawArrays();
+		indexBuffer.set();
+		kha.Sys.graphics.drawIndexedVertices();
 	}
 
 	private function drawBody(time: Float, xoffset: Float): Void {
-		kha.Sys.graphics.setVertexShader(bodyVertexShader);
-		kha.Sys.graphics.setFragmentShader(bodyFragmentShader);
-		kha.Sys.graphics.linkShaders();
+		kha.Sys.graphics.setProgram(bodyProgram);
 		
-		bodyFragmentShader.setFloat("time", time);
-		bodyFragmentShader.setFloat("angle", angle);
-		bodyFragmentShader.setFloat2("resolution", 1024.0, 768.0);
-		bodyFragmentShader.setFloat3("center", position.x + xoffset + 0.05, position.y - 0.1, calcZ());
-		bodyFragmentShader.setFloat3("lightPosition", lightPosition.x, lightPosition.y, lightPosition.z);
+		kha.Sys.graphics.setFloat(bodyProgram.getConstantLocation("time"), time);
+		kha.Sys.graphics.setFloat(bodyProgram.getConstantLocation("angle"), angle);
+		kha.Sys.graphics.setFloat2(bodyProgram.getConstantLocation("resolution"), 1024.0, 768.0);
+		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
+		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 
 		bodyTexture.set(0);
-		bodyFragmentShader.setInt("sampler", 0);
+		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("sampler"), 0);
 		bodyNormals.set(1);
-		bodyFragmentShader.setInt("normals", 1);
+		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("normals"), 1);
 		faceTexture.set(2);
-		bodyFragmentShader.setInt("facetex", 2);
+		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("facetex"), 2);
 		
 		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);
-		kha.Sys.graphics.drawArrays();
+		kha.Sys.graphics.setIndexBuffer(indexBuffer);
+		kha.Sys.graphics.drawIndexedVertices();
 	
 		drawObject(time, earTexture, earNormals, 0.13 + position.x + xoffset, 0.09 + position.y, 0.15, 0.15, false, calcZ());
 	}
