@@ -79,7 +79,7 @@ void main() {
 		winkel -= angle;
 		winkel /= PI * 2.0;
 
-		vec2 texcoord = vec2(winkel, (position.y - center.y / center.z + ellipseConstant / 2.0) / ellipseConstant);
+		vec2 texcoord = vec2(winkel, 1.0 - (position.y - center.y / center.z + ellipseConstant / 2.0) / ellipseConstant);
 
 		vec3 tangentnormal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
 		normal.x = dot(tangentnormal, cross(tangent, normal));

@@ -4,6 +4,7 @@
 precision highp float;
 #endif
 
+uniform vec2 resolution;
 uniform vec3 lightPosition;// = vec3(100.0, 200.0, 500.0);
 vec3 eye = vec3(0.0, 200.0, 500.0);
 uniform sampler2D sampler;
@@ -25,6 +26,8 @@ void main() {
 	vec3 normal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
 	
 	vec3 world = vec3(gl_FragCoord.xy, 0);
+	world.x /= resolution.x;
+	world.y /= resolution.y;
 	vec3 lightDirection = normalize(world - lightPosition);
 	//lightDirection = vec3(0.1, 0.2, -0.7);
 	float diffuse = saturate(dot(normal, -lightDirection));
