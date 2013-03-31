@@ -263,16 +263,16 @@ class Eggman {
 		vertices[10] = x + w / 2.0; vertices[11] = y - h / 2.0; vertices[12] = z;
 		vertices[15] = x + w / 2.0; vertices[16] = y + h / 2.0; vertices[17] = z;
 		if (mirror) {
-			vertices[ 3] = 1.0; vertices[ 4] = 0.0;
-			vertices[ 8] = 1.0; vertices[ 9] = 1.0;
-			vertices[13] = 0.0; vertices[14] = 0.0;
-			vertices[18] = 0.0; vertices[19] = 1.0;
+			vertices[ 3] = 1.0; vertices[ 4] = 1.0;
+			vertices[ 8] = 1.0; vertices[ 9] = 0.0;
+			vertices[13] = 0.0; vertices[14] = 1.0;
+			vertices[18] = 0.0; vertices[19] = 0.0;
 		}
 		else {
-			vertices[ 3] = 0.0; vertices[ 4] = 0.0;
-			vertices[ 8] = 0.0; vertices[ 9] = 1.0;
-			vertices[13] = 1.0; vertices[14] = 0.0;
-			vertices[18] = 1.0; vertices[19] = 1.0;
+			vertices[ 3] = 0.0; vertices[ 4] = 1.0;
+			vertices[ 8] = 0.0; vertices[ 9] = 0.0;
+			vertices[13] = 1.0; vertices[14] = 1.0;
+			vertices[18] = 1.0; vertices[19] = 0.0;
 		}
 		partsVertexBuffer.unlock();
 		kha.Sys.graphics.setVertexBuffer(partsVertexBuffer);

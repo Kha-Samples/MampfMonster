@@ -113,45 +113,45 @@ class YolkfolkRestaurant2 extends Game {
 		//else xoffset += 0.001;
 		
 		var vertices = backWall.lock();
-		vertices[ 0] = -1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
-		vertices[ 5] = -1.0 + xoffset; vertices[ 6] =  1.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
-		vertices[10] =  1.0 + xoffset; vertices[11] =  0.0; vertices[12] = 1.0; vertices[13] = 2.0 * 1024 / 768; vertices[14] = 0.0;
-		vertices[15] =  1.0 + xoffset; vertices[16] =  1.0; vertices[17] = 1.0; vertices[18] = 2.0 * 1024 / 768; vertices[19] = 1.0;
+		vertices[ 0] = -1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 1.0;
+		vertices[ 5] = -1.0 + xoffset; vertices[ 6] =  1.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 0.0;
+		vertices[10] =  1.0 + xoffset; vertices[11] =  0.0; vertices[12] = 1.0; vertices[13] = 2.0 * 1024 / 768; vertices[14] = 1.0;
+		vertices[15] =  1.0 + xoffset; vertices[16] =  1.0; vertices[17] = 1.0; vertices[18] = 2.0 * 1024 / 768; vertices[19] = 0.0;
 		backWall.unlock();
 		
 		vertices = floor.lock();
-		vertices[ 0] = -1.0 + xoffset; vertices[ 1] = -1.0; vertices[ 2] = 0.5; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
-		vertices[ 5] = -1.0 + xoffset; vertices[ 6] =  0.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 3.0;
-		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5; vertices[13] = 3.0; vertices[14] = 0.0;
-		vertices[15] =  1.0 + xoffset; vertices[16] =  0.0; vertices[17] = 1.0; vertices[18] = 3.0; vertices[19] = 3.0;
+		vertices[ 0] = -1.0 + xoffset; vertices[ 1] = -1.0; vertices[ 2] = 0.5; vertices[ 3] = 0.0; vertices[ 4] = 3.0;
+		vertices[ 5] = -1.0 + xoffset; vertices[ 6] =  0.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 0.0;
+		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5; vertices[13] = 3.0; vertices[14] = 3.0;
+		vertices[15] =  1.0 + xoffset; vertices[16] =  0.0; vertices[17] = 1.0; vertices[18] = 3.0; vertices[19] = 0.0;
 		floor.unlock();
 		
 		vertices = rightWall.lock();
-		vertices[ 0] =  1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
-		vertices[ 5] =  1.0 + xoffset; vertices[ 6] =  1.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
-		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5; vertices[13] = 1.0; vertices[14] = 0.0;
-		vertices[15] =  1.0 + xoffset; vertices[16] =  1.0; vertices[17] = 0.5; vertices[18] = 1.0; vertices[19] = 1.0;
+		vertices[ 0] =  1.0 + xoffset; vertices[ 1] =  0.0; vertices[ 2] = 1.0; vertices[ 3] = 0.0; vertices[ 4] = 1.0;
+		vertices[ 5] =  1.0 + xoffset; vertices[ 6] =  1.0; vertices[ 7] = 1.0; vertices[ 8] = 0.0; vertices[ 9] = 0.0;
+		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5; vertices[13] = 1.0; vertices[14] = 1.0;
+		vertices[15] =  1.0 + xoffset; vertices[16] =  1.0; vertices[17] = 0.5; vertices[18] = 1.0; vertices[19] = 0.0;
 		rightWall.unlock();
 
 		vertices = door.lock();
-		vertices[ 0] =  1.0 + xoffset; vertices[ 1] = -0.5; vertices[ 2] = 2.0 / 3.0; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
-		vertices[ 5] =  1.0 + xoffset; vertices[ 6] =  0.5; vertices[ 7] = 2.0 / 3.0; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
-		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5;       vertices[13] = 1.0; vertices[14] = 0.0;
-		vertices[15] =  1.0 + xoffset; vertices[16] =  0.5; vertices[17] = 0.5;       vertices[18] = 1.0; vertices[19] = 1.0;
+		vertices[ 0] =  1.0 + xoffset; vertices[ 1] = -0.5; vertices[ 2] = 2.0 / 3.0; vertices[ 3] = 0.0; vertices[ 4] = 1.0;
+		vertices[ 5] =  1.0 + xoffset; vertices[ 6] =  0.5; vertices[ 7] = 2.0 / 3.0; vertices[ 8] = 0.0; vertices[ 9] = 0.0;
+		vertices[10] =  1.0 + xoffset; vertices[11] = -1.0; vertices[12] = 0.5;       vertices[13] = 1.0; vertices[14] = 1.0;
+		vertices[15] =  1.0 + xoffset; vertices[16] =  0.5; vertices[17] = 0.5;       vertices[18] = 1.0; vertices[19] = 0.0;
 		door.unlock();
 		
 		vertices = table.lock();
-		vertices[ 0] = -0.2 + xoffset; vertices[ 1] = -0.7; vertices[ 2] = 0.7; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
-		vertices[ 5] = -0.2 + xoffset; vertices[ 6] = -0.2; vertices[ 7] = 0.7; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
-		vertices[10] =  0.2 + xoffset; vertices[11] = -0.7; vertices[12] = 0.7; vertices[13] = 1.0; vertices[14] = 0.0;
-		vertices[15] =  0.2 + xoffset; vertices[16] = -0.2; vertices[17] = 0.7; vertices[18] = 1.0; vertices[19] = 1.0;
+		vertices[ 0] = -0.2 + xoffset; vertices[ 1] = -0.7; vertices[ 2] = 0.7; vertices[ 3] = 0.0; vertices[ 4] = 1.0;
+		vertices[ 5] = -0.2 + xoffset; vertices[ 6] = -0.2; vertices[ 7] = 0.7; vertices[ 8] = 0.0; vertices[ 9] = 0.0;
+		vertices[10] =  0.2 + xoffset; vertices[11] = -0.7; vertices[12] = 0.7; vertices[13] = 1.0; vertices[14] = 1.0;
+		vertices[15] =  0.2 + xoffset; vertices[16] = -0.2; vertices[17] = 0.7; vertices[18] = 1.0; vertices[19] = 0.0;
 		table.unlock();
 		
 		vertices = lamp.lock();
-		vertices[ 0] = -0.1 + xoffset; vertices[ 1] =  0.2; vertices[ 2] = 0.7; vertices[ 3] = 0.0; vertices[ 4] = 0.0;
-		vertices[ 5] = -0.1 + xoffset; vertices[ 6] =  0.8; vertices[ 7] = 0.7; vertices[ 8] = 0.0; vertices[ 9] = 1.0;
-		vertices[10] =  0.1 + xoffset; vertices[11] =  0.2; vertices[12] = 0.7; vertices[13] = 1.0; vertices[14] = 0.0;
-		vertices[15] =  0.1 + xoffset; vertices[16] =  0.8; vertices[17] = 0.7; vertices[18] = 1.0; vertices[19] = 1.0;
+		vertices[ 0] = -0.1 + xoffset; vertices[ 1] =  0.2; vertices[ 2] = 0.7; vertices[ 3] = 0.0; vertices[ 4] = 1.0;
+		vertices[ 5] = -0.1 + xoffset; vertices[ 6] =  0.8; vertices[ 7] = 0.7; vertices[ 8] = 0.0; vertices[ 9] = 0.0;
+		vertices[10] =  0.1 + xoffset; vertices[11] =  0.2; vertices[12] = 0.7; vertices[13] = 1.0; vertices[14] = 1.0;
+		vertices[15] =  0.1 + xoffset; vertices[16] =  0.8; vertices[17] = 0.7; vertices[18] = 1.0; vertices[19] = 0.0;
 		lamp.unlock();
 		
 		//eggman.setPosition(xoffset, 0, 0);
