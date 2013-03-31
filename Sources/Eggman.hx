@@ -277,10 +277,10 @@ class Eggman {
 		partsVertexBuffer.unlock();
 		kha.Sys.graphics.setVertexBuffer(partsVertexBuffer);
 		
-		texture.set(0);
+		kha.Sys.graphics.setTexture(texture, 0);
 		kha.Sys.graphics.setInt(partsProgram.getConstantLocation("sampler"), 0);
 		
-		normals.set(1);
+		kha.Sys.graphics.setTexture(normals, 1);
 		kha.Sys.graphics.setInt(partsProgram.getConstantLocation("normals"), 1);
 
 		indexBuffer.set();
@@ -296,11 +296,11 @@ class Eggman {
 		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
 		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 
-		bodyTexture.set(0);
+		kha.Sys.graphics.setTexture(bodyTexture, 0);
 		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("sampler"), 0);
-		bodyNormals.set(1);
+		kha.Sys.graphics.setTexture(bodyNormals, 1);
 		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("normals"), 1);
-		faceTexture.set(2);
+		kha.Sys.graphics.setTexture(faceTexture, 2);
 		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("facetex"), 2);
 		
 		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);

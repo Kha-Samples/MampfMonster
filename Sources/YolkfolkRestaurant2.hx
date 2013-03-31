@@ -165,22 +165,22 @@ class YolkfolkRestaurant2 extends Game {
 		kha.Sys.graphics.setInt(program.getConstantLocation("sampler"), 0);
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);
 		
-		wallTexture.set(0);
+		kha.Sys.graphics.setTexture(wallTexture, 0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(backWall);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		floorTexture.set(0);
+		kha.Sys.graphics.setTexture(floorTexture, 0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(floor);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		wallTexture.set(0);
+		kha.Sys.graphics.setTexture(wallTexture, 0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(rightWall);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		doorTexture.set(0);
+		kha.Sys.graphics.setTexture(doorTexture, 0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(door);
 		kha.Sys.graphics.drawIndexedVertices();
@@ -191,12 +191,12 @@ class YolkfolkRestaurant2 extends Game {
 		kha.Sys.graphics.setInt(program.getConstantLocation("sampler"), 0);
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);
 		
-		tableTexture.set(0);
+		kha.Sys.graphics.setTexture(tableTexture, 0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(table);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		lampTexture.set(0);
+		kha.Sys.graphics.setTexture(lampTexture, 0);
 		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(lamp);
 		kha.Sys.graphics.drawIndexedVertices();
