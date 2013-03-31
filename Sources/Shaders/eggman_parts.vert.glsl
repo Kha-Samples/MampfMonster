@@ -1,3 +1,5 @@
+#version 100
+
 attribute vec3 pos;
 attribute vec2 tex;
 varying vec4 position;
