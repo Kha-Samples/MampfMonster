@@ -52,8 +52,8 @@ class YolkfolkRestaurant2 extends Game {
 		doorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_kitchendoor_frontal"));
 		tableTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_table"));
 		lampTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_lamp2"));
-		vertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("level.vert").toString());
-		fragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("level.frag").toString());
+		vertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("level.vert"));
+		fragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("level.frag"));
 		program = kha.Sys.graphics.createProgram();
 		program.setVertexShader(vertexShader);
 		program.setFragmentShader(fragmentShader);
