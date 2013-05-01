@@ -17,7 +17,7 @@ float saturate(float value) {
 	return clamp(value, 0.0, 1.0);	
 }
 
-void main() {
+void kmain() {
 	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 	//lightPosition.x = sin(time) * 1000.0;
 	//lightPosition.y = sin(time * 0.5) * 2000.0;

@@ -10,7 +10,7 @@ import kha.graphics.VertexData;
 import kha.graphics.VertexShader;
 import kha.graphics.VertexBuffer;
 import kha.graphics.VertexStructure;
-import kha.Vector3;
+import kha.math.Vector3;
 
 class Eggman {
 	private var indexBuffer: IndexBuffer;
@@ -207,9 +207,9 @@ class Eggman {
 		vertices[9] =  1.0; vertices[10] =  1.0; vertices[11] = 0.0;
 		bodyVertexBuffer.unlock();
 		
-		bodyTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_fur2"));
-		bodyNormals = kha.Sys.graphics.createTexture(Loader.the.getImage("img_fur2n"));
-		faceTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_face_a1"));
+		bodyTexture = cast Loader.the.getImage("img_fur2");
+		bodyNormals = cast Loader.the.getImage("img_fur2n");
+		faceTexture = cast Loader.the.getImage("img_face_a1");
 		
 		bodyVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("eggman_body.vert"));
 		bodyFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_body.frag"));
@@ -228,13 +228,13 @@ class Eggman {
 		partsProgram.setFragmentShader(partsFragmentShader);
 		partsProgram.link(structure);
 		partsVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure);
-		earTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_ear09_overlay"));
-		earNormals = kha.Sys.graphics.createTexture(Loader.the.getImage("img_ear09n"));
+		earTexture = cast Loader.the.getImage("img_ear09_overlay");
+		earNormals = cast Loader.the.getImage("img_ear09n");
 		
-		handtex = kha.Sys.graphics.createTexture(Loader.the.getImage("img_hand_chef_overlay"));
-		handnormals = kha.Sys.graphics.createTexture(Loader.the.getImage("img_hand_chefn"));
-		foottex = kha.Sys.graphics.createTexture(Loader.the.getImage("img_foot_chef_overlay"));
-		footnormals = kha.Sys.graphics.createTexture(Loader.the.getImage("img_foot_chefn"));
+		handtex = cast Loader.the.getImage("img_hand_chef_overlay");
+		handnormals = cast Loader.the.getImage("img_hand_chefn");
+		foottex = cast Loader.the.getImage("img_foot_chef_overlay");
+		footnormals = cast Loader.the.getImage("img_foot_chefn");
 	}
 	
 	private function drawObject(time: Float, texture: Texture, normals: Texture, x: Float, y: Float, w: Float, h: Float, mirror: Bool, z: Float) {

@@ -48,7 +48,7 @@ vec3 angleBisector(vec3 a, vec3 b) {
 	return normalize(a / length(a) + b / length(b));
 }
 
-void main() {
+void kmain() {
 	f1 = center.xy / center.z + vec2(0.0, -0.22 / center.z); //-100
 	f2 = center.xy / center.z + vec2(0.0, 0.22 / center.z); //100
 	ellipseConstant = 0.485 / center.z; //245

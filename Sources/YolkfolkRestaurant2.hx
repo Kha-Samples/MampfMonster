@@ -15,7 +15,7 @@ import kha.graphics.VertexType;
 import kha.Loader;
 import kha.LoadingScreen;
 import kha.Painter;
-import kha.Vector3;
+import kha.math.Vector3;
 
 class YolkfolkRestaurant2 extends Game {
 	private var vertexShader: VertexShader;
@@ -47,11 +47,11 @@ class YolkfolkRestaurant2 extends Game {
 	
 	private function initLevel(): Void {
 		eggman = new Eggman();
-		wallTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("pattern_wall_restaurant"));
-		floorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_floor_frontal"));
-		doorTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_kitchendoor_frontal"));
-		tableTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_table"));
-		lampTexture = kha.Sys.graphics.createTexture(Loader.the.getImage("img_lamp2"));
+		wallTexture = cast Loader.the.getImage("pattern_wall_restaurant");
+		floorTexture = cast Loader.the.getImage("img_floor_frontal");
+		doorTexture = cast Loader.the.getImage("img_kitchendoor_frontal");
+		tableTexture = cast Loader.the.getImage("img_table");
+		lampTexture = cast Loader.the.getImage("img_lamp2");
 		vertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("level.vert"));
 		fragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("level.frag"));
 		program = kha.Sys.graphics.createProgram();
