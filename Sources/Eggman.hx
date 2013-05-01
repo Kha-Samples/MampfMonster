@@ -2,6 +2,7 @@ package;
 
 import kha.graphics.IndexBuffer;
 import kha.graphics.Program;
+import kha.graphics.TextureWrap;
 import kha.graphics.VertexType;
 import kha.Loader;
 import kha.graphics.FragmentShader;
@@ -279,9 +280,11 @@ class Eggman {
 		
 		kha.Sys.graphics.setTexture(texture, 0);
 		kha.Sys.graphics.setInt(partsProgram.getConstantLocation("sampler"), 0);
+		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		
 		kha.Sys.graphics.setTexture(normals, 1);
 		kha.Sys.graphics.setInt(partsProgram.getConstantLocation("normals"), 1);
+		kha.Sys.graphics.setTextureWrap(1, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 
 		indexBuffer.set();
 		kha.Sys.graphics.drawIndexedVertices();
@@ -298,10 +301,13 @@ class Eggman {
 
 		kha.Sys.graphics.setTexture(bodyTexture, 0);
 		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("sampler"), 0);
+		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setTexture(bodyNormals, 1);
 		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("normals"), 1);
+		kha.Sys.graphics.setTextureWrap(1, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setTexture(faceTexture, 2);
 		kha.Sys.graphics.setInt(bodyProgram.getConstantLocation("facetex"), 2);
+		kha.Sys.graphics.setTextureWrap(2, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		
 		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);
