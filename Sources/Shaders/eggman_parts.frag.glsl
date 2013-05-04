@@ -10,7 +10,6 @@ vec3 eye = vec3(0.0, 200.0, 500.0);
 uniform sampler2D sampler;
 uniform sampler2D normals;
 uniform float time;
-varying vec4 position;
 varying vec2 texcoord;
 
 float saturate(float value) {
