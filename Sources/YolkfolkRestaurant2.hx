@@ -162,42 +162,41 @@ class YolkfolkRestaurant2 extends Game {
 	override public function render(painter: Painter): Void {
 		if (eggman == null) return;
 		kha.Sys.graphics.setProgram(program);
-		kha.Sys.graphics.setInt(program.getConstantLocation("sampler"), 0);
+		var samplerLocation = program.getConstantLocation("sampler");
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);
 		
-		kha.Sys.graphics.setTexture(wallTexture, 0);
-		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
+		kha.Sys.graphics.setTexture(samplerLocation, wallTexture);
+		kha.Sys.graphics.setTextureWrap(samplerLocation, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(backWall);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTexture(floorTexture, 0);
-		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
+		kha.Sys.graphics.setTexture(samplerLocation, floorTexture);
+		kha.Sys.graphics.setTextureWrap(samplerLocation, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(floor);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTexture(wallTexture, 0);
-		kha.Sys.graphics.setTextureWrap(0, TextureWrap.Repeat, TextureWrap.Repeat);
+		kha.Sys.graphics.setTexture(samplerLocation, wallTexture);
+		kha.Sys.graphics.setTextureWrap(samplerLocation, TextureWrap.Repeat, TextureWrap.Repeat);
 		kha.Sys.graphics.setVertexBuffer(rightWall);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTexture(doorTexture, 0);
-		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
+		kha.Sys.graphics.setTexture(samplerLocation, doorTexture);
+		kha.Sys.graphics.setTextureWrap(samplerLocation, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(door);
 		kha.Sys.graphics.drawIndexedVertices();
 		
 		eggman.render(time, xoffset);
 		
 		kha.Sys.graphics.setProgram(program);
-		kha.Sys.graphics.setInt(program.getConstantLocation("sampler"), 0);
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);
 		
-		kha.Sys.graphics.setTexture(tableTexture, 0);
-		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
+		kha.Sys.graphics.setTexture(samplerLocation, tableTexture);
+		kha.Sys.graphics.setTextureWrap(samplerLocation, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(table);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTexture(lampTexture, 0);
-		kha.Sys.graphics.setTextureWrap(0, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
+		kha.Sys.graphics.setTexture(samplerLocation, lampTexture);
+		kha.Sys.graphics.setTextureWrap(samplerLocation, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		kha.Sys.graphics.setVertexBuffer(lamp);
 		kha.Sys.graphics.drawIndexedVertices();
 	}
