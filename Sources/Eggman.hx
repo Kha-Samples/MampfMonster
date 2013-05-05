@@ -278,11 +278,11 @@ class Eggman {
 		partsVertexBuffer.unlock();
 		kha.Sys.graphics.setVertexBuffer(partsVertexBuffer);
 		
-		kha.Sys.graphics.setTexture(partsProgram.getConstantLocation("sampler"), texture);
-		kha.Sys.graphics.setTextureWrap(partsProgram.getConstantLocation("sampler"), TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
+		kha.Sys.graphics.setTexture(partsProgram.getTextureUnit("sampler"), texture);
+		kha.Sys.graphics.setTextureWrap(partsProgram.getTextureUnit("sampler"), TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		
-		kha.Sys.graphics.setTexture(partsProgram.getConstantLocation("normals"), normals);
-		kha.Sys.graphics.setTextureWrap(partsProgram.getConstantLocation("normals"), TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
+		kha.Sys.graphics.setTexture(partsProgram.getTextureUnit("normals"), normals);
+		kha.Sys.graphics.setTextureWrap(partsProgram.getTextureUnit("normals"), TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 
 		indexBuffer.set();
 		kha.Sys.graphics.drawIndexedVertices();
@@ -297,12 +297,12 @@ class Eggman {
 		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
 		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 
-		kha.Sys.graphics.setTexture(bodyProgram.getConstantLocation("sampler"), bodyTexture);
-		kha.Sys.graphics.setTextureWrap(bodyProgram.getConstantLocation("sampler"), TextureWrap.Repeat, TextureWrap.Repeat);
-		kha.Sys.graphics.setTexture(bodyProgram.getConstantLocation("normals"), bodyNormals);
-		kha.Sys.graphics.setTextureWrap(bodyProgram.getConstantLocation("normals"), TextureWrap.Repeat, TextureWrap.Repeat);
-		kha.Sys.graphics.setTexture(bodyProgram.getConstantLocation("facetex"), faceTexture);
-		kha.Sys.graphics.setTextureWrap(bodyProgram.getConstantLocation("facetex"), TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
+		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("sampler"), bodyTexture);
+		kha.Sys.graphics.setTextureWrap(bodyProgram.getTextureUnit("sampler"), TextureWrap.Repeat, TextureWrap.Repeat);
+		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("normals"), bodyNormals);
+		kha.Sys.graphics.setTextureWrap(bodyProgram.getTextureUnit("normals"), TextureWrap.Repeat, TextureWrap.Repeat);
+		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("facetex"), faceTexture);
+		kha.Sys.graphics.setTextureWrap(bodyProgram.getTextureUnit("facetex"), TextureWrap.Repeat, TextureWrap.Repeat);
 		
 		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);

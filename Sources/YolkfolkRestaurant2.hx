@@ -162,7 +162,7 @@ class YolkfolkRestaurant2 extends Game {
 	override public function render(painter: Painter): Void {
 		if (eggman == null) return;
 		kha.Sys.graphics.setProgram(program);
-		var samplerLocation = program.getConstantLocation("sampler");
+		var samplerLocation = program.getTextureUnit("sampler");
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);
 		
 		kha.Sys.graphics.setTexture(samplerLocation, wallTexture);
