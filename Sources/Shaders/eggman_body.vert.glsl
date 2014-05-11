@@ -3,6 +3,6 @@
 attribute vec3 position;
 varying vec4 pos;
 
-void kmain() {
+void kore() {
 	gl_Position = pos = vec4(position, 1.0);
 }

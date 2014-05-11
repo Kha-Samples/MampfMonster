@@ -1,9 +1,11 @@
 package;
 
 import kha.graphics.IndexBuffer;
+import kha.graphics.MipMapFilter;
 import kha.graphics.Program;
-import kha.graphics.TextureWrap;
-import kha.graphics.VertexType;
+import kha.graphics.TextureAddressing;
+import kha.graphics.TextureFilter;
+import kha.graphics.Usage;
 import kha.Loader;
 import kha.graphics.FragmentShader;
 import kha.graphics.Texture;
@@ -199,8 +201,8 @@ class Eggman {
 		aim = new Vector3();
 		angle = 0;
 		var structure = new VertexStructure();
-		structure.add("position", VertexData.Float3, VertexType.Position);
-		bodyVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure);
+		structure.add("position", VertexData.Float3);
+		bodyVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
 		var vertices = bodyVertexBuffer.lock();
 		vertices[0] = -1.0; vertices[ 1] = -1.0; vertices[ 2] = 0.0;
 		vertices[3] = -1.0; vertices[ 4] =  1.0; vertices[ 5] = 0.0;
@@ -223,12 +225,12 @@ class Eggman {
 		partsFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_parts.frag"));
 		partsProgram = kha.Sys.graphics.createProgram();
 		structure = new VertexStructure();
-		structure.add("pos", VertexData.Float3, VertexType.Position);
-		structure.add("tex", VertexData.Float2, VertexType.TexCoord);
+		structure.add("pos", VertexData.Float3);
+		structure.add("tex", VertexData.Float2);
 		partsProgram.setVertexShader(partsVertexShader);
 		partsProgram.setFragmentShader(partsFragmentShader);
 		partsProgram.link(structure);
-		partsVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure);
+		partsVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
 		earTexture = cast Loader.the.getImage("img_ear09_overlay");
 		earNormals = cast Loader.the.getImage("img_ear09n");
 		
@@ -278,11 +280,11 @@ class Eggman {
 		partsVertexBuffer.unlock();
 		kha.Sys.graphics.setVertexBuffer(partsVertexBuffer);
 		
+		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("sampler"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setTexture(partsProgram.getTextureUnit("sampler"), texture);
-		kha.Sys.graphics.setTextureWrap(partsProgram.getTextureUnit("sampler"), TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 		
+		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setTexture(partsProgram.getTextureUnit("normals"), normals);
-		kha.Sys.graphics.setTextureWrap(partsProgram.getTextureUnit("normals"), TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 
 		indexBuffer.set();
 		kha.Sys.graphics.drawIndexedVertices();
@@ -297,12 +299,12 @@ class Eggman {
 		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
 		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 
+		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("sampler"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("sampler"), bodyTexture);
-		kha.Sys.graphics.setTextureWrap(bodyProgram.getTextureUnit("sampler"), TextureWrap.Repeat, TextureWrap.Repeat);
+		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("normals"), bodyNormals);
-		kha.Sys.graphics.setTextureWrap(bodyProgram.getTextureUnit("normals"), TextureWrap.Repeat, TextureWrap.Repeat);
+		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("facetex"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("facetex"), faceTexture);
-		kha.Sys.graphics.setTextureWrap(bodyProgram.getTextureUnit("facetex"), TextureWrap.Repeat, TextureWrap.Repeat);
 		
 		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);

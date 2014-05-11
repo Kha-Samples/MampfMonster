@@ -1,7 +1,7 @@
 #version 100
 
 #ifdef GL_ES
-precision highp float;
+precision mediump float;
 #endif
 
 uniform vec2 resolution;
@@ -16,7 +16,7 @@ float saturate(float value) {
 	return clamp(value, 0.0, 1.0);	
 }
 
-void kmain() {
+void kore() {
 	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
 	//lightPosition.x = sin(time) * 1000.0;
 	//lightPosition.y = sin(time * 0.5) * 2000.0;
