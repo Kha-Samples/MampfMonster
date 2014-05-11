@@ -2,6 +2,7 @@ package;
 
 import kha.Configuration;
 import kha.Game;
+import kha.graphics.BlendingOperation;
 import kha.graphics.FragmentShader;
 import kha.graphics.IndexBuffer;
 import kha.graphics.MipMapFilter;
@@ -163,27 +164,28 @@ class YolkfolkRestaurant2 extends Game {
 	
 	override public function render(painter: Painter): Void {
 		if (eggman == null) return;
+		kha.Sys.graphics.setBlendingMode(BlendingOperation.BlendOne, BlendingOperation.InverseSourceAlpha);
 		kha.Sys.graphics.setProgram(program);
 		var samplerLocation = program.getTextureUnit("sampler");
 		kha.Sys.graphics.setIndexBuffer(indexBuffer);
 		
-		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		
 		kha.Sys.graphics.setTexture(samplerLocation, wallTexture);
+		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setVertexBuffer(backWall);
 		kha.Sys.graphics.drawIndexedVertices();
 		
 		kha.Sys.graphics.setTexture(samplerLocation, floorTexture);
+		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setVertexBuffer(floor);
 		kha.Sys.graphics.drawIndexedVertices();
 		
 		kha.Sys.graphics.setTexture(samplerLocation, wallTexture);
+		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setVertexBuffer(rightWall);
 		kha.Sys.graphics.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		
 		kha.Sys.graphics.setTexture(samplerLocation, doorTexture);
+		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		kha.Sys.graphics.setVertexBuffer(door);
 		kha.Sys.graphics.drawIndexedVertices();
 		

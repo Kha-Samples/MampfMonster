@@ -34,5 +34,6 @@ void kore() {
 	float specular = pow(saturate(dot(h, normal)), 15.0);
 	float light = 0.2 + diffuse * 0.5;
 	
-	gl_FragColor = vec4(texture2D(sampler, texcoord).xyz * light + specular, texture2D(sampler, texcoord).a);
+	float a = texture2D(sampler, texcoord).a;
+	gl_FragColor = vec4(texture2D(sampler, texcoord).xyz * light + specular * a, a);
 }
