@@ -1,18 +1,19 @@
 package;
 
-import kha.graphics.IndexBuffer;
-import kha.graphics.MipMapFilter;
-import kha.graphics.Program;
-import kha.graphics.TextureAddressing;
-import kha.graphics.TextureFilter;
-import kha.graphics.Usage;
+import kha.graphics4.Graphics;
+import kha.graphics4.IndexBuffer;
+import kha.graphics4.MipMapFilter;
+import kha.graphics4.Program;
+import kha.graphics4.TextureAddressing;
+import kha.graphics4.TextureFilter;
+import kha.graphics4.Usage;
+import kha.Image;
 import kha.Loader;
-import kha.graphics.FragmentShader;
-import kha.graphics.Texture;
-import kha.graphics.VertexData;
-import kha.graphics.VertexShader;
-import kha.graphics.VertexBuffer;
-import kha.graphics.VertexStructure;
+import kha.graphics4.FragmentShader;
+import kha.graphics4.VertexData;
+import kha.graphics4.VertexShader;
+import kha.graphics4.VertexBuffer;
+import kha.graphics4.VertexStructure;
 import kha.math.Vector3;
 
 class Eggman {
@@ -21,20 +22,20 @@ class Eggman {
 	private var bodyFragmentShader: FragmentShader;
 	private var bodyVertexBuffer: VertexBuffer;
 	private var bodyProgram: Program;
-	private var bodyTexture: Texture;
-	private var bodyNormals: Texture;
-	private var faceTexture: Texture;
+	private var bodyTexture: Image;
+	private var bodyNormals: Image;
+	private var faceTexture: Image;
 	
 	private var partsVertexShader: VertexShader;
 	private var partsFragmentShader: FragmentShader;
 	private var partsVertexBuffer: VertexBuffer;
 	private var partsProgram: Program;
-	private var earTexture: Texture;
-	private var earNormals: Texture;
-	private var handtex: Texture;
-	private var handnormals: Texture;
-	private var foottex: Texture;
-	private var footnormals: Texture;
+	private var earTexture: Image;
+	private var earNormals: Image;
+	private var handtex: Image;
+	private var handnormals: Image;
+	private var foottex: Image;
+	private var footnormals: Image;
 	
 	private var position: Vector3;
 	private var aim: Vector3;
@@ -202,7 +203,7 @@ class Eggman {
 		angle = 0;
 		var structure = new VertexStructure();
 		structure.add("position", VertexData.Float3);
-		bodyVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
+		bodyVertexBuffer = new VertexBuffer(4, structure, Usage.StaticUsage);
 		var vertices = bodyVertexBuffer.lock();
 		vertices[0] = -1.0; vertices[ 1] = -1.0; vertices[ 2] = 0.0;
 		vertices[3] = -1.0; vertices[ 4] =  1.0; vertices[ 5] = 0.0;
@@ -214,23 +215,23 @@ class Eggman {
 		bodyNormals = cast Loader.the.getImage("img_fur2n");
 		faceTexture = cast Loader.the.getImage("img_face_a1");
 		
-		bodyVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("eggman_body.vert"));
-		bodyFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_body.frag"));
-		bodyProgram = kha.Sys.graphics.createProgram();
+		bodyVertexShader = new VertexShader(Loader.the.getShader("eggman_body.vert"));
+		bodyFragmentShader = new FragmentShader(Loader.the.getShader("eggman_body.frag"));
+		bodyProgram = new Program();
 		bodyProgram.setVertexShader(bodyVertexShader);
 		bodyProgram.setFragmentShader(bodyFragmentShader);
 		bodyProgram.link(structure);
 		
-		partsVertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("eggman_parts.vert"));
-		partsFragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("eggman_parts.frag"));
-		partsProgram = kha.Sys.graphics.createProgram();
+		partsVertexShader = new VertexShader(Loader.the.getShader("eggman_parts.vert"));
+		partsFragmentShader = new FragmentShader(Loader.the.getShader("eggman_parts.frag"));
+		partsProgram = new Program();
 		structure = new VertexStructure();
 		structure.add("pos", VertexData.Float3);
 		structure.add("tex", VertexData.Float2);
 		partsProgram.setVertexShader(partsVertexShader);
 		partsProgram.setFragmentShader(partsFragmentShader);
 		partsProgram.link(structure);
-		partsVertexBuffer = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
+		partsVertexBuffer = new VertexBuffer(4, structure, Usage.StaticUsage);
 		earTexture = cast Loader.the.getImage("img_ear09_overlay");
 		earNormals = cast Loader.the.getImage("img_ear09n");
 		
@@ -240,7 +241,7 @@ class Eggman {
 		footnormals = cast Loader.the.getImage("img_foot_chefn");
 	}
 	
-	private function drawObject(time: Float, texture: Texture, normals: Texture, x: Float, y: Float, w: Float, h: Float, mirror: Bool, z: Float) {
+	private function drawObject(g: Graphics, time: Float, texture: Image, normals: Image, x: Float, y: Float, w: Float, h: Float, mirror: Bool, z: Float) {
 		/*if (z < 0) {
 			z = -z;
 			z /= 6;
@@ -254,11 +255,11 @@ class Eggman {
 			w *= z;
 			h *= z;
 		}*/
-		kha.Sys.graphics.setProgram(partsProgram);
+		g.setProgram(partsProgram);
 
-		kha.Sys.graphics.setFloat(partsProgram.getConstantLocation("time"), time);
-		kha.Sys.graphics.setFloat2(partsProgram.getConstantLocation("resolution"), 1024.0, 768.0);
-		kha.Sys.graphics.setFloat3(partsProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
+		g.setFloat(partsProgram.getConstantLocation("time"), time);
+		g.setFloat2(partsProgram.getConstantLocation("resolution"), 1024.0, 768.0);
+		g.setFloat3(partsProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 		
 		var vertices = partsVertexBuffer.lock();
 		vertices[ 0] = x - w / 2.0; vertices[ 1] = y - h / 2.0; vertices[ 2] = z;
@@ -278,39 +279,39 @@ class Eggman {
 			vertices[18] = 1.0; vertices[19] = 0.0;
 		}
 		partsVertexBuffer.unlock();
-		kha.Sys.graphics.setVertexBuffer(partsVertexBuffer);
+		g.setVertexBuffer(partsVertexBuffer);
 		
-		kha.Sys.graphics.setTexture(partsProgram.getTextureUnit("sampler"), texture);
-		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("sampler"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(partsProgram.getTextureUnit("sampler"), texture);
+		g.setTextureParameters(partsProgram.getTextureUnit("sampler"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		
-		kha.Sys.graphics.setTexture(partsProgram.getTextureUnit("normals"), normals);
-		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(partsProgram.getTextureUnit("normals"), normals);
+		g.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		
 		indexBuffer.set();
-		kha.Sys.graphics.drawIndexedVertices();
+		g.drawIndexedVertices();
 	}
 
-	private function drawBody(time: Float, xoffset: Float): Void {
-		kha.Sys.graphics.setProgram(bodyProgram);
+	private function drawBody(g: Graphics, time: Float, xoffset: Float): Void {
+		g.setProgram(bodyProgram);
 		
-		kha.Sys.graphics.setFloat(bodyProgram.getConstantLocation("time"), time);
-		kha.Sys.graphics.setFloat(bodyProgram.getConstantLocation("angle"), angle);
-		kha.Sys.graphics.setFloat2(bodyProgram.getConstantLocation("resolution"), 1024.0, 768.0);
-		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
-		kha.Sys.graphics.setFloat3(bodyProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
+		g.setFloat(bodyProgram.getConstantLocation("time"), time);
+		g.setFloat(bodyProgram.getConstantLocation("angle"), angle);
+		g.setFloat2(bodyProgram.getConstantLocation("resolution"), 1024.0, 768.0);
+		g.setFloat3(bodyProgram.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
+		g.setFloat3(bodyProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 
-		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("sampler"), bodyTexture);
-		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("sampler"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("normals"), bodyNormals);
-		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		kha.Sys.graphics.setTexture(bodyProgram.getTextureUnit("facetex"), faceTexture);
-		kha.Sys.graphics.setTextureParameters(partsProgram.getTextureUnit("facetex"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(bodyProgram.getTextureUnit("sampler"), bodyTexture);
+		g.setTextureParameters(partsProgram.getTextureUnit("sampler"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(bodyProgram.getTextureUnit("normals"), bodyNormals);
+		g.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(bodyProgram.getTextureUnit("facetex"), faceTexture);
+		g.setTextureParameters(partsProgram.getTextureUnit("facetex"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		
-		kha.Sys.graphics.setVertexBuffer(bodyVertexBuffer);
-		kha.Sys.graphics.setIndexBuffer(indexBuffer);
-		kha.Sys.graphics.drawIndexedVertices();
+		g.setVertexBuffer(bodyVertexBuffer);
+		g.setIndexBuffer(indexBuffer);
+		g.drawIndexedVertices();
 	
-		drawObject(time, earTexture, earNormals, 0.13 + position.x + xoffset, 0.09 + position.y, 0.15, 0.15, false, calcZ());
+		drawObject(g, time, earTexture, earNormals, 0.13 + position.x + xoffset, 0.09 + position.y, 0.15, 0.15, false, calcZ());
 	}
 	
 	private function calcZ(): Float {
@@ -326,14 +327,14 @@ class Eggman {
 		return angle % (Math.PI * 2.0);
 	}
 	
-	public function render(time: Float, xoffset: Float): Void {
+	public function render(g: Graphics, time: Float, xoffset: Float): Void {
 		//var angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		var angle = this.angle + Math.PI;
 		angle += Math.sin(leftHandRot) * 0.5;
 		angle = adjustAngle(angle);
 		var z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(g, time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
@@ -341,23 +342,23 @@ class Eggman {
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(g, time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		angle = this.angle + Math.PI;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + leftFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(g, time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + leftFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z >= 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + rightFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z >= 0) drawObject(g, time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + rightFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
-		drawBody(time, xoffset);
+		drawBody(g, time, xoffset);
 
 		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		angle = this.angle + Math.PI;
@@ -365,7 +366,7 @@ class Eggman {
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(g, time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
@@ -373,20 +374,20 @@ class Eggman {
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(g, time, handtex, handnormals, Math.sin(angle) * 0.15 + 0.05 + position.x + xoffset, -0.2 + position.y, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = Math.PI + time * Math.PI * 2.0 / 20.0;
 		angle = this.angle + Math.PI;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + leftFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(g, time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + leftFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 
 		//angle = time * Math.PI * 2.0 / 20.0;
 		angle = this.angle;
 		angle = adjustAngle(angle);
 		z = Math.cos(angle);
 		z = adjustZ(z);
-		if (z < 0) drawObject(time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + rightFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
+		if (z < 0) drawObject(g, time, foottex, footnormals, Math.sin(angle) * 0.1 + 0.05 + position.x + xoffset, -0.75 / 2.0 + position.y + rightFootHeight, 0.25, 0.25, (angle > Math.PI) ? true : false, z + calcZ());
 	}
 }

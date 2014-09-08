@@ -1,35 +1,37 @@
 package;
 
 import kha.Configuration;
+import kha.Framebuffer;
 import kha.Game;
-import kha.graphics.BlendingOperation;
-import kha.graphics.FragmentShader;
-import kha.graphics.IndexBuffer;
-import kha.graphics.MipMapFilter;
-import kha.graphics.Program;
-import kha.graphics.Texture;
-import kha.graphics.TextureAddressing;
-import kha.graphics.TextureFilter;
-import kha.graphics.Usage;
-import kha.graphics.VertexBuffer;
-import kha.graphics.VertexData;
-import kha.graphics.VertexShader;
-import kha.graphics.VertexStructure;
+import kha.graphics4.BlendingOperation;
+import kha.graphics4.FragmentShader;
+import kha.graphics4.IndexBuffer;
+import kha.graphics4.MipMapFilter;
+import kha.graphics4.Program;
+import kha.graphics4.TextureAddressing;
+import kha.graphics4.TextureFilter;
+import kha.graphics4.Usage;
+import kha.graphics4.VertexBuffer;
+import kha.graphics4.VertexData;
+import kha.graphics4.VertexShader;
+import kha.graphics4.VertexStructure;
+import kha.Image;
 import kha.Loader;
 import kha.LoadingScreen;
-import kha.Painter;
 import kha.math.Vector3;
+import kha.Scaler;
 
 class YolkfolkRestaurant2 extends Game {
+	private var backbuffer: Image;
 	private var vertexShader: VertexShader;
 	private var fragmentShader: FragmentShader;
 	private var program: Program;
 	private var indexBuffer: IndexBuffer;
-	private var wallTexture: Texture;
-	private var floorTexture: Texture;
-	private var doorTexture: Texture;
-	private var tableTexture: Texture;
-	private var lampTexture: Texture;
+	private var wallTexture: Image;
+	private var floorTexture: Image;
+	private var doorTexture: Image;
+	private var tableTexture: Image;
+	private var lampTexture: Image;
 	private var backWall: VertexBuffer;
 	private var floor: VertexBuffer;
 	private var rightWall: VertexBuffer;
@@ -44,6 +46,7 @@ class YolkfolkRestaurant2 extends Game {
 	}
 	
 	override public function init(): Void {
+		backbuffer = Image.createRenderTarget(1024, 768);
 		Configuration.setScreen(new LoadingScreen());
 		Loader.the.loadRoom("restaurant2", initLevel);
 	}
@@ -55,9 +58,9 @@ class YolkfolkRestaurant2 extends Game {
 		doorTexture = cast Loader.the.getImage("img_kitchendoor_frontal");
 		tableTexture = cast Loader.the.getImage("img_table");
 		lampTexture = cast Loader.the.getImage("img_lamp2");
-		vertexShader = kha.Sys.graphics.createVertexShader(Loader.the.getShader("level.vert"));
-		fragmentShader = kha.Sys.graphics.createFragmentShader(Loader.the.getShader("level.frag"));
-		program = kha.Sys.graphics.createProgram();
+		vertexShader = new VertexShader(Loader.the.getShader("level.vert"));
+		fragmentShader = new FragmentShader(Loader.the.getShader("level.frag"));
+		program = new Program();
 		program.setVertexShader(vertexShader);
 		program.setFragmentShader(fragmentShader);
 		
@@ -66,12 +69,12 @@ class YolkfolkRestaurant2 extends Game {
 		structure.add("tex", VertexData.Float2);
 		program.link(structure);
 		
-		backWall = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
-		floor = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
-		rightWall = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
-		door = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
-		table = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
-		lamp = kha.Sys.graphics.createVertexBuffer(4, structure, Usage.StaticUsage);
+		backWall = new VertexBuffer(4, structure, Usage.StaticUsage);
+		floor = new VertexBuffer(4, structure, Usage.StaticUsage);
+		rightWall = new VertexBuffer(4, structure, Usage.StaticUsage);
+		door = new VertexBuffer(4, structure, Usage.StaticUsage);
+		table = new VertexBuffer(4, structure, Usage.StaticUsage);
+		lamp = new VertexBuffer(4, structure, Usage.StaticUsage);
 		
 		indexBuffer = createIndexBufferForQuads(1);
 		
@@ -79,7 +82,7 @@ class YolkfolkRestaurant2 extends Game {
 	}
 	
 	public static function createIndexBufferForQuads(count: Int): IndexBuffer {
-		var ib = kha.Sys.graphics.createIndexBuffer(count * 3 * 2, Usage.StaticUsage);
+		var ib = new IndexBuffer(count * 3 * 2, Usage.StaticUsage);
 		var buffer = ib.lock();
 		var i: Int = 0;
 		var bi: Int = 0;
@@ -162,45 +165,53 @@ class YolkfolkRestaurant2 extends Game {
 		eggman.update();
 	}
 	
-	override public function render(painter: Painter): Void {
+	override public function render(frame: Framebuffer): Void {
 		if (eggman == null) return;
-		kha.Sys.graphics.setBlendingMode(BlendingOperation.BlendOne, BlendingOperation.InverseSourceAlpha);
-		kha.Sys.graphics.setProgram(program);
+		
+		var g = backbuffer.g4;
+		g.begin();
+		g.setBlendingMode(BlendingOperation.BlendOne, BlendingOperation.InverseSourceAlpha);
+		g.setProgram(program);
 		var samplerLocation = program.getTextureUnit("sampler");
-		kha.Sys.graphics.setIndexBuffer(indexBuffer);
+		g.setIndexBuffer(indexBuffer);
 		
-		kha.Sys.graphics.setTexture(samplerLocation, wallTexture);
-		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		kha.Sys.graphics.setVertexBuffer(backWall);
-		kha.Sys.graphics.drawIndexedVertices();
+		g.setTexture(samplerLocation, wallTexture);
+		g.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setVertexBuffer(backWall);
+		g.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTexture(samplerLocation, floorTexture);
-		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		kha.Sys.graphics.setVertexBuffer(floor);
-		kha.Sys.graphics.drawIndexedVertices();
+		g.setTexture(samplerLocation, floorTexture);
+		g.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setVertexBuffer(floor);
+		g.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTexture(samplerLocation, wallTexture);
-		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		kha.Sys.graphics.setVertexBuffer(rightWall);
-		kha.Sys.graphics.drawIndexedVertices();
+		g.setTexture(samplerLocation, wallTexture);
+		g.setTextureParameters(samplerLocation, TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setVertexBuffer(rightWall);
+		g.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTexture(samplerLocation, doorTexture);
-		kha.Sys.graphics.setTextureParameters(samplerLocation, TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		kha.Sys.graphics.setVertexBuffer(door);
-		kha.Sys.graphics.drawIndexedVertices();
+		g.setTexture(samplerLocation, doorTexture);
+		g.setTextureParameters(samplerLocation, TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setVertexBuffer(door);
+		g.drawIndexedVertices();
 		
-		eggman.render(time, xoffset);
+		eggman.render(g, time, xoffset);
 		
-		kha.Sys.graphics.setProgram(program);
-		kha.Sys.graphics.setIndexBuffer(indexBuffer);
+		g.setProgram(program);
+		g.setIndexBuffer(indexBuffer);
 		
-		kha.Sys.graphics.setTexture(samplerLocation, tableTexture);
-		kha.Sys.graphics.setVertexBuffer(table);
-		kha.Sys.graphics.drawIndexedVertices();
+		g.setTexture(samplerLocation, tableTexture);
+		g.setVertexBuffer(table);
+		g.drawIndexedVertices();
 		
-		kha.Sys.graphics.setTexture(samplerLocation, lampTexture);
-		kha.Sys.graphics.setVertexBuffer(lamp);
-		kha.Sys.graphics.drawIndexedVertices();
+		g.setTexture(samplerLocation, lampTexture);
+		g.setVertexBuffer(lamp);
+		g.drawIndexedVertices();
+		g.end();
+		
+		startRender(frame);
+		Scaler.scale(backbuffer, frame, kha.Sys.screenRotation);
+		endRender(frame);
 	}
 	
 	private var aimx: Float = 0.0;
