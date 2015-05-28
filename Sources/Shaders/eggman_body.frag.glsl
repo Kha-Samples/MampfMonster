@@ -8,7 +8,7 @@ varying vec4 pos;
 uniform float time;
 //uniform vec2 mouse;
 uniform vec2 resolution;
-uniform sampler2D sampler;
+uniform sampler2D sample;
 uniform sampler2D normals;
 uniform sampler2D facetex;
 
@@ -95,7 +95,7 @@ void kore() {
 		float light = 0.2 + diffuse * 0.5;
 		
 		float alpha = texture2D(facetex, texcoord).a;
-		vec3 tex = texture2D(facetex, texcoord).rgb * alpha + texture2D(sampler, texcoord).rgb * (1.0 - alpha);
+		vec3 tex = texture2D(facetex, texcoord).rgb * alpha + texture2D(sample, texcoord).rgb * (1.0 - alpha);
 		gl_FragColor = vec4(tex * light + specular * (1.0 - alpha), 1.0);
 	}
 	else discard;

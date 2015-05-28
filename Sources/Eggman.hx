@@ -281,8 +281,8 @@ class Eggman {
 		partsVertexBuffer.unlock();
 		g.setVertexBuffer(partsVertexBuffer);
 		
-		g.setTexture(partsProgram.getTextureUnit("sampler"), texture);
-		g.setTextureParameters(partsProgram.getTextureUnit("sampler"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(partsProgram.getTextureUnit("sample"), texture);
+		g.setTextureParameters(partsProgram.getTextureUnit("sample"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		
 		g.setTexture(partsProgram.getTextureUnit("normals"), normals);
 		g.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
@@ -300,8 +300,8 @@ class Eggman {
 		g.setFloat3(bodyProgram.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
 		g.setFloat3(bodyProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 
-		g.setTexture(bodyProgram.getTextureUnit("sampler"), bodyTexture);
-		g.setTextureParameters(partsProgram.getTextureUnit("sampler"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(bodyProgram.getTextureUnit("sample"), bodyTexture);
+		g.setTextureParameters(partsProgram.getTextureUnit("sample"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		g.setTexture(bodyProgram.getTextureUnit("normals"), bodyNormals);
 		g.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		g.setTexture(bodyProgram.getTextureUnit("facetex"), faceTexture);

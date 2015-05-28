@@ -1,5 +1,6 @@
 package;
 
+import kha.Color;
 import kha.Configuration;
 import kha.Framebuffer;
 import kha.Game;
@@ -170,9 +171,10 @@ class YolkfolkRestaurant2 extends Game {
 		
 		var g = backbuffer.g4;
 		g.begin();
+		g.clear(Color.Black);
 		g.setBlendingMode(BlendingOperation.BlendOne, BlendingOperation.InverseSourceAlpha);
 		g.setProgram(program);
-		var samplerLocation = program.getTextureUnit("sampler");
+		var samplerLocation = program.getTextureUnit("sample");
 		g.setIndexBuffer(indexBuffer);
 		
 		g.setTexture(samplerLocation, wallTexture);
