@@ -1,573 +1,510 @@
 {
-  "format": 1,
-  "game": {
-    "name": "MampfMonster",
-    "width": 1024,
-    "height": 768
-  },
-  "assets": [
-    {
-      "id": "39766010-1b7c-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "yolk.png",
-      "name": "yolk",
-      "scale": 3.0,
-      "background": {
-        "red": 255,
-        "green": 0,
-        "blue": 255
-      }
-    },
-    {
-      "id": "07acefa0-1b94-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "foot.png",
-      "name": "foot",
-      "scale": 3.0,
-      "background": {
-        "red": 255,
-        "green": 0,
-        "blue": 255
-      }
-    },
-    {
-      "id": "12930170-1b94-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "hand.png",
-      "name": "hand",
-      "scale": 3.0,
-      "background": {
-        "red": 255,
-        "green": 0,
-        "blue": 255
-      }
-    },
-    {
-      "id": "e926b030-1bba-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "054-Wall02.png",
-      "name": "054-Wall02",
-      "scale": 3.0
-    },
-    {
-      "id": "d0279f50-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "table.png",
-      "name": "table",
-      "scale": 3.0
-    },
-    {
-      "id": "d6d6e540-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "chair1.png",
-      "name": "chair1",
-      "scale": 3.0
-    },
-    {
-      "id": "d6d6e541-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "chair2.png",
-      "name": "chair2",
-      "scale": 3.0
-    },
-    {
-      "id": "dd24f860-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_TOMATE.png",
-      "name": "img_TOMATE",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f861-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_BookIcon_1.png",
-      "name": "img_BookIcon_1",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f862-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_BookIcon_2.png",
-      "name": "img_BookIcon_2",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f863-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_COOKINGBOOK.png",
-      "name": "img_COOKINGBOOK",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f864-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_SPAGHETTI.png",
-      "name": "img_SPAGHETTI",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f865-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_OK.png",
-      "name": "img_OK",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f866-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_Cancel.png",
-      "name": "img_CANCEL",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f869-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_BUTCOOKINGBOOKOPEN.png",
-      "name": "img_BUTCOOKINGBOOKOPEN",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f870-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_BUTCOOKINGBOOKCLOSE.png",
-      "name": "img_BUTCOOKINGBOOKCLOSE",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f871-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_SPAGHETTI_SW.png",
-      "name": "img_SPAGHETTI_SW",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f872-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_TOMATE_SW.png",
-      "name": "img_TOMATE_SW",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f873-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_NOTIZBLOCK.png",
-      "name": "img_NOTIZBLOCK",
-      "scale": 1.0
-    },
-    {
-      "id": "dd24f874-1bbe-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "img_ButCart.png",
-      "name": "img_BUTCART",
-      "scale": 1.0
-    },
-    {
-      "id": "7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
-      "type": "blob",
-      "file": "restaurant.map",
-      "name": "restaurant.map",
-      "scale": 1.0
-    },
-    {
-      "id": "49c8f990-1c77-11e2-892e-0800200c9a66",
-      "type": "image",
-      "file": "hat.png",
-      "name": "hat",
-      "scale": 3.0,
-      "background": {
-        "red": 255,
-        "green": 0,
-        "blue": 255
-      }
-    },
-    {
-      "id": "1bfdbca0-398a-11e2-81c1-0800200c9a66",
-      "type": "sound",
-      "file": "jump",
-      "name": "jump",
-      "scale": 1.0
-    },
-    {
-      "id": "55c8e2d0-3e84-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "pattern_wall_restaurant.png",
-      "name": "pattern_wall_restaurant",
-      "scale": 1.0
-    },
-    {
-      "id": "af348e10-3ea1-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_floor_frontal.png",
-      "name": "img_floor_frontal",
-      "scale": 1.0
-    },
-    {
-      "id": "284104f0-3ea2-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_kitchendoor_frontal.png",
-      "name": "img_kitchendoor_frontal",
-      "scale": 1.0
-    },
-    {
-      "id": "c7376330-3f22-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_table.png",
-      "name": "img_table",
-      "scale": 1.0
-    },
-    {
-      "id": "d69f0580-3f22-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_lamp2.png",
-      "name": "img_lamp2",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd0-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_ear09_overlay.png",
-      "name": "img_ear09_overlay",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd1-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_ear09n.png",
-      "name": "img_ear09n",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd2-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_face_a1.png",
-      "name": "img_face_a1",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd3-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_foot_chef_overlay.png",
-      "name": "img_foot_chef_overlay",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd4-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_foot_chefn.png",
-      "name": "img_foot_chefn",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd5-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_fur2.png",
-      "name": "img_fur2",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd6-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_fur2n.png",
-      "name": "img_fur2n",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd7-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_hand_chef_overlay.png",
-      "name": "img_hand_chef_overlay",
-      "scale": 1.0
-    },
-    {
-      "id": "220edcd8-3f27-11e2-a25f-0800200c9a66",
-      "type": "image",
-      "file": "img_hand_chefn.png",
-      "name": "img_hand_chefn",
-      "scale": 1.0
-    },
-    {
-      "id": "c5ef5906-efc2-48b7-b365-1c5bff866cdc",
-      "type": "image",
-      "file": "img_ButArrowLeft.png",
-      "name": "img_BUTBOOKBACK",
-      "scale": 1.0
-    },
-    {
-      "id": "12631a84-6a6c-4e02-b540-955bf3cbbdef",
-      "type": "image",
-      "file": "img_ButArrowRight.png",
-      "name": "img_BUTBOOKNEXT",
-      "scale": 1.0
-    },
-    {
-      "id": "8b69f3a5-51ff-4413-a605-a28bd5b0f579",
-      "type": "image",
-      "file": "memory/bg_pattern.png",
-      "name": "memory/bg_pattern",
-      "scale": 1.0
-    },
-    {
-      "id": "cd7bed89-94ee-4406-88b2-5fb648263fe0",
-      "type": "image",
-      "file": "memory/shadow.png",
-      "name": "memory/shadow",
-      "scale": 1.0
-    },
-    {
-      "id": "8650e27e-83d1-4c2b-ad2b-699c62a58bba",
-      "type": "image",
-      "file": "memory/card_back.png",
-      "name": "memory/card_back",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "7a37b0bb-2c83-4622-93b0-b3a8f4f4f1bf",
-      "type": "image",
-      "file": "memory/food/peas.png",
-      "name": "memory/food/peas",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "6a03346b-2d2a-4c34-90ab-2310102c4e6f",
-      "type": "image",
-      "file": "memory/food/donut.png",
-      "name": "memory/food/donut",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "7089f206-73b2-41ee-99d9-895838391f60",
-      "type": "image",
-      "file": "memory/food/fries.png",
-      "name": "memory/food/fries",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "3488c08b-953b-4f39-a2ab-4ff164306f9e",
-      "type": "image",
-      "file": "memory/food/mango.png",
-      "name": "memory/food/mango",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "94e32201-a019-4efb-9dbf-7f7a824c26fe",
-      "type": "image",
-      "file": "memory/food/pizza.png",
-      "name": "memory/food/pizza",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "7888205e-e1bb-4a6f-b37f-155bdaf33369",
-      "type": "image",
-      "file": "memory/food/avokado.png",
-      "name": "memory/food/avokado",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "e84d0b81-8936-491e-92bc-65a9dc37e397",
-      "type": "image",
-      "file": "memory/food/cake.png",
-      "name": "memory/food/cake",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "4a07f2db-2e10-43f5-a783-b0522c701e9d",
-      "type": "image",
-      "file": "memory/food/cheese.png",
-      "name": "memory/food/cheese",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "8d66ce49-a094-47aa-a50c-9a8f1fe7473b",
-      "type": "image",
-      "file": "memory/food/cheeseburger.png",
-      "name": "memory/food/cheeseburger",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "2ab2e010-ec37-4160-8513-5876ca52a522",
-      "type": "image",
-      "file": "memory/food/chips.png",
-      "name": "memory/food/chips",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "137db9b8-9c25-4c81-a13e-e3b3c92d70da",
-      "type": "image",
-      "file": "memory/food/cucumber.png",
-      "name": "memory/food/cucumber",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "62b91452-6d70-4499-92fc-c8306861007e",
-      "type": "image",
-      "file": "memory/food/friedegg.png",
-      "name": "memory/food/friedegg",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "36ab8475-529c-4a35-a79b-bce3d236f766",
-      "type": "image",
-      "file": "memory/food/salad.png",
-      "name": "memory/food/salad",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "58683f74-1f51-4aa2-ab90-2fa7893aef18",
-      "type": "image",
-      "file": "memory/food/steak.png",
-      "name": "memory/food/steak",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "3d64ba97-7387-4659-abb4-6c4711cc0a58",
-      "type": "image",
-      "file": "memory/food/toast.png",
-      "name": "memory/food/toast",
-      "scale": 1.0,
-      "circle": true
-    },
-    {
-      "id": "22c81fe8-d4bd-4981-a4b7-f2e8195b82c1",
-      "type": "image",
-      "file": "memory/class_green.png",
-      "name": "memory/class_green",
-      "scale": 1.0
-    },
-    {
-      "id": "ace099eb-5430-47a8-a605-bba819b351f1",
-      "type": "image",
-      "file": "memory/class_neutral.png",
-      "name": "memory/class_neutral",
-      "scale": 1.0
-    },
-    {
-      "id": "c5f56cea-8c00-4140-a1ea-71b7f65f04e2",
-      "type": "image",
-      "file": "memory/class_red.png",
-      "name": "memory/class_red",
-      "scale": 1.0
-    },
-    {
-      "id": "5d00acfa-5425-44d0-88df-e6408bd681dc",
-      "type": "image",
-      "file": "memory/class_right.png",
-      "name": "memory/class_right",
-      "scale": 1.0
-    },
-    {
-      "id": "376fa208-8bab-4a20-a8b5-1c3265ace80d",
-      "type": "image",
-      "file": "memory/class_wrong.png",
-      "name": "memory/class_wrong",
-      "scale": 1.0
-    },
-    {
-      "id": "f865fd25-d532-41fc-b792-f20e2fb1989a",
-      "type": "image",
-      "file": "memory/class_yellow.png",
-      "name": "memory/class_yellow",
-      "scale": 1.0
-    }
-  ],
-  "rooms": [
-    {
-      "id": "40209cf0-1b7c-11e2-892e-0800200c9a66",
-      "name": "restaurant",
-      "neighbours": [],
-      "assets": [
-        "39766010-1b7c-11e2-892e-0800200c9a66",
-        "07acefa0-1b94-11e2-892e-0800200c9a66",
-        "12930170-1b94-11e2-892e-0800200c9a66",
-        "e926b030-1bba-11e2-892e-0800200c9a66",
-        "7d8a0dd0-1bbb-11e2-892e-0800200c9a66",
-        "d0279f50-1bbe-11e2-892e-0800200c9a66",
-        "d6d6e540-1bbe-11e2-892e-0800200c9a66",
-        "d6d6e541-1bbe-11e2-892e-0800200c9a66",
-        "dd24f860-1bbe-11e2-892e-0800200c9a66",
-        "dd24f861-1bbe-11e2-892e-0800200c9a66",
-        "dd24f862-1bbe-11e2-892e-0800200c9a66",
-        "dd24f863-1bbe-11e2-892e-0800200c9a66",
-        "dd24f864-1bbe-11e2-892e-0800200c9a66",
-        "dd24f865-1bbe-11e2-892e-0800200c9a66",
-        "dd24f866-1bbe-11e2-892e-0800200c9a66",
-        "dd24f869-1bbe-11e2-892e-0800200c9a66",
-        "dd24f870-1bbe-11e2-892e-0800200c9a66",
-        "dd24f871-1bbe-11e2-892e-0800200c9a66",
-        "dd24f872-1bbe-11e2-892e-0800200c9a66",
-        "dd24f873-1bbe-11e2-892e-0800200c9a66",
-        "dd24f874-1bbe-11e2-892e-0800200c9a66",
-        "49c8f990-1c77-11e2-892e-0800200c9a66",
-        "1bfdbca0-398a-11e2-81c1-0800200c9a66",
-        "c5ef5906-efc2-48b7-b365-1c5bff866cdc",
-        "12631a84-6a6c-4e02-b540-955bf3cbbdef"
-      ]
-    },
-    {
-      "id": "5e0a1360-3e84-11e2-a25f-0800200c9a66",
-      "name": "restaurant2",
-      "neighbours": [],
-      "assets": [
-        "55c8e2d0-3e84-11e2-a25f-0800200c9a66",
-        "af348e10-3ea1-11e2-a25f-0800200c9a66",
-        "284104f0-3ea2-11e2-a25f-0800200c9a66",
-        "c7376330-3f22-11e2-a25f-0800200c9a66",
-        "d69f0580-3f22-11e2-a25f-0800200c9a66",
-        "220edcd0-3f27-11e2-a25f-0800200c9a66",
-        "220edcd1-3f27-11e2-a25f-0800200c9a66",
-        "220edcd2-3f27-11e2-a25f-0800200c9a66",
-        "220edcd3-3f27-11e2-a25f-0800200c9a66",
-        "220edcd4-3f27-11e2-a25f-0800200c9a66",
-        "220edcd5-3f27-11e2-a25f-0800200c9a66",
-        "220edcd6-3f27-11e2-a25f-0800200c9a66",
-        "220edcd7-3f27-11e2-a25f-0800200c9a66",
-        "220edcd8-3f27-11e2-a25f-0800200c9a66"
-      ]
-    },
-    {
-      "id": "2fc4f09c-9263-4171-b003-cca165823b48",
-      "name": "memory",
-      "neighbours": [],
-      "assets": [
-        "cd7bed89-94ee-4406-88b2-5fb648263fe0",
-        "8b69f3a5-51ff-4413-a605-a28bd5b0f579",
-        "8650e27e-83d1-4c2b-ad2b-699c62a58bba",
-        "7a37b0bb-2c83-4622-93b0-b3a8f4f4f1bf",
-        "6a03346b-2d2a-4c34-90ab-2310102c4e6f",
-        "7089f206-73b2-41ee-99d9-895838391f60",
-        "3488c08b-953b-4f39-a2ab-4ff164306f9e",
-        "94e32201-a019-4efb-9dbf-7f7a824c26fe",
-        "7888205e-e1bb-4a6f-b37f-155bdaf33369",
-        "e84d0b81-8936-491e-92bc-65a9dc37e397",
-        "4a07f2db-2e10-43f5-a783-b0522c701e9d",
-        "8d66ce49-a094-47aa-a50c-9a8f1fe7473b",
-        "2ab2e010-ec37-4160-8513-5876ca52a522",
-        "137db9b8-9c25-4c81-a13e-e3b3c92d70da",
-        "62b91452-6d70-4499-92fc-c8306861007e",
-        "36ab8475-529c-4a35-a79b-bce3d236f766",
-        "58683f74-1f51-4aa2-ab90-2fa7893aef18",
-        "3d64ba97-7387-4659-abb4-6c4711cc0a58",
-        "22c81fe8-d4bd-4981-a4b7-f2e8195b82c1",
-        "ace099eb-5430-47a8-a605-bba819b351f1",
-        "c5f56cea-8c00-4140-a1ea-71b7f65f04e2",
-        "5d00acfa-5425-44d0-88df-e6408bd681dc",
-        "376fa208-8bab-4a20-a8b5-1c3265ace80d",
-        "f865fd25-d532-41fc-b792-f20e2fb1989a"
-      ]
-    }
-  ]
+	"format": 2,
+	"game": {
+		"name": "MampfMonster",
+		"width": 1024,
+		"height": 768
+	},
+	"assets": [
+		{
+			"type": "image",
+			"file": "yolk.png",
+			"name": "yolk",
+			"scale": 3,
+			"background": {
+				"red": 255,
+				"green": 0,
+				"blue": 255
+			}
+		},
+		{
+			"type": "image",
+			"file": "foot.png",
+			"name": "foot",
+			"scale": 3,
+			"background": {
+				"red": 255,
+				"green": 0,
+				"blue": 255
+			}
+		},
+		{
+			"type": "image",
+			"file": "hand.png",
+			"name": "hand",
+			"scale": 3,
+			"background": {
+				"red": 255,
+				"green": 0,
+				"blue": 255
+			}
+		},
+		{
+			"type": "image",
+			"file": "054-Wall02.png",
+			"name": "054-Wall02",
+			"scale": 3
+		},
+		{
+			"type": "image",
+			"file": "table.png",
+			"name": "table",
+			"scale": 3
+		},
+		{
+			"type": "image",
+			"file": "chair1.png",
+			"name": "chair1",
+			"scale": 3
+		},
+		{
+			"type": "image",
+			"file": "chair2.png",
+			"name": "chair2",
+			"scale": 3
+		},
+		{
+			"type": "image",
+			"file": "img_TOMATE.png",
+			"name": "img_TOMATE",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_BookIcon_1.png",
+			"name": "img_BookIcon_1",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_BookIcon_2.png",
+			"name": "img_BookIcon_2",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_COOKINGBOOK.png",
+			"name": "img_COOKINGBOOK",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_SPAGHETTI.png",
+			"name": "img_SPAGHETTI",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_OK.png",
+			"name": "img_OK",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_Cancel.png",
+			"name": "img_CANCEL",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_BUTCOOKINGBOOKOPEN.png",
+			"name": "img_BUTCOOKINGBOOKOPEN",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_BUTCOOKINGBOOKCLOSE.png",
+			"name": "img_BUTCOOKINGBOOKCLOSE",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_SPAGHETTI_SW.png",
+			"name": "img_SPAGHETTI_SW",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_TOMATE_SW.png",
+			"name": "img_TOMATE_SW",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_NOTIZBLOCK.png",
+			"name": "img_NOTIZBLOCK",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_ButCart.png",
+			"name": "img_BUTCART",
+			"scale": 1
+		},
+		{
+			"type": "blob",
+			"file": "restaurant.map",
+			"name": "restaurant.map",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "hat.png",
+			"name": "hat",
+			"scale": 3,
+			"background": {
+				"red": 255,
+				"green": 0,
+				"blue": 255
+			}
+		},
+		{
+			"type": "sound",
+			"file": "jump",
+			"name": "jump",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "pattern_wall_restaurant.png",
+			"name": "pattern_wall_restaurant",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_floor_frontal.png",
+			"name": "img_floor_frontal",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_kitchendoor_frontal.png",
+			"name": "img_kitchendoor_frontal",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_table.png",
+			"name": "img_table",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_lamp2.png",
+			"name": "img_lamp2",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_ear09_overlay.png",
+			"name": "img_ear09_overlay",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_ear09n.png",
+			"name": "img_ear09n",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_face_a1.png",
+			"name": "img_face_a1",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_foot_chef_overlay.png",
+			"name": "img_foot_chef_overlay",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_foot_chefn.png",
+			"name": "img_foot_chefn",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_fur2.png",
+			"name": "img_fur2",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_fur2n.png",
+			"name": "img_fur2n",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_hand_chef_overlay.png",
+			"name": "img_hand_chef_overlay",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_hand_chefn.png",
+			"name": "img_hand_chefn",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_ButArrowLeft.png",
+			"name": "img_BUTBOOKBACK",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "img_ButArrowRight.png",
+			"name": "img_BUTBOOKNEXT",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "memory/bg_pattern.png",
+			"name": "memory/bg_pattern",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "memory/shadow.png",
+			"name": "memory/shadow",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "memory/card_back.png",
+			"name": "memory/card_back",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/peas.png",
+			"name": "memory/food/peas",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/donut.png",
+			"name": "memory/food/donut",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/fries.png",
+			"name": "memory/food/fries",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/mango.png",
+			"name": "memory/food/mango",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/pizza.png",
+			"name": "memory/food/pizza",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/avokado.png",
+			"name": "memory/food/avokado",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/cake.png",
+			"name": "memory/food/cake",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/cheese.png",
+			"name": "memory/food/cheese",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/cheeseburger.png",
+			"name": "memory/food/cheeseburger",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/chips.png",
+			"name": "memory/food/chips",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/cucumber.png",
+			"name": "memory/food/cucumber",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/friedegg.png",
+			"name": "memory/food/friedegg",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/salad.png",
+			"name": "memory/food/salad",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/steak.png",
+			"name": "memory/food/steak",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/food/toast.png",
+			"name": "memory/food/toast",
+			"scale": 1,
+			"circle": true
+		},
+		{
+			"type": "image",
+			"file": "memory/class_green.png",
+			"name": "memory/class_green",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "memory/class_neutral.png",
+			"name": "memory/class_neutral",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "memory/class_red.png",
+			"name": "memory/class_red",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "memory/class_right.png",
+			"name": "memory/class_right",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "memory/class_wrong.png",
+			"name": "memory/class_wrong",
+			"scale": 1
+		},
+		{
+			"type": "image",
+			"file": "memory/class_yellow.png",
+			"name": "memory/class_yellow",
+			"scale": 1
+		}
+	],
+	"rooms": [
+		{
+			"name": "restaurant",
+			"neighbours": [],
+			"assets": [
+				"yolk",
+				"foot",
+				"hand",
+				"054-Wall02",
+				"restaurant.map",
+				"table",
+				"chair1",
+				"chair2",
+				"img_TOMATE",
+				"img_BookIcon_1",
+				"img_BookIcon_2",
+				"img_COOKINGBOOK",
+				"img_SPAGHETTI",
+				"img_OK",
+				"img_CANCEL",
+				"img_BUTCOOKINGBOOKOPEN",
+				"img_BUTCOOKINGBOOKCLOSE",
+				"img_SPAGHETTI_SW",
+				"img_TOMATE_SW",
+				"img_NOTIZBLOCK",
+				"img_BUTCART",
+				"hat",
+				"jump",
+				"img_BUTBOOKBACK",
+				"img_BUTBOOKNEXT"
+			],
+			"parent": null
+		},
+		{
+			"name": "restaurant2",
+			"neighbours": [],
+			"assets": [
+				"pattern_wall_restaurant",
+				"img_floor_frontal",
+				"img_kitchendoor_frontal",
+				"img_table",
+				"img_lamp2",
+				"img_ear09_overlay",
+				"img_ear09n",
+				"img_face_a1",
+				"img_foot_chef_overlay",
+				"img_foot_chefn",
+				"img_fur2",
+				"img_fur2n",
+				"img_hand_chef_overlay",
+				"img_hand_chefn"
+			],
+			"parent": null
+		},
+		{
+			"name": "memory",
+			"neighbours": [],
+			"assets": [
+				"memory/shadow",
+				"memory/bg_pattern",
+				"memory/card_back",
+				"memory/food/peas",
+				"memory/food/donut",
+				"memory/food/fries",
+				"memory/food/mango",
+				"memory/food/pizza",
+				"memory/food/avokado",
+				"memory/food/cake",
+				"memory/food/cheese",
+				"memory/food/cheeseburger",
+				"memory/food/chips",
+				"memory/food/cucumber",
+				"memory/food/friedegg",
+				"memory/food/salad",
+				"memory/food/steak",
+				"memory/food/toast",
+				"memory/class_green",
+				"memory/class_neutral",
+				"memory/class_red",
+				"memory/class_right",
+				"memory/class_wrong",
+				"memory/class_yellow"
+			],
+			"parent": null
+		}
+	]
 }
