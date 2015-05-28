@@ -11,6 +11,7 @@ uniform sampler2D sample;
 uniform sampler2D normals;
 uniform float time;
 varying vec2 texcoord;
+varying vec3 world;
 
 float saturate(float value) {
 	return clamp(value, 0.0, 1.0);	
@@ -24,9 +25,9 @@ void kore() {
 	//vec2 texcoord = (position.xy + 1.0) / 2.0;
 	vec3 normal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
 	
-	vec3 world = vec3(gl_FragCoord.xy, 0);
-	world.x /= resolution.x;
-	world.y /= resolution.y;
+	//vec3 world = vec3(gl_FragCoord.xy, 0);
+	//world.x /= resolution.x;
+	//world.y /= resolution.y;
 	vec3 lightDirection = normalize(world - lightPosition);
 	//lightDirection = vec3(0.1, 0.2, -0.7);
 	float diffuse = saturate(dot(normal, -lightDirection));
