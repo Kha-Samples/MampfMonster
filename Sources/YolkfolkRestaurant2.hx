@@ -174,7 +174,7 @@ class YolkfolkRestaurant2 extends Game {
 		g.clear(Color.Black);
 		g.setBlendingMode(BlendingOperation.BlendOne, BlendingOperation.InverseSourceAlpha);
 		g.setProgram(program);
-		var samplerLocation = program.getTextureUnit("sample");
+		var samplerLocation = program.getTextureUnit("textex");
 		g.setIndexBuffer(indexBuffer);
 		
 		g.setTexture(samplerLocation, wallTexture);

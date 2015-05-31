@@ -7,7 +7,7 @@ precision mediump float;
 uniform vec2 resolution;
 uniform vec3 lightPosition;// = vec3(100.0, 200.0, 500.0);
 vec3 eye = vec3(0.0, 200.0, 500.0);
-uniform sampler2D sample;
+uniform sampler2D textex;
 uniform sampler2D normals;
 uniform float time;
 varying vec2 texcoord;
@@ -35,6 +35,6 @@ void kore() {
 	float specular = pow(saturate(dot(h, normal)), 15.0);
 	float light = 0.2 + diffuse * 0.5;
 	
-	float a = texture2D(sample, texcoord).a;
-	gl_FragColor = vec4(texture2D(sample, texcoord).xyz * light + specular * a, a);
+	float a = texture2D(textex, texcoord).a;
+	gl_FragColor = vec4(texture2D(textex, texcoord).xyz * light + specular * a, a);
 }
