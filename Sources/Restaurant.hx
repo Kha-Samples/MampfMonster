@@ -23,7 +23,7 @@ import kha.Scheduler;
 import kha.Shaders;
 import kha.System;
 
-class YolkfolkRestaurant2 {
+class Restaurant {
 	private var backbuffer: Image;
 	private var vertexShader: VertexShader;
 	private var fragmentShader: FragmentShader;

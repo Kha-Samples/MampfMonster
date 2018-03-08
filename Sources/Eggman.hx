@@ -190,7 +190,7 @@ class Eggman {
 	}
 	
 	public function new() {
-		indexBuffer = YolkfolkRestaurant2.createIndexBufferForQuads(1);
+		indexBuffer = Restaurant.createIndexBufferForQuads(1);
 		leftHandRot = 0;
 		rightHandRot = 0;
 		leftFootHeight = 0;
@@ -322,7 +322,7 @@ class Eggman {
 	}
 	
 	private function calcZ(): Float {
-		return YolkfolkRestaurant2.calcZ(position.y -0.75 / 2.0 - 0.25 / 2.0);
+		return Restaurant.calcZ(position.y -0.75 / 2.0 - 0.25 / 2.0);
 	}
 	
 	private function adjustZ(z: Float): Float {
