@@ -1,14 +1,13 @@
 package;
 
+import kha.Assets;
 import kha.Color;
-import kha.Configuration;
 import kha.Framebuffer;
-import kha.Game;
 import kha.graphics4.BlendingOperation;
 import kha.graphics4.FragmentShader;
 import kha.graphics4.IndexBuffer;
 import kha.graphics4.MipMapFilter;
-import kha.graphics4.Program;
+import kha.graphics4.PipelineState;
 import kha.graphics4.TextureAddressing;
 import kha.graphics4.TextureFilter;
 import kha.graphics4.Usage;
@@ -17,16 +16,18 @@ import kha.graphics4.VertexData;
 import kha.graphics4.VertexShader;
 import kha.graphics4.VertexStructure;
 import kha.Image;
-import kha.Loader;
-import kha.LoadingScreen;
+import kha.input.Mouse;
 import kha.math.Vector3;
 import kha.Scaler;
+import kha.Scheduler;
+import kha.Shaders;
+import kha.System;
 
-class YolkfolkRestaurant2 extends Game {
+class YolkfolkRestaurant2 {
 	private var backbuffer: Image;
 	private var vertexShader: VertexShader;
 	private var fragmentShader: FragmentShader;
-	private var program: Program;
+	private var pipeline: PipelineState;
 	private var indexBuffer: IndexBuffer;
 	private var wallTexture: Image;
 	private var floorTexture: Image;
@@ -43,32 +44,31 @@ class YolkfolkRestaurant2 extends Game {
 	private var time: Float = 0;
 	
 	public function new() {
-		super("Yolkfolk Restaurant", false);
+		System.init({title: "Mampf Monster", width: 1024, height: 768}, function () {
+			backbuffer = Image.createRenderTarget(1024, 768);
+			Assets.loadEverything(initLevel);
+		});
 	}
-	
-	override public function init(): Void {
-		backbuffer = Image.createRenderTarget(1024, 768);
-		Configuration.setScreen(new LoadingScreen());
-		Loader.the.loadRoom("restaurant2", initLevel);
-	}
-	
+		
 	private function initLevel(): Void {
 		eggman = new Eggman();
-		wallTexture = cast Loader.the.getImage("pattern_wall_restaurant");
-		floorTexture = cast Loader.the.getImage("img_floor_frontal");
-		doorTexture = cast Loader.the.getImage("img_kitchendoor_frontal");
-		tableTexture = cast Loader.the.getImage("img_table");
-		lampTexture = cast Loader.the.getImage("img_lamp2");
-		vertexShader = new VertexShader(Loader.the.getShader("level.vert"));
-		fragmentShader = new FragmentShader(Loader.the.getShader("level.frag"));
-		program = new Program();
-		program.setVertexShader(vertexShader);
-		program.setFragmentShader(fragmentShader);
-		
+		wallTexture = Assets.images.pattern_wall_restaurant;
+		floorTexture = Assets.images.img_floor_frontal;
+		doorTexture = Assets.images.img_kitchendoor_frontal;
+		tableTexture = Assets.images.img_table;
+		lampTexture = Assets.images.img_lamp2;
+		vertexShader = Shaders.level_vert;
+		fragmentShader = Shaders.level_frag;
+		pipeline = new PipelineState();
+		pipeline.vertexShader = vertexShader;
+		pipeline.fragmentShader = fragmentShader;
 		var structure = new VertexStructure();
 		structure.add("pos", VertexData.Float3);
 		structure.add("tex", VertexData.Float2);
-		program.link(structure);
+		pipeline.inputLayout = [structure];
+		pipeline.blendSource = BlendOne;
+		pipeline.blendDestination = InverseSourceAlpha;
+		pipeline.compile();
 		
 		backWall = new VertexBuffer(4, structure, Usage.StaticUsage);
 		floor = new VertexBuffer(4, structure, Usage.StaticUsage);
@@ -79,7 +79,9 @@ class YolkfolkRestaurant2 extends Game {
 		
 		indexBuffer = createIndexBufferForQuads(1);
 		
-		Configuration.setScreen(this);
+		System.notifyOnRender(render);
+		Scheduler.addTimeTask(update, 0, 1 / 60);
+		Mouse.get().notify(mouseDown, null, null, null);
 	}
 	
 	public static function createIndexBufferForQuads(count: Int): IndexBuffer {
@@ -107,9 +109,8 @@ class YolkfolkRestaurant2 extends Game {
 		else return 1.0;
 	}
 	
-	override public function update(): Void {
+	function update(): Void {
 		if (eggman == null) return;
-		super.update();
 		time += 1.0 / 60.0;
 		//var xoffset = 0;// -time / 30.0;
 		var eggx = eggman.getPosition().x;
@@ -166,15 +167,14 @@ class YolkfolkRestaurant2 extends Game {
 		eggman.update();
 	}
 	
-	override public function render(frame: Framebuffer): Void {
+	function render(frame: Framebuffer): Void {
 		if (eggman == null) return;
 		
 		var g = backbuffer.g4;
 		g.begin();
 		g.clear(Color.Black);
-		g.setBlendingMode(BlendingOperation.BlendOne, BlendingOperation.InverseSourceAlpha);
-		g.setProgram(program);
-		var samplerLocation = program.getTextureUnit("sample");
+		g.setPipeline(pipeline);
+		var samplerLocation = pipeline.getTextureUnit("texsample");
 		g.setIndexBuffer(indexBuffer);
 		
 		g.setTexture(samplerLocation, wallTexture);
@@ -199,7 +199,7 @@ class YolkfolkRestaurant2 extends Game {
 		
 		eggman.render(g, time, xoffset);
 		
-		g.setProgram(program);
+		g.setPipeline(pipeline);
 		g.setIndexBuffer(indexBuffer);
 		
 		g.setTexture(samplerLocation, tableTexture);
@@ -211,22 +211,23 @@ class YolkfolkRestaurant2 extends Game {
 		g.drawIndexedVertices();
 		g.end();
 		
-		startRender(frame);
-		Scaler.scale(backbuffer, frame, kha.Sys.screenRotation);
-		endRender(frame);
+		frame.g2.begin();
+		Scaler.scale(backbuffer, frame, kha.ScreenRotation.Rotation180);
+		frame.g2.end();
 	}
 	
 	private var aimx: Float = 0.0;
 	private var aimy: Float = 0.0;
 	private var xoffset: Float = 0.0;
 	
-	override public function mouseDown(xi: Int, yi: Int): Void {
+	function mouseDown(button: Int, xi: Int, yi: Int): Void {
 		var x: Float = xi;
 		var y: Float = yi;
 		x -= 40;
 		y -= 200;
 		x /= (1024 / 2);
 		x -= 1.0;
+		x *= -1.0;
 		y /= (768 / 2);
 		y -= 1.0;
 		y *= -1.0;

@@ -1,27 +1,28 @@
 package;
 
+import kha.Assets;
 import kha.graphics4.Graphics;
 import kha.graphics4.IndexBuffer;
 import kha.graphics4.MipMapFilter;
-import kha.graphics4.Program;
+import kha.graphics4.PipelineState;
 import kha.graphics4.TextureAddressing;
 import kha.graphics4.TextureFilter;
 import kha.graphics4.Usage;
 import kha.Image;
-import kha.Loader;
 import kha.graphics4.FragmentShader;
 import kha.graphics4.VertexData;
 import kha.graphics4.VertexShader;
 import kha.graphics4.VertexBuffer;
 import kha.graphics4.VertexStructure;
 import kha.math.Vector3;
+import kha.Shaders;
 
 class Eggman {
 	private var indexBuffer: IndexBuffer;
 	private var bodyVertexShader: VertexShader;
 	private var bodyFragmentShader: FragmentShader;
 	private var bodyVertexBuffer: VertexBuffer;
-	private var bodyProgram: Program;
+	private var bodyPipeline: PipelineState;
 	private var bodyTexture: Image;
 	private var bodyNormals: Image;
 	private var faceTexture: Image;
@@ -29,7 +30,7 @@ class Eggman {
 	private var partsVertexShader: VertexShader;
 	private var partsFragmentShader: FragmentShader;
 	private var partsVertexBuffer: VertexBuffer;
-	private var partsProgram: Program;
+	private var partsPipeline: PipelineState;
 	private var earTexture: Image;
 	private var earNormals: Image;
 	private var handtex: Image;
@@ -45,7 +46,7 @@ class Eggman {
 	private var moving: Bool = false;
 	private var rotating: Bool = false;
 	
-	private var lightPosition: Vector3;
+	private var lightPosition: Vector3 = new Vector3(0, 0, 0);
 	
 	private var leftHandRot: Float;
 	private var rightHandRot: Float;
@@ -211,34 +212,40 @@ class Eggman {
 		vertices[9] =  1.0; vertices[10] =  1.0; vertices[11] = 0.0;
 		bodyVertexBuffer.unlock();
 		
-		bodyTexture = cast Loader.the.getImage("img_fur2");
-		bodyNormals = cast Loader.the.getImage("img_fur2n");
-		faceTexture = cast Loader.the.getImage("img_face_a1");
+		bodyTexture = Assets.images.img_fur2;
+		bodyNormals = Assets.images.img_fur2n;
+		faceTexture = Assets.images.img_face_a1;
 		
-		bodyVertexShader = new VertexShader(Loader.the.getShader("eggman_body.vert"));
-		bodyFragmentShader = new FragmentShader(Loader.the.getShader("eggman_body.frag"));
-		bodyProgram = new Program();
-		bodyProgram.setVertexShader(bodyVertexShader);
-		bodyProgram.setFragmentShader(bodyFragmentShader);
-		bodyProgram.link(structure);
+		bodyVertexShader = Shaders.eggman_body_vert;
+		bodyFragmentShader = Shaders.eggman_body_frag;
+		bodyPipeline = new PipelineState();
+		bodyPipeline.inputLayout = [structure];
+		bodyPipeline.vertexShader = bodyVertexShader;
+		bodyPipeline.fragmentShader = bodyFragmentShader;
+		bodyPipeline.blendSource = BlendOne;
+		bodyPipeline.blendDestination = InverseSourceAlpha;
+		bodyPipeline.compile();
 		
-		partsVertexShader = new VertexShader(Loader.the.getShader("eggman_parts.vert"));
-		partsFragmentShader = new FragmentShader(Loader.the.getShader("eggman_parts.frag"));
-		partsProgram = new Program();
+		partsVertexShader = Shaders.eggman_parts_vert;
+		partsFragmentShader = Shaders.eggman_parts_frag;
+		partsPipeline = new PipelineState();
 		structure = new VertexStructure();
 		structure.add("pos", VertexData.Float3);
 		structure.add("tex", VertexData.Float2);
-		partsProgram.setVertexShader(partsVertexShader);
-		partsProgram.setFragmentShader(partsFragmentShader);
-		partsProgram.link(structure);
+		partsPipeline.inputLayout = [structure];
+		partsPipeline.vertexShader = partsVertexShader;
+		partsPipeline.fragmentShader = partsFragmentShader;
+		partsPipeline.blendSource = BlendOne;
+		partsPipeline.blendDestination = InverseSourceAlpha;
+		partsPipeline.compile();
 		partsVertexBuffer = new VertexBuffer(4, structure, Usage.StaticUsage);
-		earTexture = cast Loader.the.getImage("img_ear09_overlay");
-		earNormals = cast Loader.the.getImage("img_ear09n");
+		earTexture = Assets.images.img_ear09_overlay;
+		earNormals = Assets.images.img_ear09n;
 		
-		handtex = cast Loader.the.getImage("img_hand_chef_overlay");
-		handnormals = cast Loader.the.getImage("img_hand_chefn");
-		foottex = cast Loader.the.getImage("img_foot_chef_overlay");
-		footnormals = cast Loader.the.getImage("img_foot_chefn");
+		handtex = Assets.images.img_hand_chef_overlay;
+		handnormals = Assets.images.img_hand_chefn;
+		foottex = Assets.images.img_foot_chef_overlay;
+		footnormals = Assets.images.img_foot_chefn;
 	}
 	
 	private function drawObject(g: Graphics, time: Float, texture: Image, normals: Image, x: Float, y: Float, w: Float, h: Float, mirror: Bool, z: Float) {
@@ -255,11 +262,11 @@ class Eggman {
 			w *= z;
 			h *= z;
 		}*/
-		g.setProgram(partsProgram);
+		g.setPipeline(partsPipeline);
 
-		g.setFloat(partsProgram.getConstantLocation("time"), time);
-		g.setFloat2(partsProgram.getConstantLocation("resolution"), 1024.0, 768.0);
-		g.setFloat3(partsProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
+		g.setFloat(partsPipeline.getConstantLocation("time"), time);
+		g.setFloat2(partsPipeline.getConstantLocation("resolution"), 1024.0, 768.0);
+		g.setFloat3(partsPipeline.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 		
 		var vertices = partsVertexBuffer.lock();
 		vertices[ 0] = x - w / 2.0; vertices[ 1] = y - h / 2.0; vertices[ 2] = z;
@@ -281,31 +288,31 @@ class Eggman {
 		partsVertexBuffer.unlock();
 		g.setVertexBuffer(partsVertexBuffer);
 		
-		g.setTexture(partsProgram.getTextureUnit("sample"), texture);
-		g.setTextureParameters(partsProgram.getTextureUnit("sample"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(partsPipeline.getTextureUnit("texsample"), texture);
+		g.setTextureParameters(partsPipeline.getTextureUnit("texsample"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		
-		g.setTexture(partsProgram.getTextureUnit("normals"), normals);
-		g.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(partsPipeline.getTextureUnit("normals"), normals);
+		g.setTextureParameters(partsPipeline.getTextureUnit("normals"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		
 		indexBuffer.set();
 		g.drawIndexedVertices();
 	}
 
 	private function drawBody(g: Graphics, time: Float, xoffset: Float): Void {
-		g.setProgram(bodyProgram);
+		g.setPipeline(bodyPipeline);
 		
-		g.setFloat(bodyProgram.getConstantLocation("time"), time);
-		g.setFloat(bodyProgram.getConstantLocation("angle"), angle);
-		g.setFloat2(bodyProgram.getConstantLocation("resolution"), 1024.0, 768.0);
-		g.setFloat3(bodyProgram.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
-		g.setFloat3(bodyProgram.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
+		g.setFloat(bodyPipeline.getConstantLocation("time"), time);
+		g.setFloat(bodyPipeline.getConstantLocation("angle"), angle);
+		g.setFloat2(bodyPipeline.getConstantLocation("resolution"), 1024.0, 768.0);
+		g.setFloat3(bodyPipeline.getConstantLocation("center"), position.x + xoffset + 0.05, position.y - 0.1, calcZ());
+		g.setFloat3(bodyPipeline.getConstantLocation("lightPosition"), lightPosition.x, lightPosition.y, lightPosition.z);
 
-		g.setTexture(bodyProgram.getTextureUnit("sample"), bodyTexture);
-		g.setTextureParameters(partsProgram.getTextureUnit("sample"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		g.setTexture(bodyProgram.getTextureUnit("normals"), bodyNormals);
-		g.setTextureParameters(partsProgram.getTextureUnit("normals"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
-		g.setTexture(bodyProgram.getTextureUnit("facetex"), faceTexture);
-		g.setTextureParameters(partsProgram.getTextureUnit("facetex"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(bodyPipeline.getTextureUnit("texsample"), bodyTexture);
+		g.setTextureParameters(bodyPipeline.getTextureUnit("texsample"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(bodyPipeline.getTextureUnit("normals"), bodyNormals);
+		g.setTextureParameters(bodyPipeline.getTextureUnit("normals"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
+		g.setTexture(bodyPipeline.getTextureUnit("facetex"), faceTexture);
+		g.setTextureParameters(bodyPipeline.getTextureUnit("facetex"), TextureAddressing.Repeat, TextureAddressing.Repeat, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		
 		g.setVertexBuffer(bodyVertexBuffer);
 		g.setIndexBuffer(indexBuffer);

@@ -1,8 +1,8 @@
-#version 100
+#version 450
 
-attribute vec3 position;
-varying vec4 pos;
+in vec3 position;
+out vec4 pos;
 
-void kore() {
+void main() {
 	gl_Position = pos = vec4(position, 1.0);
 }

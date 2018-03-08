@@ -1,10 +1,10 @@
-#version 100
+#version 450
 
-attribute vec3 pos;
-attribute vec2 tex;
-varying vec2 texcoord;
+in vec3 pos;
+in vec2 tex;
+out vec2 texcoord;
 
-void kore() {
+void main() {
 	texcoord = tex;
 	gl_Position = vec4(pos.x, pos.y, pos.z * pos.z, pos.z);
 }

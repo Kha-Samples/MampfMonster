@@ -1,20 +1,19 @@
-#version 100
+#version 450
 
-#ifdef GL_ES
-precision mediump float;
-#endif
+in vec4 pos;
 
-varying vec4 pos;
+out vec4 frag;
+
 uniform float time;
 //uniform vec2 mouse;
 uniform vec2 resolution;
-uniform sampler2D sample;
+uniform sampler2D texsample;
 uniform sampler2D normals;
 uniform sampler2D facetex;
 
-float PI = 3.14159265358979323846264;
+const float PI = 3.14159265358979323846264;
 uniform vec3 lightPosition;// = vec3(100.0, 200.0, 500.0);
-vec3 eye = vec3(0.0, 200.0, 500.0);
+const vec3 eye = vec3(0.0, 200.0, 500.0);
 
 uniform float angle;
 uniform vec3 center;
@@ -48,15 +47,13 @@ vec3 angleBisector(vec3 a, vec3 b) {
 	return normalize(a / length(a) + b / length(b));
 }
 
-void kore() {
+void main() {
 	f1 = center.xy / center.z + vec2(0.0, -0.22 / center.z); //-100
 	f2 = center.xy / center.z + vec2(0.0, 0.22 / center.z); //100
 	ellipseConstant = 0.485 / center.z; //245
 
 	vec2 position = pos.xy;
 
-	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-	
 	//lightPosition.x = sin(time) * 1000.0;
 	//lightPosition.y = sin(time * 0.5) * 2000.0;
 	
@@ -81,7 +78,7 @@ void kore() {
 
 		vec2 texcoord = vec2(winkel, 1.0 - (position.y - center.y / center.z + ellipseConstant / 2.0) / ellipseConstant);
 
-		vec3 tangentnormal = texture2D(normals, texcoord).rgb * 2.0 - 1.0;
+		vec3 tangentnormal = texture(normals, texcoord).rgb * 2.0 - 1.0;
 		normal.x = dot(tangentnormal, cross(tangent, normal));
 		normal.y = dot(tangentnormal, tangent);
 		normal.z = dot(tangentnormal, normal);
@@ -94,9 +91,9 @@ void kore() {
 		float specular = pow(saturate(dot(h, normal)), 15.0);
 		float light = 0.2 + diffuse * 0.5;
 		
-		float alpha = texture2D(facetex, texcoord).a;
-		vec3 tex = texture2D(facetex, texcoord).rgb * alpha + texture2D(sample, texcoord).rgb * (1.0 - alpha);
-		gl_FragColor = vec4(tex * light + specular * (1.0 - alpha), 1.0);
+		float alpha = texture(facetex, texcoord).a;
+		vec3 tex = texture(facetex, texcoord).rgb * alpha + texture(texsample, texcoord).rgb * (1.0 - alpha);
+		frag = vec4(tex * light + specular * (1.0 - alpha), 1.0);
 	}
 	else discard;
 }
