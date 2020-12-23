@@ -294,7 +294,7 @@ class Eggman {
 		g.setTexture(partsPipeline.getTextureUnit("normals"), normals);
 		g.setTextureParameters(partsPipeline.getTextureUnit("normals"), TextureAddressing.Clamp, TextureAddressing.Clamp, TextureFilter.LinearFilter, TextureFilter.LinearFilter, MipMapFilter.NoMipFilter);
 		
-		indexBuffer.set();
+		g.setIndexBuffer(indexBuffer);
 		g.drawIndexedVertices();
 	}
 
