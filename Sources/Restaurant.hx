@@ -44,7 +44,7 @@ class Restaurant {
 	private var time: Float = 0;
 	
 	public function new() {
-		System.init({title: "Mampf Monster", width: 1024, height: 768}, function () {
+		System.start({title: "Mampf Monster", width: 1024, height: 768}, (window) -> {
 			backbuffer = Image.createRenderTarget(1024, 768);
 			Assets.loadEverything(initLevel);
 		});
@@ -79,7 +79,7 @@ class Restaurant {
 		
 		indexBuffer = createIndexBufferForQuads(1);
 		
-		System.notifyOnRender(render);
+		System.notifyOnFrames(render);
 		Scheduler.addTimeTask(update, 0, 1 / 60);
 		Mouse.get().notify(mouseDown, null, null, null);
 	}
@@ -167,8 +167,10 @@ class Restaurant {
 		eggman.update();
 	}
 	
-	function render(frame: Framebuffer): Void {
+	function render(frames: Array<Framebuffer>): Void {
 		if (eggman == null) return;
+
+		var frame = frames[0];
 		
 		var g = backbuffer.g4;
 		g.begin();
